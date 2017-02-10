@@ -16,21 +16,23 @@ Internally, the abstraction is transparent and IData is used as expected by Inte
 The following example shows the implementation of a service that takes a number, _numberToAdd_ and adds it to each element of a list of numbers, _initialList_. The result is returned in the _newList_ pipeline variable. In the example, the two input parameters are mandatory but a more lenient implementation would be possible if this service was for a transformer.
 
 ```java
-Document pipeDoc = Documents.wrap(pipeline);
+public static final void addNumToList(IData pipeline) throws ServiceException {
+  Document pipeDoc = Documents.wrap(pipeline);
 
-int numToAdd = pipeDoc.entryOfInteger("numToAdd").getNonNullVal();
-List<Integer> originalList = pipeDoc.entryOfIntegers("originalList").getVal();
+  int numToAdd = pipeDoc.entryOfInteger("numToAdd").getNonNullVal();
+  List<Integer> originalList = pipeDoc.entryOfIntegers("originalList").getVal();
 
-List<Integer> newList = new ArrayList<>(originalList.size());
+  List<Integer> newList = new ArrayList<>(originalList.size());
 
-for(Integer listNum : originalList) {
-  // Adds the number to the list element
-  // Individual null values in the list are allowed, in which case null is assigned
-  Integer newValue = (listNum != null) ? listNum + numToAdd : null;
-  newList.add(newValue);
+  for(Integer listNum : originalList) {
+    // Adds the number to the list element
+    // Individual null values in the list are allowed, in which case null is assigned
+    Integer newValue = (listNum != null) ? listNum + numToAdd : null;
+    newList.add(newValue);
+  }
+
+  pipeDoc.entryOfStrings("newList").putConverted(newList);
 }
-
-pipeDoc.entryOfStrings("newList").putConverted(newList);
 ```
 
 Compare this code with the equivalent implementation with out-of-the-box webMethods classes:
