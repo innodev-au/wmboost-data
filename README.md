@@ -85,7 +85,7 @@ The example highlights some benefits, such as:
 
 * The code is more expressive and - evidently - shorter.
 * _numToAdd_ is retrieved as an integer, with a conversion from a String or another type, if necessary. Retrieveing _numToAdd_ with IData requires retrieveing a String. We could've used IDataUtil.getInt but unfortunately there's no overloaded method without a default value. This would've forced us to compared a default value to see if the conversion actually had failed.
-* One of the available value getter methods may be invoked to incdicate whether the entry is expected,both expected and non-null as in the example, etc. If the expectation is not met, an exception is thrown. The exception message includes the key for easier troubleshooting.
+* One of the available value getter methods may be invoked to indicate whether the entry is expected to be present, both expected to be present and non-null as in the example, etc. If the expectation is not met, an exception is thrown. The exception message includes the key for easier troubleshooting.
 * Collections are used directly. With IData, arrays are used.
 * There's no need to wrap the code in try/finally to destroy the cursor. This is done internally by the library
 
