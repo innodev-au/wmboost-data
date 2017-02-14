@@ -16,7 +16,7 @@ Internally, the abstraction is transparent and IData is used as expected by Inte
 
 Refer to the [Wiki section](https://github.com/innodev-au/wmboost-data/wiki) for documentation.
 
-## Example
+## Motivational Example
 The following example shows the implementation of a service that takes a number, _numberToAdd_ and adds it to each element of a list of numbers, _initialList_. The result is returned in the _newList_ pipeline variable. In the example, the two input parameters are mandatory but a more lenient implementation would be possible if this service was for a transformer.
 
 ```java
