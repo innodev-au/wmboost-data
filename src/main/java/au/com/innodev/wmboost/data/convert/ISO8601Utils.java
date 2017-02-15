@@ -12,6 +12,7 @@ import java.util.TimeZone;
  * 
  * This file comes from the Jackson Data-Bind project, which uses an Apache 2 license.
  * 
+ * It was modified to remove deprecated elements.
  *
  * -------------------------------------------------
  * Utilities methods for manipulating dates in iso8601 format. This is much much faster and GC friendly than using SimpleDateFormat so
