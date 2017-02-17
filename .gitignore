@@ -1,7 +1,15 @@
 *.class
 
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
+#Maven build files #
+/target/
+
+# Eclipse project files #
+/.classpath
+/.project
+/.settings
+
+# webMethods libraries #
+/lib/internalRepoOnly/*.jar
 
 # Package Files #
 *.jar
