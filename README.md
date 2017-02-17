@@ -100,4 +100,4 @@ The example highlights some benefits, such as:
 * *Collections are used directly*. With IData, arrays are used.
 * *No try/finally*. There's no need to wrap the code in try/finally to destroy the cursor. This is done internally by the library
 
-You'll note that the second code excerpt includes a utility method for performing a conversion. Several aspects could be extracted into utility methods that way in order to simplify the code. In fact, this library started out as a set of utility methods for entry access, conversion and other aspects.
+You'll note that the second code excerpt includes a utility method for performing a conversion. Several aspects could be extracted into utility methods that way in order to simplify the code. In fact, this library started out as a set of utility methods to cover entry access, conversion and other aspects.
