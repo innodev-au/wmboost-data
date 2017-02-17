@@ -95,7 +95,7 @@ private static Integer stringToNumber(String stringValue, String field) {
 The example highlights some benefits, such as:
 
 * *Less boilerplate*. The code is more expressive and, evidently, shorter.
-* *Automatic type conversion*. _numToAdd_ is retrieved as an integer, with a conversion from a String or another type, if necessary. Retrieveing _numToAdd_ with IData requires retrieveing a String. We could've used IDataUtil.getInt but unfortunately there's no overloaded method without a default value. This would've forced us to compared a default value to see if the conversion actually had failed.
+* *Automatic type conversion*. _numToAdd_ is retrieved as an integer, with a conversion from a String or another type, if necessary. Retrieving _numToAdd_ with IData requires retrieving a String. We could've used IDataUtil.getInt but unfortunately there's no overloaded method without a default value. This would've forced us to check against an arbitrary value to see if the conversion had actually failed.
 * *Input parameter expectations*. One of the available value getter methods may be invoked to indicate whether the entry is expected to be present, both expected to be present and non-null as in the example, etc. If the expectation is not met, an exception is thrown. The exception message includes the key for easier troubleshooting. These checks are a good practice even when _Validate Input_ is turned on for the service.
 * *Collections are used directly*. With IData, arrays are used.
 * *No try/finally*. There's no need to wrap the code in try/finally to destroy the cursor. This is done internally by the library
