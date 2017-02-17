@@ -5,7 +5,7 @@ A _free and open source_ Java library that makes it easier to access and manipul
 It provides an abstraction for Integration Server documents. Compared to coding directly with out-of-the-box classes like IData and IDataUtil, it:
 * Reduces boilerplate code
 * Provides an easy-to-use and consistent abstraction. For instance, there's usually no need to deal with IDataCursor
-* Supports predictable and extensible type conversion mechanisms. For instance, you may get a boolean value from a string in a more reliable way than IDataUtil.getBoolean, which returns _false_ even for invalid string representations such as _hello_.
+* Supports predictable and extensible type conversion mechanisms. For instance, you may get a boolean value from an entry with a string in a more reliable way. IDataUtil.getBoolean returns _false_ even for invalid string representations such as _hello_.
 * Collections are exposed instead of arrays
 * Allows setting expectations about values being retrieved. For instance, it makes it easy to say that you want to retrieve a mandatory input parameter in your service implementation
 
