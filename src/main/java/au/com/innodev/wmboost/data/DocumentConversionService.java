@@ -25,7 +25,7 @@ import com.wm.data.IData;
 /**
  * <p>Converts {@link Document} to {@link com.wm.data.IData} and vice-versa.
  * 
- * <p>This implementation overcomes limitation of not being able to access certain
+ * <p>This implementation overcomes a limitation of not being able to access certain
  * {@link DefaultConversionService} in Spring version 3.x (used by wM, at least as of 9.12). Otherwise, a simple
  * DefaultConversionService instance with custom converters could've been used.
  * 

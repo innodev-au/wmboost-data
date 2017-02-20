@@ -29,7 +29,7 @@ import au.com.innodev.wmboost.data.internal.Preconditions;
  * 
  * <p>Create a new instance if you wish to customise either the conversion or how {@code IData} instances are created. 
  */
-public class DefaultDocumentFactory implements DocumentFactory {
+class DefaultDocumentFactory implements DocumentFactory {
 
 	private final DocumentConfig config;
 	

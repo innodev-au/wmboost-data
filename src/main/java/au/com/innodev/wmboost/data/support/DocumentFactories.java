@@ -15,8 +15,8 @@
  */
 package au.com.innodev.wmboost.data.support;
 
-import au.com.innodev.wmboost.data.DefaultDocumentFactory;
 import au.com.innodev.wmboost.data.DocumentFactory;
+import au.com.innodev.wmboost.data.DocumentFactoryBuilder;
 import au.com.innodev.wmboost.data.convert.ConversionServiceUtils;
 
 /**
@@ -24,7 +24,16 @@ import au.com.innodev.wmboost.data.convert.ConversionServiceUtils;
  * 
  */
 public class DocumentFactories {
-	private final static DocumentFactory DEFAULT_DOCUMENT_FACTORY = new DefaultDocumentFactory(ConversionServiceUtils.createDefaultConversionService(), DirectIDataFactories.getWmDefaultRuntimeFactory());
+	private final static DocumentFactory DEFAULT_DOCUMENT_FACTORY;
+	
+	static {
+		
+		DocumentFactoryBuilder factoryBuilder = new DocumentFactoryBuilder();
+		factoryBuilder.setConversionService(ConversionServiceUtils.createDefaultConversionService());
+		factoryBuilder.setDirectIDataFactory(DirectIDataFactories.getWmDefaultRuntimeFactory());
+		
+		DEFAULT_DOCUMENT_FACTORY = factoryBuilder.build();
+	}
 	
 	/**
 	 * Returns the default document factory

@@ -44,10 +44,6 @@ import au.com.innodev.wmboost.data.internal.Preconditions;
  */
 public final class Documents {
 
-	private Documents() {
-		// Non-instantiable
-	}
-
 	/**
 	 * Wraps an existing {@link com.wm.data.IData} instance for easy manipulation in a
 	 * {@link Document}.
@@ -79,6 +75,11 @@ public final class Documents {
 	 */
 	public static Document create() {
 		return DocumentFactories.getDefault().create();
+	}
+
+
+	private Documents() {
+		// Non-instantiable
 	}
 
 }
