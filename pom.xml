@@ -99,8 +99,7 @@
 									<result>au.com.innodev.wmboost.data.internal.spring.core.@1</result>
 								</rule>
 								<keep>
-									<pattern>au.com.innodev.wmboost.data.**</pattern>
-									<pattern>org.springframework.core.convert.**</pattern>
+									<pattern>au.com.innodev.**</pattern>									
 								</keep>
 							</rules>							
 							<output>${project.build.directory}\wmboost-data-${project.version}-standalone.jar</output>
