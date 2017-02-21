@@ -55,7 +55,7 @@ public interface ScatteredEntry<E> {
 	 * use the following code:
 	 * 
 	 * <pre>
-	 * List<Integer> list = new ArrayList<Integer>();
+	 * List&lt;Integer&gt; list = new ArrayList&lt;Integer&gt;();
 	 * list.add(5);
 	 * list.add(8);
 	 * doc.scatteredOfString("values").putConverted(list);
