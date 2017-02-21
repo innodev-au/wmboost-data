@@ -22,6 +22,7 @@ import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import org.springframework.core.convert.ConversionService;
@@ -63,7 +64,8 @@ final class DocumentImpl implements Document {
 
 	public Collection<String> getKeys() {
 
-		Set<String> keys = new HashSet<String>();
+		// Using LinkedHashSet to preserve insertion order
+		Set<String> keys = new LinkedHashSet<String>();
 		
 		IDataCursorResource cursorRes = newCursorResource();
 		try {
