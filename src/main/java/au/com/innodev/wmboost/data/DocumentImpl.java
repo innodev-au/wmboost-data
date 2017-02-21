@@ -15,6 +15,9 @@
  */
 package au.com.innodev.wmboost.data;
 
+import static au.com.innodev.wmboost.data.NormaliseOption.DONT_NORMALISE;
+import static au.com.innodev.wmboost.data.NormaliseOption.MAY_NORMALISE;
+
 import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Collections;
@@ -163,105 +166,145 @@ final class DocumentImpl implements Document {
 	}
 	
 
-	/* **************** Entries section *********************/
-	// TODO add null checks
+	/* **************** Entries section *********************/	
 	public DocEntry<Object> entry(String key) {
-
-		return entry(key, Object.class);
+		return new DocEntryImpl<Object>(this, key, TypeDescriptor.valueOf(Object.class), MAY_NORMALISE);
 	}
 
 	public <T> DocEntry<T> entry(String key, Class<T> type) {
-
-		return new DocEntryImpl<T>(this, key, TypeDescriptor.valueOf(type));
+		Preconditions.checkNotNull(type);
+		
+		
+		if (Document.class.isAssignableFrom(type)) {
+			@SuppressWarnings("unchecked")
+			DocEntry<T> entry = (DocEntry<T>) entryOfDocument(key);
+			return entry;
+		}
+		else if (Object.class.equals(type)) {
+			@SuppressWarnings("unchecked")
+			DocEntry<T> entry = (DocEntry<T>) entry(key);
+			return entry;
+		}
+		else if (Collection.class.isAssignableFrom(type)) {
+			@SuppressWarnings("unchecked")
+			DocEntry<T> entry = (DocEntry<T>) entryOfCollection(key);
+			return entry;
+		}		
+		else {
+			return specificTypeEntry(key, type);
+		}		
+		
 	}
-
+	
 	public DocEntry<Document> entryOfDocument(String key) {
-
 		return new DocEntryImpl<Document>(this, key, TypeDescriptor.valueOf(Document.class),
-				TypeDescriptor.valueOf(IData.class));
+				TypeDescriptor.valueOf(IData.class), DONT_NORMALISE);
+	}
+	
+	private <T> DocEntry<T> specificTypeEntry(String key, Class<T> type) {
+		return new DocEntryImpl<T>(this, key, TypeDescriptor.valueOf(type), DONT_NORMALISE);
 	}
 	
 	public DocEntry<String> entryOfString(String key) {
-		return entry(key, String.class);
+		return specificTypeEntry(key, String.class);
 	}
 
 	@Override
 	public DocEntry<Boolean> entryOfBoolean(String key) {
-		return entry(key, Boolean.class);
+		return specificTypeEntry(key, Boolean.class);
 	}
 	
 	@Override
 	public DocEntry<Integer> entryOfInteger(String key) {	
-		return entry(key, Integer.class);
+		return specificTypeEntry(key, Integer.class);
 	}
 	
 	@Override
 	public DocEntry<Long> entryOfLong(String key) {	
-		return entry(key, Long.class);
+		return specificTypeEntry(key, Long.class);
 	}
 	
 	@Override
 	public DocEntry<Short> entryOfShort(String key) {	
-		return entry(key, Short.class);
+		return specificTypeEntry(key, Short.class);
 	}
 	
 	@Override
 	public DocEntry<Double> entryOfDouble(String key) {
-		return entry(key, Double.class);
+		return specificTypeEntry(key, Double.class);
 	}
 	
 	@Override
 	public DocEntry<BigDecimal> entryOfBigDecimal(String key) {
-		return entry(key, BigDecimal.class);
+		return specificTypeEntry(key, BigDecimal.class);
 	}
 	
 	@Override
 	public DocEntry<Float> entryOfFloat(String key) {
-		return entry(key, Float.class);
+		return specificTypeEntry(key, Float.class);
 	}
 
 	public <E> CollectionDocEntry<E> entryOfCollection(String key, Class<E> memberType) {
+		
+		if (Document.class.isAssignableFrom(memberType)) {
+			@SuppressWarnings("unchecked")
+			CollectionDocEntry<E> entry = (CollectionDocEntry<E>) entryOfDocuments(key);
+			return entry;
+		}
+		else if (Object.class.equals(memberType)) {
+			@SuppressWarnings("unchecked")
+			CollectionDocEntry<E> entry = (CollectionDocEntry<E>) entryOfCollection(key);
+			return entry;
+		}		
+		else {
+			return entryOfTypedCollection(key, memberType);
+		}		
+		
+	}
+	
+	@Override
+	public CollectionDocEntry<Object> entryOfCollection(String key) {	
+		return new CollectionDocEntryImpl<Object>(this, key, Object.class, MAY_NORMALISE);
+	}
+	
 
-		return new CollectionDocEntryImpl<E>(this, key, memberType);
+	private <E> CollectionDocEntry<E> entryOfTypedCollection(String key, Class<E> memberType) {
+		return new CollectionDocEntryImpl<E>(this, key, memberType, DONT_NORMALISE);
+	}
+	
+	@Override
+	public CollectionDocEntry<Document> entryOfDocuments(String key) {
+		return new CollectionDocEntryImpl<Document>(this, key, Document.class, IData.class, DONT_NORMALISE);
 	}
 
 	@Override
-	public CollectionDocEntry<Object> entryOfCollection(String key) {	
-		return new CollectionDocEntryImpl<Object>(this, key, Object.class);
-	}
-	
 	public CollectionDocEntry<String> entryOfStrings(String key) {
-		return entryOfCollection(key, String.class);
-	}
-
-	public CollectionDocEntry<Document> entryOfDocuments(String key) {
-
-		return new CollectionDocEntryImpl<Document>(this, key, Document.class, IData.class);
+		return entryOfTypedCollection(key, String.class);
 	}
 	
 	@Override
 	public CollectionDocEntry<Boolean> entryOfBooleans(String key) {
-		return entryOfCollection(key, Boolean.class);		
+		return entryOfTypedCollection(key, Boolean.class);		
 	}
 	
 	@Override
 	public CollectionDocEntry<Integer> entryOfIntegers(String key) {
-		return entryOfCollection(key, Integer.class);		
+		return entryOfTypedCollection(key, Integer.class);		
 	}
 	
 	@Override
 	public CollectionDocEntry<Long> entryOfLongs(String key) {
-		return entryOfCollection(key, Long.class);		
+		return entryOfTypedCollection(key, Long.class);		
 	}
 	
 	@Override
 	public CollectionDocEntry<Short> entryOfShorts(String key) {
-		return entryOfCollection(key, Short.class);		
+		return entryOfTypedCollection(key, Short.class);		
 	}
 	
 	@Override
 	public CollectionDocEntry<Double> entryOfDoubles(String key) {
-		return entryOfCollection(key, Double.class);		
+		return entryOfTypedCollection(key, Double.class);		
 	}
 	
 	@Override
@@ -271,12 +314,12 @@ final class DocumentImpl implements Document {
 	
 	@Override
 	public CollectionDocEntry<Float> entryOfFloats(String key) {
-		return entryOfCollection(key, Float.class);		
+		return entryOfTypedCollection(key, Float.class);		
 	}
 	
 	@Override
 	public CollectionDocEntry<Character> entryOfCharacters(String key) {
-		return entryOfCollection(key, Character.class);		
+		return entryOfTypedCollection(key, Character.class);		
 	}
 	
 	@Override
@@ -286,18 +329,22 @@ final class DocumentImpl implements Document {
 	
 	@Override
 	public <T> ScatteredEntry<T> scatteredEntry(String key, Class<T> type) {		
-		return new ScatteredEntryImpl<T>(this, key, TypeDescriptor.valueOf(type));
+		return new ScatteredEntryImpl<T>(this, key, TypeDescriptor.valueOf(type), MAY_NORMALISE);
+	}
+	
+	private <T> ScatteredEntry<T> typedScatteredEntry(String key, Class<T> type) {		
+		return new ScatteredEntryImpl<T>(this, key, TypeDescriptor.valueOf(type), DONT_NORMALISE);
 	}
 	
 	@Override
 	public ScatteredEntry<String> scatteredEntryOfString(String key) {	
-		return scatteredEntry(key, String.class);
+		return typedScatteredEntry(key, String.class);
 	}
 	
 	@Override
 	public ScatteredEntry<Document> scatteredEntryOfDocument(String key) {
 		return new ScatteredEntryImpl<Document>(this, key, TypeDescriptor.valueOf(Document.class),
-				TypeDescriptor.valueOf(IData.class));
+				TypeDescriptor.valueOf(IData.class), DONT_NORMALISE);
 	}
 	
 }

@@ -15,8 +15,13 @@
  */
 package au.com.innodev.wmboost.data;
 
+import java.util.Collection;
+import java.util.List;
+
 import org.springframework.core.convert.ConversionService;
 import org.springframework.core.convert.TypeDescriptor;
+
+import com.wm.data.IData;
 
 import au.com.innodev.wmboost.data.internal.Preconditions;
 
@@ -32,13 +37,15 @@ class BaseEntry<A, M> {
 
 	private final DocumentImpl document;
 	private final String key;
-
-	public BaseEntry(DocumentImpl document, String key) {
+	private final NormaliseOption normaliseOption;
+	
+	public BaseEntry(DocumentImpl document, String key, NormaliseOption normaliseOption) {
 		this.key = Preconditions.checkHasLength(key, "Invalid key was provided (null or empty string)");
 		this.document = Preconditions.checkNotNull(document);
+		this.normaliseOption = Preconditions.checkNotNull(normaliseOption);
 	}
 
-	IDataCursorResource newCursorResource() {
+	protected final IDataCursorResource newCursorResource() {
 		return document.newCursorResource();
 	}
 
@@ -50,7 +57,7 @@ class BaseEntry<A, M> {
 		return document.containsKey(key);
 	}
 
-	protected A getConvertedValue(Object value, TypeDescriptor destTypeSpec) {
+	protected final <T> T getConvertedValue(Object value, TypeDescriptor destTypeSpec) {
 		return getConvertedValue(value, destTypeSpec, TypeDescriptor.forObject(value));
 	}
 
@@ -58,7 +65,7 @@ class BaseEntry<A, M> {
 		return document.getInternalConversionService();
 	}
 
-	protected A getConvertedValue(Object value, TypeDescriptor destTypeSpec, TypeDescriptor sourceTypeDescriptor) {
+	protected final <T> T getConvertedValue(Object value, TypeDescriptor destTypeSpec, TypeDescriptor sourceTypeDescriptor) {
 		ConversionService conversionService = getConversionService();
 
 		Object convertedValue;
@@ -94,8 +101,81 @@ class BaseEntry<A, M> {
 		}
 
 		@SuppressWarnings("unchecked")
-		A casted = (A) convertedValue;
+		T casted = (T) convertedValue;
 		return casted;
 	}
+
+	protected final A convertAndNormaliseValForGet(Object value, TypeDescriptor accessorType) {
+		A convertedValue = getConvertedValue(value, accessorType);
+		A normalised;
+
+		if (normaliseOption.isDontNormalise()) {
+			normalised = convertedValue;
+		} else {
+			normalised = normaliseIdataToDocument(convertedValue);
+		}
+
+		return normalised;
+	}
+	
+	protected final Object convertAndNormaliseValForPut(Object value, TypeDescriptor mutatorType) {
+		Object normalised;
+		
+		if (mutatorType != null) {
+			normalised = getConvertedValue(value, mutatorType);
+		}
+		else if (! normaliseOption.isDontNormalise()) {			
+			normalised = normaliseDocumentToIData(value);
+		}
+		else {
+			normalised = value;
+		}
+		
+		return normalised;
+	}
+
+	
+	private A normaliseIdataToDocument(A value) {
+		if (value instanceof IData) {
+			@SuppressWarnings("unchecked")
+			A normalised = (A) getConversionService().convert(value, TypeDescriptor.forObject(value), TypeDescriptor.valueOf(Document.class));
+			return normalised;
+		}		
+		if (value instanceof IData[]) {
+			@SuppressWarnings("unchecked")
+			A normalised = (A) getConversionService().convert(value, TypeDescriptor.forObject(value), getDocListType());
+			return normalised;
+		}
+		else {
+			return value;
+		}
+	}
+	
+	private Object normaliseDocumentToIData(Object value) {
+		if (value instanceof Document) {
+			return getConversionService().convert(value, TypeDescriptor.forObject(value), TypeDescriptor.valueOf(IData.class));
+		}
+		else if (value instanceof Document[]) {
+			return getConversionService().convert(value, TypeDescriptor.forObject(value), TypeDescriptor.valueOf(IData[].class));
+		}
+		else if (value instanceof Iterable<?>) {
+			if (CollectionUtil.areAllElementsOfType((Collection<?>) value, Document.class)) {
+				return getConversionService().convert(value, TypeDescriptor.forObject(value), TypeDescriptor.valueOf(IData[].class));
+			}
+			else {
+				return value;
+			}
+			 
+		}
+		else {
+			return value;
+		}
+	}
+
+	private TypeDescriptor getDocListType() {
+		TypeDescriptor docListType = TypeDescriptor.collection(List.class, TypeDescriptor.valueOf(Document.class));
+		return docListType;
+	}
+
 
 }

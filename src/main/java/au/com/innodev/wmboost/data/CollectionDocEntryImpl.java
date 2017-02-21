@@ -31,20 +31,20 @@ import au.com.innodev.wmboost.data.internal.Preconditions;
  */
 class CollectionDocEntryImpl<E> extends MonoBaseEntry<List<E>, Iterable<E>> implements CollectionDocEntry<E> {
 
-	public CollectionDocEntryImpl(DocumentImpl document, String key, Class<?> accessorElementType, Class<?> mutatorType) {
-		super(document, key, getAccessorType(accessorElementType), getMutatorType(mutatorType));
+	public CollectionDocEntryImpl(DocumentImpl document, String key, Class<?> accessorElementType, Class<?> mutatorType, NormaliseOption normaliseOption) {
+		super(document, key, listAccessorType(accessorElementType), arrayMutatorType(mutatorType), normaliseOption);
 	}
 	
-	private static TypeDescriptor getAccessorType(Class<?> accessorClass) {		
+	private static TypeDescriptor listAccessorType(Class<?> accessorClass) {		
 		return TypeDescriptor.collection(List.class, TypeDescriptor.valueOf(accessorClass));
 	}
 	
-	private static TypeDescriptor getMutatorType(Class<?> mutatorClass) {		
+	private static TypeDescriptor arrayMutatorType(Class<?> mutatorClass) {		
 		return TypeDescriptor.array(TypeDescriptor.valueOf(mutatorClass));
 	}
 
-	public CollectionDocEntryImpl(DocumentImpl document, String key, Class<?> accessorType) {
-		this(document, key, accessorType, accessorType);
+	public CollectionDocEntryImpl(DocumentImpl document, String key, Class<?> accessorType, NormaliseOption normaliseOption) {
+		this(document, key, accessorType, accessorType, normaliseOption);
 	}
 
 	@Override

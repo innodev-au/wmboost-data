@@ -24,14 +24,14 @@ import org.springframework.core.convert.TypeDescriptor;
  */
 class DocEntryImpl<T> extends MonoBaseEntry<T,T> implements DocEntry<T> {
 
-	public DocEntryImpl(DocumentImpl document, String key, TypeDescriptor accessorType, TypeDescriptor mutatorType) {
-		super(document, key, accessorType, mutatorType);
+	public DocEntryImpl(DocumentImpl document, String key, TypeDescriptor accessorType, TypeDescriptor mutatorType, NormaliseOption normaliseOption) {
+		super(document, key, accessorType, mutatorType, normaliseOption);
 	}
 
-	public DocEntryImpl(DocumentImpl document, String key, TypeDescriptor typeSpec) {
-		this(document, key, typeSpec, null);
+	public DocEntryImpl(DocumentImpl document, String key, TypeDescriptor typeSpec, NormaliseOption normaliseOption) {
+		this(document, key, typeSpec, null, normaliseOption);
 	}
-
+	
 	@Override
 	public final void put(T value) {
 		doPut(value);

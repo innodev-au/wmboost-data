@@ -33,8 +33,9 @@ class MonoBaseEntry<A, M> extends BaseEntry<A,M> {
 	// May be null, in which case no pre-conversion is done for 'put' 
 	private final TypeDescriptor mutatorType;
 	
-	public MonoBaseEntry(DocumentImpl document, String key, TypeDescriptor accessorType, TypeDescriptor mutatorType) {
-		super(document, key);
+	
+	public MonoBaseEntry(DocumentImpl document, String key, TypeDescriptor accessorType, TypeDescriptor mutatorType, NormaliseOption normaliseOption) {
+		super(document, key, normaliseOption);
 		
 		this.accessorType = Preconditions.checkNotNull(accessorType);
 		this.mutatorType = mutatorType;
@@ -68,13 +69,13 @@ class MonoBaseEntry<A, M> extends BaseEntry<A,M> {
 		IDataCursorResource cursorRes = newCursorResource();
 		try {
 			Object value = IDataUtil.get(cursorRes.getCursor(), getKey());
-			return getConvertedValue(value, accessorType);
+			return convertAndNormaliseValForGet(value, accessorType);
 		}
 		finally {
 			cursorRes.close();
 		}
-	}
-
+	}	
+	
 	public final A doGetValOrDefault(A defaultValue) {
 
 		if (isAssigned()) {
@@ -85,11 +86,7 @@ class MonoBaseEntry<A, M> extends BaseEntry<A,M> {
 	}
 
 	protected void doPut(Object value) {
-		Object valueToPut = value;
-
-		if (mutatorType != null) {
-			valueToPut = getConvertedValue(value, mutatorType);
-		}
+		Object valueToPut = convertAndNormaliseValForPut(value, mutatorType);
 
 		IDataCursorResource cursorRes = newCursorResource();
 		try {
@@ -101,11 +98,13 @@ class MonoBaseEntry<A, M> extends BaseEntry<A,M> {
 	}
 
 	public final void putConverted(Object value) {
+		doPutConverted(value);
+	}
 
+	private void doPutConverted(Object value) {
 		A convertedValue = getConvertedValue(value, accessorType);
 
 		doPut(convertedValue);
-
 	}
 
 	public final void remove() {

@@ -826,6 +826,66 @@ public class DocumentTest {
 		
 	}
 	
+	/*
+	 * Ensures that a an IData instance is retrieved as a Document, even through entry(Object)  
+	 */
+	@Test
+	public void testGetDocumentFromObjectEntry() {
+		IData nestedIData = newIDataWithValue("myNestedVal");
+		
+		IData topIData = newIDataWithValue(nestedIData);
+		Document topDoc = docFactory.wrap(topIData);		
+		
+		Object retrievedNestedIData = topDoc.entry("value1").getVal();
+		
+		assertTrue(retrievedNestedIData instanceof Document);
+		assertEquals("myNestedVal", ((Document) retrievedNestedIData).entry("value1").getVal());
+	}
+	
+	/*
+	 * Ensures that a an IData instance is retrieved when explicitly asking for that type  
+	 */
+	@Test
+	public void testGetIDataFromObjectEntry() {
+		IData nestedIData = newIDataWithValue("field1");
+		
+		IData topIData = newIDataWithValue(nestedIData);
+		Document topDoc = docFactory.wrap(topIData);		
+		
+		Object retrievedNestedIData = topDoc.entry("value1", IData.class).getVal();
+		
+		assertTrue(retrievedNestedIData instanceof IData);
+	}
+	
+	/*
+	 * Ensures that a an IData[] instance is retrieved as a List of documents, even through entry(Object)  
+	 */
+	@Test
+	public void testGetDocumentsFromObjectEntry() {
+		IData nestedIData1 = newIDataWithValue("A");
+		IData nestedIData2 = newIDataWithValue("B");
+		IData[] nestedArray = {nestedIData1, nestedIData2};
+		
+		IData topIData = newIDataWithValue(nestedArray);
+		Document topDoc = docFactory.wrap(topIData);		
+		
+		Object retrievedDocs = topDoc.entry("value1").getVal();
+		
+		assertTrue(retrievedDocs instanceof List);
+		List<?> retrievedList = (List<?>) retrievedDocs;
+				
+		Object elem1 = retrievedList.get(0);		
+		assertTrue(elem1 instanceof Document);
+		assertEquals("A", ((Document)elem1).entry("value1").getVal());
+		
+		Object elem2 = retrievedList.get(1);		
+		assertTrue(elem2 instanceof Document);
+		assertEquals("B", ((Document)elem2).entry("value1").getVal());
+	}
+	
+	
+	
+	
 	@Test
 	public void testPutIntegerArray() {
 		Integer[] expected = {3, 1, 4};
@@ -852,6 +912,49 @@ public class DocumentTest {
 		IDataCursor cursor = document.getIData().getCursor();
 		String[] returnedValue = (String[]) IDataUtil.get(cursor, "value1");
 		assertArrayEquals(expected, returnedValue);
+	}
+	
+	/*
+	 * Ensures that a Document instance is put as an IData, even when invoking the untyped entry() method.  
+	 */
+	@Test
+	public void testPutDocumentToObjectEntry() {
+		IData idata = newIDataWithValue("field1");
+		Document nested = docFactory.wrap(idata);		
+		
+		Document document = docFactory.create();
+		document.entry("nestedDoc").put(nested);
+		
+		Object storedNestedDoc = IDataUtil.get(document.getIData().getCursor(), "nestedDoc");
+		
+		assertTrue(storedNestedDoc instanceof IData);
+	}
+	
+	/*
+	 * Ensures that list of Document instances is put as IData[], even when invoking the untyped entry() method.  
+	 */
+	@Test
+	public void testPutDocumentsToObjectEntry() {
+		IData idata1 = newIDataWithValue("A");
+		Document nested1 = docFactory.wrap(idata1);		
+		
+		IData idata2 = newIDataWithValue("B");
+		Document nested2 = docFactory.wrap(idata2);
+		
+		List<Object> docs = Lists.<Object>newArrayList(nested1, nested2);
+		
+		Document document = docFactory.create();
+		document.entry("nestedDoc").put(docs);
+		
+		Object storedNestedDocs = IDataUtil.get(document.getIData().getCursor(), "nestedDoc");
+		assertTrue(storedNestedDocs instanceof IData[]);
+		
+		IData[] retrievedArray = (IData[]) storedNestedDocs;
+				
+		assertEquals("A", IDataUtil.get(retrievedArray[0].getCursor(), "value1"));
+		
+		assertEquals("B", IDataUtil.get(retrievedArray[1].getCursor(), "value1"));
+		
 	}
 	
 	@Test

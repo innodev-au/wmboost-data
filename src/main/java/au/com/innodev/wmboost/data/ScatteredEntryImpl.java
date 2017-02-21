@@ -30,15 +30,15 @@ class ScatteredEntryImpl<T> extends BaseEntry<T, T> implements ScatteredEntry<T>
 	private final TypeDescriptor accessorType;
 	private final TypeDescriptor mutatorType;
 
-	public ScatteredEntryImpl(DocumentImpl document, String key, TypeDescriptor accessorType, TypeDescriptor mutatorType) {
-		super(document, key);
+	public ScatteredEntryImpl(DocumentImpl document, String key, TypeDescriptor accessorType, TypeDescriptor mutatorType, NormaliseOption normaliseOption) {
+		super(document, key, normaliseOption);
 
 		this.accessorType = Preconditions.checkNotNull(accessorType);
 		this.mutatorType = mutatorType;
 	}
 
-	public ScatteredEntryImpl(DocumentImpl document, String key, TypeDescriptor typeSpec) {
-		this(document, key, typeSpec, null);
+	public ScatteredEntryImpl(DocumentImpl document, String key, TypeDescriptor typeSpec, NormaliseOption normaliseOption) {
+		this(document, key, typeSpec, null, normaliseOption);
 	}
 
 	@Override
@@ -50,7 +50,7 @@ class ScatteredEntryImpl<T> extends BaseEntry<T, T> implements ScatteredEntry<T>
 			boolean hasMore = cursorRes.getCursor().first(getKey());
 			while (hasMore) {
 				Object value = cursorRes.getCursor().getValue();
-				T converted = getConvertedValue(value, accessorType);
+				T converted = convertAndNormaliseValForGet(value, accessorType);
 
 				list.add(converted);
 				hasMore = cursorRes.getCursor().next(getKey());
@@ -72,6 +72,7 @@ class ScatteredEntryImpl<T> extends BaseEntry<T, T> implements ScatteredEntry<T>
 	
 	@Override
 	public void putConverted(Iterable<?> values) {
+		// FIXME: remove others - but only if conversion doesn't fail. Keep a temporary list
 		for (Object value : values) {
 			Object convertedValue = getConvertedValue(value, accessorType);
 
@@ -81,12 +82,9 @@ class ScatteredEntryImpl<T> extends BaseEntry<T, T> implements ScatteredEntry<T>
 	}
 	
 	private void doPut(Object value) {
-		Object valueToPut = value;
+		Object valueToPut = convertAndNormaliseValForPut(value, mutatorType);
 
-		if (mutatorType != null) {
-			valueToPut = getConvertedValue(value, mutatorType);
-		}
-
+		// FIXME
 		IDataCursorResource cursorRes = newCursorResource();
 		try {
 			IDataUtil.put(cursorRes.getCursor(), getKey(), valueToPut);
