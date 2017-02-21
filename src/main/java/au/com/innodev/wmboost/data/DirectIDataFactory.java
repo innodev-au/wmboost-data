@@ -17,7 +17,7 @@ package au.com.innodev.wmboost.data;
 
 import com.wm.data.IData;
 
-import au.com.innodev.wmboost.data.support.DirectIDataFactories;
+import au.com.innodev.wmboost.data.preset.DirectIDataFactories;
 
 /**
  * <p>Base factory for the creation of {@link com.wm.data.IData} instances. Subclasses instantiate

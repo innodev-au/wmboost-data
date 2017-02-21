@@ -31,7 +31,7 @@ import com.wm.data.MBoolean;
 import com.wm.data.MInteger;
 import com.wm.data.MLong;
 
-import au.com.innodev.wmboost.data.support.DocumentFactories;
+import au.com.innodev.wmboost.data.preset.DocumentFactories;
 public class DocumentTest {
 
 	private final DocumentFactory docFactory = DocumentFactories.getDefault();

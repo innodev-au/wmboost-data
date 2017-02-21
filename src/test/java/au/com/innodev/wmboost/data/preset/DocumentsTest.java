@@ -1,4 +1,4 @@
-package au.com.innodev.wmboost.data.support;
+package au.com.innodev.wmboost.data.preset;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -12,6 +12,7 @@ import com.wm.data.IDataFactory;
 import com.wm.data.IDataUtil;
 
 import au.com.innodev.wmboost.data.Document;
+import au.com.innodev.wmboost.data.preset.Documents;
 
 public class DocumentsTest {
 

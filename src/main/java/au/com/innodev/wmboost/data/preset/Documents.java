@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package au.com.innodev.wmboost.data.support;
+package au.com.innodev.wmboost.data.preset;
 
 import com.wm.data.IData;
 

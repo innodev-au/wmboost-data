@@ -91,7 +91,7 @@ import com.wm.data.IData;
  * <p>
  * Thread-safety is not guaranteed by implementations.
  * 
- * @see au.com.innodev.wmboost.data.support.Documents
+ * @see au.com.innodev.wmboost.data.preset.Documents
  */
 public interface Document {
 

@@ -16,7 +16,7 @@ import com.wm.data.IDataCursor;
 import com.wm.data.IDataFactory;
 import com.wm.data.IDataUtil;
 
-import au.com.innodev.wmboost.data.support.DocumentFactories;
+import au.com.innodev.wmboost.data.preset.DocumentFactories;
 
 public class ScatteredEntryTest {
 
