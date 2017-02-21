@@ -27,9 +27,10 @@ import java.util.List;
  * single value.
  *
  * <p>
- * The behavoiur of setters, getters, etc. in this class is very similar to
+ * The behaviour of setters, getters, etc. in this class is very similar to
  * {@link DocEntry}. Refer to its documentation for more information.
- * <h3>Other considerations</h3> This class exposes values as collections for
+ * <h3>Other considerations</h3>
+ * <p> This class exposes values as collections for
  * simplicity. Internally, values are stored as arrays, as expected by
  * webMethods.
  * <p>

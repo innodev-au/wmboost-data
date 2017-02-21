@@ -23,6 +23,11 @@ import org.springframework.core.convert.TypeDescriptor;
 
 import au.com.innodev.wmboost.data.internal.Preconditions;
 
+/**
+ * A set of layers of {@link ConversionService}.
+ * 
+ * <p>Allows adding conversion services on top of base one. 
+ */
 class OverlayedConversionService implements ConversionService {
 
 	private final List<ConversionService> conversionServices;
