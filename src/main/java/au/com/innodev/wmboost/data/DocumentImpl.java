@@ -337,6 +337,45 @@ final class DocumentImpl implements Document {
 		return typedScatteredEntry(key, String.class);
 	}
 	
+	
+	@Override
+	public ScatteredEntry<Boolean> scatteredEntryOfBooleans(String key) {
+		return typedScatteredEntry(key, Boolean.class);
+	}
+	
+	
+	@Override
+	public ScatteredEntry<Integer> scatteredEntryOfIntegers(String key) {
+		return typedScatteredEntry(key, Integer.class);
+	}
+	
+	@Override
+	public ScatteredEntry<Long> scatteredEntryOfLongs(String key) {
+		return typedScatteredEntry(key, Long.class);
+	}
+	
+	@Override
+	public ScatteredEntry<Short> scatteredEntryOfShorts(String key) {
+		return typedScatteredEntry(key, Short.class);
+	}
+	
+	@Override
+	public ScatteredEntry<Float> scatteredEntryOfFloats(String key) {
+		return typedScatteredEntry(key, Float.class);
+	}
+	
+	
+	@Override
+	public ScatteredEntry<Double> scatteredEntryOfDoubles(String key) {
+		return typedScatteredEntry(key, Double.class);
+	}
+	
+	@Override
+	public ScatteredEntry<BigDecimal> scatteredEntryOfBigDecimal(String key) {
+		return typedScatteredEntry(key, BigDecimal.class);
+	}
+	
+	
 	@Override
 	public ScatteredEntry<Document> scatteredEntryOfDocuments(String key) {
 		return new ScatteredEntryImpl<Document>(this, key, TypeDescriptor.valueOf(Document.class),

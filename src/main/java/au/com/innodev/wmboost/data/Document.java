@@ -228,10 +228,10 @@ public interface Document {
 	 * </pre>
 	 * <p>
 	 * Note that this and similar methods operate on a <em>single entry</em>. If
-	 * there were multiple entries associated to the key, only
-	 * <em>the first one</em> would be referenced. This behaviour supports
-	 * typical use cases; for situations where multiple entries for a key may
-	 * exist and processing is required for all those entries, use of
+	 * there were multiple entries associated to the key, only <em>the first
+	 * one</em> would be referenced. This behaviour supports typical use cases;
+	 * for situations where multiple entries for a key may exist and processing
+	 * is required for all those entries, use of
 	 * {@link #scatteredEntry(String, Class)} would be more appropriate.
 	 * 
 	 * @param key
@@ -373,7 +373,7 @@ public interface Document {
 	 * 
 	 * @see #entry(String, Class)
 	 */
-	DocEntry<BigDecimal> entryOfBigDecimal(String key);	
+	DocEntry<BigDecimal> entryOfBigDecimal(String key);
 
 	/*
 	 * ---------- Collection Entry Section -------------------------------------
@@ -393,8 +393,8 @@ public interface Document {
 	 * entry's value is a collection). If there were multiple entries associated
 	 * to the key, only the <em>first one</em> would be referenced. This
 	 * behaviour supports typical use cases; for situations where multiple
-	 * entries per key are expected, use
-	 * {@link #scatteredEntry(String, Class)} instead.
+	 * entries per key are expected, use {@link #scatteredEntry(String, Class)}
+	 * instead.
 	 * 
 	 * @param key
 	 *            key that identifies the document entry
@@ -543,7 +543,7 @@ public interface Document {
 	 * 
 	 * @see #entry(String, Class)
 	 */
-	CollectionDocEntry<BigDecimal> entryOfBigDecimals(String key);	
+	CollectionDocEntry<BigDecimal> entryOfBigDecimals(String key);
 
 	/*
 	 * ---------- Scattered Entry Section ----------------
@@ -553,15 +553,132 @@ public interface Document {
 	/**
 	 * Returns a reference to a scattered entry.
 	 * 
-	 * @param key key that identifies the scattered entry
+	 * @param key
+	 *            key that identifies the scattered entry
 	 * @return a scattered entry reference
 	 */
 	ScatteredEntry<Object> scatteredEntry(String key);
 
+	/**
+	 * /** Returns a reference to a scattered entry.
+	 * <p>
+	 * Through this reference, the scattered entry value can be retrieved, set
+	 * or removed.
+	 * <p>
+	 * As opposed to {@link #entry(String, Class)}, a scattered entry returns
+	 * <em>all</em> values associated wit a key, even if its shared acros
+	 * multiple entries.
+	 * <p>
+	 * When a value is returned, all of the elements are checked to be of type
+	 * {@code T}. If it isn't, a conversion is performed. If that conversion
+	 * fails, an exception is thrown.
+	 * 
+	 * @param key
+	 *            key that identifies the scattered entry
+	 * @return a scattered entry reference
+	 * @param memberType
+	 *            type of each individual entry that makes up a scattered entry
+	 * @return
+	 */
 	<T> ScatteredEntry<T> scatteredEntry(String key, Class<T> memberType);
 
+	/**
+	 * Returns a reference to a scattered entry of Boolean instances.
+	 * 
+	 * @param key
+	 *            key that identifies the scattered entry
+	 * @return a scattered entry reference
+	 * 
+	 * @see #scatteredEntry(String, Class)
+	 */
+	ScatteredEntry<Boolean> scatteredEntryOfBooleans(String key);
+	
+	/**
+	 * Returns a reference to a scattered entry of Integer instances.
+	 * 
+	 * @param key
+	 *            key that identifies the scattered entry
+	 * @return a scattered entry reference
+	 * 
+	 * @see #scatteredEntry(String, Class)
+	 */
+	ScatteredEntry<Integer> scatteredEntryOfIntegers(String key);
+	
+	/**
+	 * Returns a reference to a scattered entry of Long instances.
+	 * 
+	 * @param key
+	 *            key that identifies the scattered entry
+	 * @return a scattered entry reference
+	 * 
+	 * @see #scatteredEntry(String, Class)
+	 */
+	ScatteredEntry<Long> scatteredEntryOfLongs(String key);
+	
+	/**
+	 * Returns a reference to a scattered entry of Short instances.
+	 * 
+	 * @param key
+	 *            key that identifies the scattered entry
+	 * @return a scattered entry reference
+	 * 
+	 * @see #scatteredEntry(String, Class)
+	 */
+	ScatteredEntry<Short> scatteredEntryOfShorts(String key);
+	
+	/**
+	 * Returns a reference to a scattered entry of Double instances.
+	 * 
+	 * @param key
+	 *            key that identifies the scattered entry
+	 * @return a scattered entry reference
+	 * 
+	 * @see #scatteredEntry(String, Class)
+	 */
+	ScatteredEntry<Double> scatteredEntryOfDoubles(String key);
+	
+	/**
+	 * Returns a reference to a scattered entry of Float instances.
+	 * 
+	 * @param key
+	 *            key that identifies the scattered entry
+	 * @return a scattered entry reference
+	 * 
+	 * @see #scatteredEntry(String, Class)
+	 */
+	ScatteredEntry<Float> scatteredEntryOfFloats(String key);
+	
+	/**
+	 * Returns a reference to a scattered entry of BigDecimal instances.
+	 * 
+	 * @param key
+	 *            key that identifies the scattered entry
+	 * @return a scattered entry reference
+	 * 
+	 * @see #scatteredEntry(String, Class)
+	 */
+	ScatteredEntry<BigDecimal> scatteredEntryOfBigDecimal(String key);
+	
+	/**
+	 * Returns a reference to a scattered entry of strings.
+	 * 
+	 * @param key
+	 *            key that identifies the scattered entry
+	 * @return a scattered entry reference
+	 * 
+	 * @see #scatteredEntry(String, Class)
+	 */
 	ScatteredEntry<String> scatteredEntryOfStrings(String key);
 
+	/**
+	 * Returns a reference to a scattered entry of nested document instances.
+	 * 
+	 * @param key
+	 *            key that identifies the scattered entry
+	 * @return a scattered entry reference
+	 * 
+	 * @see #scatteredEntry(String, Class)
+	 */
 	ScatteredEntry<Document> scatteredEntryOfDocuments(String key);
 
 }
