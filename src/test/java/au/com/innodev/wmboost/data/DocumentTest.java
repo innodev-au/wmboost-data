@@ -931,7 +931,7 @@ public class DocumentTest {
 	public void testPresence_PresentNonNull() {
 		IData idata = newIDataWithValue("Hello");
 		Document document = docFactory.wrap(idata);
-		DocEntry<String> value1Presence = document.entryOfString("value1");
+		ItemEntry<String> value1Presence = document.entryOfString("value1");
 		assertTrue(value1Presence.isAssigned());
 		assertEquals("Hello", value1Presence.getVal());
 	}
@@ -940,7 +940,7 @@ public class DocumentTest {
 	public void testPresence_PresentButNull() {
 		IData idata = newIDataWithValue(null);
 		Document document = docFactory.wrap(idata);
-		DocEntry<String> value1Presence = document.entryOfString("value1");
+		ItemEntry<String> value1Presence = document.entryOfString("value1");
 		assertTrue(value1Presence.isAssigned());
 		assertNull(value1Presence.getVal());
 	}
@@ -949,7 +949,7 @@ public class DocumentTest {
 	public void testPresence_Absent() {
 		IData idata = IDataFactory.create();
 		Document document = docFactory.wrap(idata);
-		DocEntry<String> value1Presence = document.entryOfString("inexistentKey");
+		ItemEntry<String> value1Presence = document.entryOfString("inexistentKey");
 		assertFalse(value1Presence.isAssigned());
 	}
 
@@ -1022,7 +1022,7 @@ public class DocumentTest {
 		IData idata = newIDataWithValue(nestedIDatas);
 
 		Document topDoc = docFactory.wrap(idata);
-		CollectionDocEntry<Document> p = topDoc.entryOfDocuments("value1");
+		CollectionEntry<Document> p = topDoc.entryOfDocuments("value1");
 		
 		assertTrue(p.isAssigned());
 		

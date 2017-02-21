@@ -20,7 +20,7 @@ package au.com.innodev.wmboost.data;
  * modification of document entry.
  * <p>
  * It's suitable when an entry's value corresponds to a scalar, i.e., a
- * single-element. A {@link CollectionDocEntry} instance is used for an entry
+ * single-element. A {@link CollectionEntry} instance is used for an entry
  * that contains a collection of values.
  * 
  * <h3>Retrieving a Value</h3>
@@ -45,7 +45,7 @@ package au.com.innodev.wmboost.data;
  * cases, this method is not used as often as other alternatives.</li>
  * </ul>
  * When you want to optionally retrieve values, you may use a combination of
- * {@link DocEntry#isAssigned()} and {@link #getVal()}. For example, the
+ * {@link ItemEntry#isAssigned()} and {@link #getVal()}. For example, the
  * following code is a snippet of a transformer that takes a string and returns
  * a lower-case version. If the string is not provided, the pipeline is not
  * modified. If the value is {@code null}, {@code null} is returned:
@@ -75,7 +75,7 @@ package au.com.innodev.wmboost.data;
  * </ul>
  * <h3>Removing an Entry</h3>
  * <p>
- * Invoke {@link DocEntry#remove()}. Note that the type {@code T} is not taken
+ * Invoke {@link ItemEntry#remove()}. Note that the type {@code T} is not taken
  * into account when removing an entry.
  * <p>
  * For documents that contain more than one entry with the same key (which is
@@ -90,7 +90,7 @@ package au.com.innodev.wmboost.data;
  * @param <T>
  *            type to treat the entry value as
  */
-public interface DocEntry<T> {
+public interface ItemEntry<T> {
 
 	/** -------- Accessors ------------------------------------------ */
 

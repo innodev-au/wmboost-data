@@ -18,17 +18,17 @@ package au.com.innodev.wmboost.data;
 import org.springframework.core.convert.TypeDescriptor;
 
 /**
- * <p>Implementation of {@link DocEntry}.
+ * <p>Implementation of {@link ItemEntry}.
  *
  * @param <T> value type
  */
-class DocEntryImpl<T> extends MonoBaseEntry<T,T> implements DocEntry<T> {
+class ItemEntryImpl<T> extends MonoBaseEntry<T,T> implements ItemEntry<T> {
 
-	public DocEntryImpl(DocumentImpl document, String key, TypeDescriptor accessorType, TypeDescriptor mutatorType, NormaliseOption normaliseOption) {
+	public ItemEntryImpl(DocumentImpl document, String key, TypeDescriptor accessorType, TypeDescriptor mutatorType, NormaliseOption normaliseOption) {
 		super(document, key, accessorType, mutatorType, normaliseOption);
 	}
 
-	public DocEntryImpl(DocumentImpl document, String key, TypeDescriptor typeSpec, NormaliseOption normaliseOption) {
+	public ItemEntryImpl(DocumentImpl document, String key, TypeDescriptor typeSpec, NormaliseOption normaliseOption) {
 		this(document, key, typeSpec, null, normaliseOption);
 	}
 	

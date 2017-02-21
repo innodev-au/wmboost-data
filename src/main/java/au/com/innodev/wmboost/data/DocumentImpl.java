@@ -168,27 +168,27 @@ final class DocumentImpl implements Document {
 	
 
 	/* **************** Entries section *********************/	
-	public DocEntry<Object> entry(String key) {
-		return new DocEntryImpl<Object>(this, key, TypeDescriptor.valueOf(Object.class), MAY_NORMALISE);
+	public ItemEntry<Object> entry(String key) {
+		return new ItemEntryImpl<Object>(this, key, TypeDescriptor.valueOf(Object.class), MAY_NORMALISE);
 	}
 
-	public <T> DocEntry<T> entry(String key, Class<T> type) {
+	public <T> ItemEntry<T> entry(String key, Class<T> type) {
 		Preconditions.checkNotNull(type);
 		
 		
 		if (Document.class.isAssignableFrom(type)) {
 			@SuppressWarnings("unchecked")
-			DocEntry<T> entry = (DocEntry<T>) entryOfDocument(key);
+			ItemEntry<T> entry = (ItemEntry<T>) entryOfDocument(key);
 			return entry;
 		}
 		else if (Object.class.equals(type)) {
 			@SuppressWarnings("unchecked")
-			DocEntry<T> entry = (DocEntry<T>) entry(key);
+			ItemEntry<T> entry = (ItemEntry<T>) entry(key);
 			return entry;
 		}
 		else if (Collection.class.isAssignableFrom(type)) {
 			@SuppressWarnings("unchecked")
-			DocEntry<T> entry = (DocEntry<T>) entryOfCollection(key);
+			ItemEntry<T> entry = (ItemEntry<T>) entryOfCollection(key);
 			return entry;
 		}		
 		else {
@@ -197,64 +197,64 @@ final class DocumentImpl implements Document {
 		
 	}
 	
-	public DocEntry<Document> entryOfDocument(String key) {
-		return new DocEntryImpl<Document>(this, key, TypeDescriptor.valueOf(Document.class),
+	public ItemEntry<Document> entryOfDocument(String key) {
+		return new ItemEntryImpl<Document>(this, key, TypeDescriptor.valueOf(Document.class),
 				TypeDescriptor.valueOf(IData.class), DONT_NORMALISE);
 	}
 	
-	private <T> DocEntry<T> specificTypeEntry(String key, Class<T> type) {
-		return new DocEntryImpl<T>(this, key, TypeDescriptor.valueOf(type), DONT_NORMALISE);
+	private <T> ItemEntry<T> specificTypeEntry(String key, Class<T> type) {
+		return new ItemEntryImpl<T>(this, key, TypeDescriptor.valueOf(type), DONT_NORMALISE);
 	}
 	
-	public DocEntry<String> entryOfString(String key) {
+	public ItemEntry<String> entryOfString(String key) {
 		return specificTypeEntry(key, String.class);
 	}
 
 	@Override
-	public DocEntry<Boolean> entryOfBoolean(String key) {
+	public ItemEntry<Boolean> entryOfBoolean(String key) {
 		return specificTypeEntry(key, Boolean.class);
 	}
 	
 	@Override
-	public DocEntry<Integer> entryOfInteger(String key) {	
+	public ItemEntry<Integer> entryOfInteger(String key) {	
 		return specificTypeEntry(key, Integer.class);
 	}
 	
 	@Override
-	public DocEntry<Long> entryOfLong(String key) {	
+	public ItemEntry<Long> entryOfLong(String key) {	
 		return specificTypeEntry(key, Long.class);
 	}
 	
 	@Override
-	public DocEntry<Short> entryOfShort(String key) {	
+	public ItemEntry<Short> entryOfShort(String key) {	
 		return specificTypeEntry(key, Short.class);
 	}
 	
 	@Override
-	public DocEntry<Double> entryOfDouble(String key) {
+	public ItemEntry<Double> entryOfDouble(String key) {
 		return specificTypeEntry(key, Double.class);
 	}
 	
 	@Override
-	public DocEntry<BigDecimal> entryOfBigDecimal(String key) {
+	public ItemEntry<BigDecimal> entryOfBigDecimal(String key) {
 		return specificTypeEntry(key, BigDecimal.class);
 	}
 	
 	@Override
-	public DocEntry<Float> entryOfFloat(String key) {
+	public ItemEntry<Float> entryOfFloat(String key) {
 		return specificTypeEntry(key, Float.class);
 	}
 
-	public <E> CollectionDocEntry<E> entryOfCollection(String key, Class<E> memberType) {
+	public <E> CollectionEntry<E> entryOfCollection(String key, Class<E> memberType) {
 		
 		if (Document.class.isAssignableFrom(memberType)) {
 			@SuppressWarnings("unchecked")
-			CollectionDocEntry<E> entry = (CollectionDocEntry<E>) entryOfDocuments(key);
+			CollectionEntry<E> entry = (CollectionEntry<E>) entryOfDocuments(key);
 			return entry;
 		}
 		else if (Object.class.equals(memberType)) {
 			@SuppressWarnings("unchecked")
-			CollectionDocEntry<E> entry = (CollectionDocEntry<E>) entryOfCollection(key);
+			CollectionEntry<E> entry = (CollectionEntry<E>) entryOfCollection(key);
 			return entry;
 		}		
 		else {
@@ -264,57 +264,57 @@ final class DocumentImpl implements Document {
 	}
 	
 	@Override
-	public CollectionDocEntry<Object> entryOfCollection(String key) {	
-		return new CollectionDocEntryImpl<Object>(this, key, Object.class, MAY_NORMALISE);
+	public CollectionEntry<Object> entryOfCollection(String key) {	
+		return new CollectionEntryImpl<Object>(this, key, Object.class, MAY_NORMALISE);
 	}
 	
 
-	private <E> CollectionDocEntry<E> entryOfTypedCollection(String key, Class<E> memberType) {
-		return new CollectionDocEntryImpl<E>(this, key, memberType, DONT_NORMALISE);
+	private <E> CollectionEntry<E> entryOfTypedCollection(String key, Class<E> memberType) {
+		return new CollectionEntryImpl<E>(this, key, memberType, DONT_NORMALISE);
 	}
 	
 	@Override
-	public CollectionDocEntry<Document> entryOfDocuments(String key) {
-		return new CollectionDocEntryImpl<Document>(this, key, Document.class, IData.class, DONT_NORMALISE);
+	public CollectionEntry<Document> entryOfDocuments(String key) {
+		return new CollectionEntryImpl<Document>(this, key, Document.class, IData.class, DONT_NORMALISE);
 	}
 
 	@Override
-	public CollectionDocEntry<String> entryOfStrings(String key) {
+	public CollectionEntry<String> entryOfStrings(String key) {
 		return entryOfTypedCollection(key, String.class);
 	}
 	
 	@Override
-	public CollectionDocEntry<Boolean> entryOfBooleans(String key) {
+	public CollectionEntry<Boolean> entryOfBooleans(String key) {
 		return entryOfTypedCollection(key, Boolean.class);		
 	}
 	
 	@Override
-	public CollectionDocEntry<Integer> entryOfIntegers(String key) {
+	public CollectionEntry<Integer> entryOfIntegers(String key) {
 		return entryOfTypedCollection(key, Integer.class);		
 	}
 	
 	@Override
-	public CollectionDocEntry<Long> entryOfLongs(String key) {
+	public CollectionEntry<Long> entryOfLongs(String key) {
 		return entryOfTypedCollection(key, Long.class);		
 	}
 	
 	@Override
-	public CollectionDocEntry<Short> entryOfShorts(String key) {
+	public CollectionEntry<Short> entryOfShorts(String key) {
 		return entryOfTypedCollection(key, Short.class);		
 	}
 	
 	@Override
-	public CollectionDocEntry<Double> entryOfDoubles(String key) {
+	public CollectionEntry<Double> entryOfDoubles(String key) {
 		return entryOfTypedCollection(key, Double.class);		
 	}
 	
 	@Override
-	public CollectionDocEntry<BigDecimal> entryOfBigDecimals(String key) {
+	public CollectionEntry<BigDecimal> entryOfBigDecimals(String key) {
 		return entryOfCollection(key, BigDecimal.class);		
 	}
 	
 	@Override
-	public CollectionDocEntry<Float> entryOfFloats(String key) {
+	public CollectionEntry<Float> entryOfFloats(String key) {
 		return entryOfTypedCollection(key, Float.class);		
 	}	
 	

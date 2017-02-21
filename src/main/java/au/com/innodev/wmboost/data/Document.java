@@ -144,7 +144,7 @@ public interface Document {
 	 * be returned for that key.
 	 * 
 	 * <p>
-	 * Note that the returned value is both an {@link java.lang.Iterable} and
+	 * Note that the returned value is both an {@link java.lang.Iterable} and a 
 	 * {@link java.io.Closeable}. This means that the {@code close()} method
 	 * needs to be invoked after processing is complete.
 	 * 
@@ -242,9 +242,9 @@ public interface Document {
 	 *            type of the <em>value</em> component of the document entry
 	 * @return an entry reference
 	 * 
-	 * @see DocEntry
+	 * @see ItemEntry
 	 */
-	<T> DocEntry<T> entry(String key, Class<T> type);
+	<T> ItemEntry<T> entry(String key, Class<T> type);
 
 	/**
 	 * Returns a reference to an entry. Use it when you don't know the type
@@ -257,7 +257,7 @@ public interface Document {
 	 * 
 	 * @see #entry(String, Class)
 	 */
-	DocEntry<Object> entry(String key);
+	ItemEntry<Object> entry(String key);
 
 	/**
 	 * Returns a reference to an entry with a nested document as the value.
@@ -274,7 +274,7 @@ public interface Document {
 	 * 
 	 * @see #entry(String, Class)
 	 */
-	DocEntry<Document> entryOfDocument(String key);
+	ItemEntry<Document> entryOfDocument(String key);
 
 	/**
 	 * Returns a reference to an entry with a value treated as a {@link String}.
@@ -286,7 +286,7 @@ public interface Document {
 	 * 
 	 * @see #entry(String, Class)
 	 */
-	DocEntry<String> entryOfString(String key);
+	ItemEntry<String> entryOfString(String key);
 
 	/**
 	 * Returns a reference to an entry with a value treated as a {@link Boolean}
@@ -299,7 +299,7 @@ public interface Document {
 	 * 
 	 * @see #entry(String, Class)
 	 */
-	DocEntry<Boolean> entryOfBoolean(String key);
+	ItemEntry<Boolean> entryOfBoolean(String key);
 
 	/**
 	 * Returns a reference to an entry with a value treated as an
@@ -312,7 +312,7 @@ public interface Document {
 	 * 
 	 * @see #entry(String, Class)
 	 */
-	DocEntry<Integer> entryOfInteger(String key);
+	ItemEntry<Integer> entryOfInteger(String key);
 
 	/**
 	 * Returns a reference to an entry with a value treated as a {@link Long}.
@@ -324,7 +324,7 @@ public interface Document {
 	 * 
 	 * @see #entry(String, Class)
 	 */
-	DocEntry<Long> entryOfLong(String key);
+	ItemEntry<Long> entryOfLong(String key);
 
 	/**
 	 * Returns a reference to an entry with a value treated as a {@link Short}.
@@ -336,7 +336,7 @@ public interface Document {
 	 * 
 	 * @see #entry(String, Class)
 	 */
-	DocEntry<Short> entryOfShort(String key);
+	ItemEntry<Short> entryOfShort(String key);
 
 	/**
 	 * Returns a reference to an entry with a value treated as a {@link Float}.
@@ -348,7 +348,7 @@ public interface Document {
 	 * 
 	 * @see #entry(String, Class)
 	 */
-	DocEntry<Float> entryOfFloat(String key);
+	ItemEntry<Float> entryOfFloat(String key);
 
 	/**
 	 * Returns a reference to an entry with a value treated as a {@link Double}.
@@ -360,7 +360,7 @@ public interface Document {
 	 * 
 	 * @see #entry(String, Class)
 	 */
-	DocEntry<Double> entryOfDouble(String key);
+	ItemEntry<Double> entryOfDouble(String key);
 
 	/**
 	 * Returns a reference to an entry with a value treated as a
@@ -373,7 +373,7 @@ public interface Document {
 	 * 
 	 * @see #entry(String, Class)
 	 */
-	DocEntry<BigDecimal> entryOfBigDecimal(String key);
+	ItemEntry<BigDecimal> entryOfBigDecimal(String key);
 
 	/*
 	 * ---------- Collection Entry Section -------------------------------------
@@ -406,9 +406,9 @@ public interface Document {
 	 *            component of the document entry
 	 * @return an entry reference
 	 * 
-	 * @see CollectionDocEntry
+	 * @see CollectionEntry
 	 */
-	<E> CollectionDocEntry<E> entryOfCollection(String key, Class<E> memberType);
+	<E> CollectionEntry<E> entryOfCollection(String key, Class<E> memberType);
 
 	/**
 	 * Returns a reference to an entry with a value treated as a collection of
@@ -421,7 +421,7 @@ public interface Document {
 	 * 
 	 * @see #entry(String, Class)
 	 */
-	CollectionDocEntry<Object> entryOfCollection(String key);
+	CollectionEntry<Object> entryOfCollection(String key);
 
 	/**
 	 * Returns a reference to an entry with a value treated as a collection of
@@ -434,7 +434,7 @@ public interface Document {
 	 * 
 	 * @see #entry(String, Class)
 	 */
-	CollectionDocEntry<String> entryOfStrings(String key);
+	CollectionEntry<String> entryOfStrings(String key);
 
 	/**
 	 * Returns a reference to an entry with a value treated as a collection of
@@ -447,7 +447,7 @@ public interface Document {
 	 * 
 	 * @see #entry(String, Class)
 	 */
-	CollectionDocEntry<Boolean> entryOfBooleans(String key);
+	CollectionEntry<Boolean> entryOfBooleans(String key);
 
 	/**
 	 * Returns a reference to an entry with a nested collection of documents as
@@ -465,7 +465,7 @@ public interface Document {
 	 * 
 	 * @see #entry(String, Class)
 	 */
-	CollectionDocEntry<Document> entryOfDocuments(String key);
+	CollectionEntry<Document> entryOfDocuments(String key);
 
 	/**
 	 * Returns a reference to an entry with a value treated as a collection of
@@ -478,7 +478,7 @@ public interface Document {
 	 * 
 	 * @see #entry(String, Class)
 	 */
-	CollectionDocEntry<Integer> entryOfIntegers(String key);
+	CollectionEntry<Integer> entryOfIntegers(String key);
 
 	/**
 	 * Returns a reference to an entry with a value treated as a collection of
@@ -491,7 +491,7 @@ public interface Document {
 	 * 
 	 * @see #entry(String, Class)
 	 */
-	CollectionDocEntry<Long> entryOfLongs(String key);
+	CollectionEntry<Long> entryOfLongs(String key);
 
 	/**
 	 * Returns a reference to an entry with a value treated as a collection of
@@ -504,7 +504,7 @@ public interface Document {
 	 * 
 	 * @see #entry(String, Class)
 	 */
-	CollectionDocEntry<Short> entryOfShorts(String key);
+	CollectionEntry<Short> entryOfShorts(String key);
 
 	/**
 	 * Returns a reference to an entry with a value treated as a collection of
@@ -517,7 +517,7 @@ public interface Document {
 	 * 
 	 * @see #entry(String, Class)
 	 */
-	CollectionDocEntry<Float> entryOfFloats(String key);
+	CollectionEntry<Float> entryOfFloats(String key);
 
 	/**
 	 * Returns a reference to an entry with a value treated as a collection of
@@ -530,7 +530,7 @@ public interface Document {
 	 * 
 	 * @see #entry(String, Class)
 	 */
-	CollectionDocEntry<Double> entryOfDoubles(String key);
+	CollectionEntry<Double> entryOfDoubles(String key);
 
 	/**
 	 * Returns a reference to an entry with a value treated as a collection of
@@ -543,7 +543,7 @@ public interface Document {
 	 * 
 	 * @see #entry(String, Class)
 	 */
-	CollectionDocEntry<BigDecimal> entryOfBigDecimals(String key);
+	CollectionEntry<BigDecimal> entryOfBigDecimals(String key);
 
 	/*
 	 * ---------- Scattered Entry Section ----------------

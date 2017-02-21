@@ -23,12 +23,12 @@ import java.util.List;
  * collection. Allows access and modification of document entry.
  * <p>
  * This type is suitable when the entry's value consists in a collection of
- * elements. In contrast, a {@link DocEntry} instance is used for an entry that contains a
+ * elements. In contrast, a {@link ItemEntry} instance is used for an entry that contains a
  * single value.
  *
  * <p>
  * The behaviour of setters, getters, etc. in this class is very similar to
- * {@link DocEntry}. Refer to its documentation for more information.
+ * {@link ItemEntry}. Refer to its documentation for more information.
  * <h3>Other considerations</h3>
  * <p> This class exposes values as collections for
  * simplicity. Internally, values are stored as arrays, as expected by
@@ -42,7 +42,7 @@ import java.util.List;
  * @param <E>
  *            collection element type to treat the entry value as
  */
-public interface CollectionDocEntry<E> {
+public interface CollectionEntry<E> {
 
 	/** -------- Accessors ------------------------------------------ */
 

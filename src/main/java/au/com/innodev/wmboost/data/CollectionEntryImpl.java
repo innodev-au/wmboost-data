@@ -25,13 +25,13 @@ import org.springframework.core.convert.TypeDescriptor;
 import au.com.innodev.wmboost.data.internal.Preconditions;
 
 /**
- * Implementation of {@link CollectionDocEntry}.
+ * Implementation of {@link CollectionEntry}.
  *
  * @param <E> element type
  */
-class CollectionDocEntryImpl<E> extends MonoBaseEntry<List<E>, Iterable<E>> implements CollectionDocEntry<E> {
+class CollectionEntryImpl<E> extends MonoBaseEntry<List<E>, Iterable<E>> implements CollectionEntry<E> {
 
-	public CollectionDocEntryImpl(DocumentImpl document, String key, Class<?> accessorElementType, Class<?> mutatorType, NormaliseOption normaliseOption) {
+	public CollectionEntryImpl(DocumentImpl document, String key, Class<?> accessorElementType, Class<?> mutatorType, NormaliseOption normaliseOption) {
 		super(document, key, listAccessorType(accessorElementType), arrayMutatorType(mutatorType), normaliseOption);
 	}
 	
@@ -43,7 +43,7 @@ class CollectionDocEntryImpl<E> extends MonoBaseEntry<List<E>, Iterable<E>> impl
 		return TypeDescriptor.array(TypeDescriptor.valueOf(mutatorClass));
 	}
 
-	public CollectionDocEntryImpl(DocumentImpl document, String key, Class<?> accessorType, NormaliseOption normaliseOption) {
+	public CollectionEntryImpl(DocumentImpl document, String key, Class<?> accessorType, NormaliseOption normaliseOption) {
 		this(document, key, accessorType, accessorType, normaliseOption);
 	}
 
