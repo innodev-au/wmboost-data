@@ -4,5 +4,3 @@
  * @see Documents
  */
 package au.com.innodev.wmboost.data.support;
-
-import au.com.innodev.wmboost.data.support.Documents;

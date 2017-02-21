@@ -21,7 +21,6 @@ import static au.com.innodev.wmboost.data.NormaliseOption.MAY_NORMALISE;
 import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 

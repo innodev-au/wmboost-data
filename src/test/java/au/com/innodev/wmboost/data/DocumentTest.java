@@ -1,5 +1,6 @@
 package au.com.innodev.wmboost.data;
 
+import static au.com.innodev.wmboost.data.TestUtil.newIDataWithValue;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -11,7 +12,6 @@ import java.io.BufferedReader;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.RoundingMode;
-import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -31,16 +31,7 @@ import com.wm.data.MBoolean;
 import com.wm.data.MInteger;
 import com.wm.data.MLong;
 
-import au.com.innodev.wmboost.data.CollectionDocEntry;
-import au.com.innodev.wmboost.data.DocEntry;
-import au.com.innodev.wmboost.data.DocEntryIterableResource;
-import au.com.innodev.wmboost.data.Document;
-import au.com.innodev.wmboost.data.DocumentFactory;
-import au.com.innodev.wmboost.data.InexistentEntryException;
-import au.com.innodev.wmboost.data.KeyValue;
-import au.com.innodev.wmboost.data.UnexpectedEntryValueException;
 import au.com.innodev.wmboost.data.support.DocumentFactories;
-import static au.com.innodev.wmboost.data.TestUtil.newIDataWithValue;
 public class DocumentTest {
 
 	private final DocumentFactory docFactory = DocumentFactories.getDefault();

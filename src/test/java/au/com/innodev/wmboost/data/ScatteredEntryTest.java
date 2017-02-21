@@ -1,6 +1,8 @@
 package au.com.innodev.wmboost.data;
 
-import static org.junit.Assert.*;
+import static au.com.innodev.wmboost.data.TestUtil.newIDataWithValue;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Collection;
 import java.util.List;
@@ -14,7 +16,6 @@ import com.wm.data.IDataCursor;
 import com.wm.data.IDataFactory;
 import com.wm.data.IDataUtil;
 
-import static au.com.innodev.wmboost.data.TestUtil.newIDataWithValue;
 import au.com.innodev.wmboost.data.support.DocumentFactories;
 
 public class ScatteredEntryTest {
