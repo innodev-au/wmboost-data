@@ -16,16 +16,15 @@
 package au.com.innodev.wmboost.data;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import org.springframework.core.convert.TypeDescriptor;
 
-import com.wm.data.IDataUtil;
+import com.wm.data.IDataCursor;
 
 import au.com.innodev.wmboost.data.internal.Preconditions;
 
-class ScatteredEntryImpl<T> extends BaseEntry<T, T> implements ScatteredEntry<T> {
+class ScatteredEntryImpl<E> extends BaseEntry<E, E> implements ScatteredEntry<E> {
 
 	private final TypeDescriptor accessorType;
 	private final TypeDescriptor mutatorType;
@@ -42,15 +41,15 @@ class ScatteredEntryImpl<T> extends BaseEntry<T, T> implements ScatteredEntry<T>
 	}
 
 	@Override
-	public Collection<T> getValues() {	
-		List<T> list = new ArrayList<T>();
+	public List<E> getValOrEmpty() {	
+		List<E> list = new ArrayList<E>();
 
 		IDataCursorResource cursorRes = newCursorResource();
 		try {
 			boolean hasMore = cursorRes.getCursor().first(getKey());
 			while (hasMore) {
 				Object value = cursorRes.getCursor().getValue();
-				T converted = convertAndNormaliseValForGet(value, accessorType);
+				E converted = convertAndNormaliseValForGet(value, accessorType);
 
 				list.add(converted);
 				hasMore = cursorRes.getCursor().next(getKey());
@@ -62,32 +61,46 @@ class ScatteredEntryImpl<T> extends BaseEntry<T, T> implements ScatteredEntry<T>
 		return list;
 	}
 	
-		
 	@Override
-	public void put(Iterable<T> values) {
-		for (T value : values) {
-			doPut(value);
-		}
+	public void put(Iterable<? extends E> values) {
+		doPut(values);
 	}
 	
 	@Override
 	public void putConverted(Iterable<?> values) {
-		// FIXME: remove others - but only if conversion doesn't fail. Keep a temporary list
-		for (Object value : values) {
-			Object convertedValue = getConvertedValue(value, accessorType);
+		TypeDescriptor listAccessor = TypeDescriptor.collection(List.class, accessorType);
+		
+		Iterable<?> convertedValues = getConvertedValue(values, listAccessor);
 
-			doPut(convertedValue);
-			
-		}		
+		doPut(convertedValues);	
 	}
 	
-	private void doPut(Object value) {
-		Object valueToPut = convertAndNormaliseValForPut(value, mutatorType);
+	private void doPut(Iterable<?> values) {		
 
-		// FIXME
 		IDataCursorResource cursorRes = newCursorResource();
 		try {
-			IDataUtil.put(cursorRes.getCursor(), getKey(), valueToPut);
+			IDataCursor cursor = cursorRes.getCursor();
+			
+			boolean continueLoop;
+			
+			/* Remove previous entries */
+			do {
+				boolean hasValWithKey = cursor.first(getKey());
+				
+				if (hasValWithKey) {
+					continueLoop = cursor.delete();
+				}		
+				else {
+					continueLoop = false;
+				}
+			} while (continueLoop);
+			
+			cursor.last();
+			
+			for (Object individualVal : values) {
+				Object normalisedIndividualVal = convertAndNormaliseValForPut(individualVal, mutatorType);
+				cursor.insertAfter(getKey(), normalisedIndividualVal);
+			}
 		}
 		finally {
 			cursorRes.close();

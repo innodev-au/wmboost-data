@@ -15,28 +15,63 @@
  */
 package au.com.innodev.wmboost.data;
 
-import java.util.Collection;
+import java.util.List;
 
 /**
  * Allows access and modification of a group of entries that share the same key.
  *
- * @param <E> element type
+ * @param <E>
+ *            element type
  */
 public interface ScatteredEntry<E> {
 	String getKey();
-	boolean isAssigned();
-	
+
+	// TODO isAssigned? Doesn't have exact semantic meaning as for
+	// CollectionEntry.
 	/**
-	 * Returns all values for the key
-	 *  
+	 * Returns the values for the scattered entry.
+	 * 
 	 * @return a non-null collection
 	 */
-	Collection<E> getValues();
-	
-	// TODO getNonEmptyValues ?
-	
-	void put(Iterable<E> values);
+	List<E> getValOrEmpty();
+
+	// TODO getNonEmptyVal ?
+
+	/**
+	 * Replaces all values in the scattered entry with the provided ones.
+	 * 
+	 * @param values
+	 *            new values for the scattered entry
+	 */
+	void put(Iterable<? extends E> values);
+
+	/**
+	 * Replaces all values in the scattered entry with the provided ones.
+	 * 
+	 * <p>
+	 * Use this method in cases where the value type is different to the type
+	 * you want to be stored in the entry. For example, if you wanted a list of
+	 * integers 5 and 8 to be stored as a {@code String} in the entry, you could
+	 * use the following code:
+	 * 
+	 * <pre>
+	 * List<Integer> list = new ArrayList<Integer>();
+	 * list.add(5);
+	 * list.add(8);
+	 * doc.scatteredOfString("values").putConverted(list);
+	 * </pre>
+	 * 
+	 * @param values
+	 *            new values for the scattered entry
+	 */
 	void putConverted(Iterable<?> values);
+
+	/**
+	 * Removes all values in the scattered entry.
+	 * 
+	 * <p>Note that type used for the entry (e.g. String) is not taken into account
+	 * when removing the entry. It's only done by key.
+	 */
 	void remove();
-	
+
 }

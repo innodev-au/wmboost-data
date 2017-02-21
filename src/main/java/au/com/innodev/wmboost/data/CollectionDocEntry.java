@@ -173,9 +173,13 @@ public interface CollectionDocEntry<E> {
 	void putConverted(Iterable<?> value);
 
 	/**
-	 * Deletes an element from an IData given the element’s key. If multiple
-	 * elements exist in the IData with the given key, the first occurrence of
-	 * the key is deleted.
+	 * Deletes they entry identified by the element’s key. 
+	 * 
+	 * <p>Note that type used for the entry (e.g. String) is not taken into account
+	 * when removing the entry. It's only done by key.
+	 * 
+	 * <p>If multiple elements exist in the IData
+	 * with the given key, only the first occurrence of the key is deleted.
 	 * 
 	 */
 	void remove();

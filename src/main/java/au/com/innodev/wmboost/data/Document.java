@@ -550,12 +550,18 @@ public interface Document {
 	 * 
 	 */
 
+	/**
+	 * Returns a reference to a scattered entry.
+	 * 
+	 * @param key key that identifies the scattered entry
+	 * @return a scattered entry reference
+	 */
 	ScatteredEntry<Object> scatteredEntry(String key);
 
-	<T> ScatteredEntry<T> scatteredEntry(String key, Class<T> type);
+	<T> ScatteredEntry<T> scatteredEntry(String key, Class<T> memberType);
 
-	ScatteredEntry<String> scatteredEntryOfString(String key);
+	ScatteredEntry<String> scatteredEntryOfStrings(String key);
 
-	ScatteredEntry<Document> scatteredEntryOfDocument(String key);
+	ScatteredEntry<Document> scatteredEntryOfDocuments(String key);
 
 }

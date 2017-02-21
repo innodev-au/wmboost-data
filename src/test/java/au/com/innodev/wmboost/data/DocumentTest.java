@@ -40,7 +40,7 @@ import au.com.innodev.wmboost.data.InexistentEntryException;
 import au.com.innodev.wmboost.data.KeyValue;
 import au.com.innodev.wmboost.data.UnexpectedEntryValueException;
 import au.com.innodev.wmboost.data.support.DocumentFactories;
-
+import static au.com.innodev.wmboost.data.TestUtil.newIDataWithValue;
 public class DocumentTest {
 
 	private final DocumentFactory docFactory = DocumentFactories.getDefault();
@@ -701,44 +701,6 @@ public class DocumentTest {
 		assertNull(res.entryOfDocument("inexsitentDoc").getValOrNull());
 	}
 
-	@Test
-	public void testGetAllValuesForKey() {
-		List<String> expected = Lists.newArrayList("a", "b", "c");
-
-		IData idata = IDataFactory.create();
-		IDataCursor cursor = idata.getCursor();
-		cursor.insertAfter("something", "x");
-		cursor.insertAfter("item", "a");
-		cursor.insertAfter("item", "b");
-		cursor.insertAfter("somethingElse", "y");
-		cursor.insertAfter("item", "c");
-		cursor.insertAfter("somethingDifferent", "z");
-
-		Document res = docFactory.wrap(idata);
-		Collection<String> actual = res.scatteredEntryOfString("item").getValues();
-		assertTrue(CollectionUtils.isEqualCollection(expected, actual));
-	}
-
-	@Test
-	public void testGetAllDocValuesForKey() {
-		IData idata = IDataFactory.create();
-		IDataCursor cursor = idata.getCursor();
-		cursor.insertAfter("something", newIDataWithValue("x"));
-		cursor.insertAfter("item", newIDataWithValue("a"));
-		cursor.insertAfter("item", newIDataWithValue("b"));
-		cursor.insertAfter("somethingElse", newIDataWithValue("y"));
-		cursor.insertAfter("item", newIDataWithValue("c"));
-		cursor.insertAfter("somethingDifferent", newIDataWithValue("z"));
-
-		Document res = docFactory.wrap(idata);
-		Collection<Document> actual = res.scatteredEntryOfDocument("item").getValues();
-		List<Document> actualList = Lists.newArrayList(actual);
-
-		assertEquals(3, actual.size());
-		assertEquals("a", actualList.get(0).entry("value1").getVal());
-		assertEquals("b", actualList.get(1).entry("value1").getVal());
-		assertEquals("c", actualList.get(2).entry("value1").getVal());
-	}
 
 	@Test
 	public void testPutAsString() {
@@ -1130,12 +1092,5 @@ public class DocumentTest {
 		assertFalse(document.getRawEntries().iterator().hasNext());
 	}
 	
-	private IData newIDataWithValue(Object value) {
-		IData idata = IDataFactory.create();
-		IDataCursor cursor = idata.getCursor();
-		IDataUtil.put(cursor, "value1", value);
-		cursor.destroy();
-
-		return idata;
-	}
+	
 }

@@ -212,10 +212,13 @@ public interface DocEntry<T> {
 	void putConverted(Object value);
 
 	/**
-	 * Deletes given the element’s key. If multiple elements exist in the IData
-	 * with the given key,
-	 * <p>
-	 * the first occurrence of the key is deleted.
+	 * Deletes they entry identified by the element’s key. 
+	 * 
+	 * <p>Note that type used for the entry (e.g. String) is not taken into account
+	 * when removing the entry. It's only done by key.
+	 * 
+	 * <p>If multiple elements exist in the IData
+	 * with the given key, only the first occurrence of the key is deleted.
 	 * 
 	 */
 	void remove();

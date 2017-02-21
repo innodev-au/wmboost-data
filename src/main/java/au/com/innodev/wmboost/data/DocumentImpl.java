@@ -325,21 +325,21 @@ final class DocumentImpl implements Document {
 	}
 	
 	@Override
-	public <T> ScatteredEntry<T> scatteredEntry(String key, Class<T> type) {		
-		return new ScatteredEntryImpl<T>(this, key, TypeDescriptor.valueOf(type), MAY_NORMALISE);
+	public <T> ScatteredEntry<T> scatteredEntry(String key, Class<T> memberType) {		
+		return new ScatteredEntryImpl<T>(this, key, TypeDescriptor.valueOf(memberType), MAY_NORMALISE);
 	}
 	
-	private <T> ScatteredEntry<T> typedScatteredEntry(String key, Class<T> type) {		
-		return new ScatteredEntryImpl<T>(this, key, TypeDescriptor.valueOf(type), DONT_NORMALISE);
+	private <T> ScatteredEntry<T> typedScatteredEntry(String key, Class<T> memberType) {		
+		return new ScatteredEntryImpl<T>(this, key, TypeDescriptor.valueOf(memberType), DONT_NORMALISE);
 	}
 	
 	@Override
-	public ScatteredEntry<String> scatteredEntryOfString(String key) {	
+	public ScatteredEntry<String> scatteredEntryOfStrings(String key) {	
 		return typedScatteredEntry(key, String.class);
 	}
 	
 	@Override
-	public ScatteredEntry<Document> scatteredEntryOfDocument(String key) {
+	public ScatteredEntry<Document> scatteredEntryOfDocuments(String key) {
 		return new ScatteredEntryImpl<Document>(this, key, TypeDescriptor.valueOf(Document.class),
 				TypeDescriptor.valueOf(IData.class), DONT_NORMALISE);
 	}
