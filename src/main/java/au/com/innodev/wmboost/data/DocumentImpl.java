@@ -315,12 +315,7 @@ final class DocumentImpl implements Document {
 	@Override
 	public CollectionDocEntry<Float> entryOfFloats(String key) {
 		return entryOfTypedCollection(key, Float.class);		
-	}
-	
-	@Override
-	public CollectionDocEntry<Character> entryOfCharacters(String key) {
-		return entryOfTypedCollection(key, Character.class);		
-	}
+	}	
 	
 	@Override
 	public ScatteredEntry<Object> scatteredEntry(String key) {

@@ -543,20 +543,7 @@ public interface Document {
 	 * 
 	 * @see #entry(String, Class)
 	 */
-	CollectionDocEntry<BigDecimal> entryOfBigDecimals(String key);
-
-	/**
-	 * Returns a reference to an entry with a value treated as a collection of
-	 * {@link Character}.
-	 * 
-	 * @param key
-	 *            key that identifies the document entry
-	 * 
-	 * @return an entry reference
-	 * 
-	 * @see #entry(String, Class)
-	 */
-	CollectionDocEntry<Character> entryOfCharacters(String key);
+	CollectionDocEntry<BigDecimal> entryOfBigDecimals(String key);	
 
 	/*
 	 * ---------- Scattered Entry Section ----------------

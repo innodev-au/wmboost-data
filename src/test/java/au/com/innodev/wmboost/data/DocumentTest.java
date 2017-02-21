@@ -489,18 +489,7 @@ public class DocumentTest {
 
 		Document document = docFactory.wrap(idata);
 		assertEquals(expected, document.entryOfBigDecimals("value1").getVal());
-	}
-	
-	@Test
-	public void testEntryOfCharacters() {
-		String[] originalValues = {"A", "C", "M", "E"};
-		List<Character> expected = Lists.newArrayList('A', 'C', 'M', 'E');
-		IData idata = newIDataWithValue(originalValues);
-
-		Document document = docFactory.wrap(idata);
-		assertEquals(expected, document.entryOfCharacters("value1").getVal());
-	}
-	
+	}	
 
 	
 	@Test
