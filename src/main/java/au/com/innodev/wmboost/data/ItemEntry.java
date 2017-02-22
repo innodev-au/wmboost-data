@@ -20,8 +20,8 @@ package au.com.innodev.wmboost.data;
  * modification of document entry.
  * <p>
  * It's suitable when an entry's value corresponds to a scalar, i.e., a
- * single-element. A {@link CollectionEntry} instance is used for an entry
- * that contains a collection of values.
+ * single-element. A {@link CollectionEntry} instance is used for an entry that
+ * contains a collection of values.
  * 
  * <h3>Retrieving a Value</h3>
  * <p>
@@ -129,8 +129,7 @@ public interface ItemEntry<T> extends UnitEntryAccessor<T>, EntryMutator<T> {
 	 * document.
 	 * <p>
 	 * Use this method when you expect an entry with the key <em>to exist</em>
-	 * and also <em>to
-	 * have a non-null value</em>.
+	 * and also <em>to have a non-null value</em>.
 	 * <p>
 	 * If an entry with the key doesn't exist or if it contains a null value, an
 	 * exception is thrown.
@@ -212,15 +211,29 @@ public interface ItemEntry<T> extends UnitEntryAccessor<T>, EntryMutator<T> {
 	void putConverted(Object value);
 
 	/**
-	 * Deletes they entry identified by the element’s key. 
+	 * Deletes the entry identified by the element’s key in strict mode.
 	 * 
-	 * <p>Note that type used for the entry (e.g. String) is not taken into account
-	 * when removing the entry. It's only done by key.
-	 * 
-	 * <p>If multiple elements exist in the IData
-	 * with the given key, only the first occurrence of the key is deleted.
+	 * @see #remove(RemoveEntryOption)
 	 * 
 	 */
-	void remove();
+	void remove() throws InexistentEntryException;
+
+	/**
+	 * Deletes the entry identified by the element’s key.
+	 * 
+	 * <p>
+	 * Note that type used for the entry (e.g. String) is not taken into account
+	 * when removing the entry. It's only done by key.
+	 * 
+	 * <p>
+	 * Because this is a unit entry reference, if multiple elements exist in the
+	 * IData with the given key, only the first occurrence of the key is
+	 * deleted.
+	 * 
+	 * @param removeOption
+	 *            strict or lenient removal option
+	 *
+	 */
+	void remove(RemoveEntryOption removeOption) throws InexistentEntryException;
 
 }

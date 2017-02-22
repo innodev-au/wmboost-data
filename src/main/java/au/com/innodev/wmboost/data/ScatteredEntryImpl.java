@@ -29,19 +29,21 @@ class ScatteredEntryImpl<E> extends BaseEntry<E, E> implements ScatteredEntry<E>
 	private final TypeDescriptor accessorType;
 	private final TypeDescriptor mutatorType;
 
-	public ScatteredEntryImpl(DocumentImpl document, String key, TypeDescriptor accessorType, TypeDescriptor mutatorType, NormaliseOption normaliseOption) {
+	public ScatteredEntryImpl(DocumentImpl document, String key, TypeDescriptor accessorType,
+			TypeDescriptor mutatorType, NormaliseOption normaliseOption) {
 		super(document, key, normaliseOption);
 
 		this.accessorType = Preconditions.checkNotNull(accessorType);
 		this.mutatorType = mutatorType;
 	}
 
-	public ScatteredEntryImpl(DocumentImpl document, String key, TypeDescriptor typeSpec, NormaliseOption normaliseOption) {
+	public ScatteredEntryImpl(DocumentImpl document, String key, TypeDescriptor typeSpec,
+			NormaliseOption normaliseOption) {
 		this(document, key, typeSpec, null, normaliseOption);
 	}
 
 	@Override
-	public List<E> getValOrEmpty() {	
+	public List<E> getValOrEmpty() {
 		List<E> list = new ArrayList<E>();
 
 		IDataCursorResource cursorRes = newCursorResource();
@@ -54,76 +56,87 @@ class ScatteredEntryImpl<E> extends BaseEntry<E, E> implements ScatteredEntry<E>
 				list.add(converted);
 				hasMore = cursorRes.getCursor().next(getKey());
 			}
-		}
-		finally {
+		} finally {
 			cursorRes.close();
 		}
 		return list;
 	}
-	
+
 	@Override
 	public void put(Iterable<? extends E> values) {
 		doPut(values);
 	}
-	
+
 	@Override
 	public void putConverted(Iterable<?> values) {
 		TypeDescriptor listAccessor = TypeDescriptor.collection(List.class, accessorType);
-		
+
 		Iterable<?> convertedValues = getConvertedValue(values, listAccessor);
 
-		doPut(convertedValues);	
+		doPut(convertedValues);
 	}
-	
-	private void doPut(Iterable<?> values) {		
+
+	private void doPut(Iterable<?> values) {
 
 		IDataCursorResource cursorRes = newCursorResource();
 		try {
 			IDataCursor cursor = cursorRes.getCursor();
-			
+
 			boolean continueLoop;
-			
+
 			/* Remove previous entries */
 			do {
 				boolean hasValWithKey = cursor.first(getKey());
-				
+
 				if (hasValWithKey) {
 					continueLoop = cursor.delete();
-				}		
-				else {
+				} else {
 					continueLoop = false;
 				}
 			} while (continueLoop);
-			
+
 			cursor.last();
-			
+
 			for (Object individualVal : values) {
 				Object normalisedIndividualVal = convertAndNormaliseValForPut(individualVal, mutatorType);
 				cursor.insertAfter(getKey(), normalisedIndividualVal);
 			}
-		}
-		finally {
+		} finally {
 			cursorRes.close();
 		}
 	}
 
+	public final void remove() {
+		remove(RemoveEntryOption.STRICT);
+	}
+
 	@Override
-	public void remove() {
+	public final void remove(RemoveEntryOption removeOption) {
+		Preconditions.checkNotNull(removeOption, "Remove option cannot be null");
 		boolean hasMore;
-		
-		do {
-			IDataCursorResource cursorRes = newCursorResource();
-			try {
-				hasMore = cursorRes.getCursor().first(getKey());
-				if (hasMore) {
-					cursorRes.getCursor().delete();
-				}				
+
+		IDataCursorResource cursorRes = newCursorResource();
+		try {
+
+			IDataCursor cursor = cursorRes.getCursor();
+
+			boolean hasFirst = cursor.first(getKey());
+
+			if (!hasFirst && RemoveEntryOption.STRICT.equals(removeOption)) {
+				throw new InexistentEntryException("Entry with key '" + getKey() + "' doesn't exist and can't be removed");
 			}
-			finally {
-				cursorRes.close();
+
+			hasMore = hasFirst;
+
+			while (hasMore) {
+				deleteCurrentEntry(cursor);
+
+				hasMore = cursor.first(getKey());
 			}
-			
-		} while (hasMore);
+		} finally {
+			cursorRes.close();
+		}
+
 	}
 	
 }

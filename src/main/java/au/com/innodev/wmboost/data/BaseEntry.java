@@ -22,6 +22,7 @@ import org.springframework.core.convert.ConversionService;
 import org.springframework.core.convert.TypeDescriptor;
 
 import com.wm.data.IData;
+import com.wm.data.IDataCursor;
 
 import au.com.innodev.wmboost.data.internal.Preconditions;
 
@@ -177,5 +178,10 @@ class BaseEntry<A, M> {
 		return docListType;
 	}
 
+	protected final void deleteCurrentEntry(IDataCursor cursor) {
+		// Note: delete's return value indicates whether delete succeeded AND cursor not at end of document after invocation.
+		// This means we can't rely on this value to see if deletion worked
+		cursor.delete();
+	}
 
 }

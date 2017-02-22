@@ -67,11 +67,25 @@ public interface ScatteredEntry<E> extends EntryMutator<Iterable<? extends E>> {
 	void putConverted(Iterable<?> values);
 
 	/**
-	 * Removes all values in the scattered entry.
+	 * Removes all values in the scattered entry in strict mode.
 	 * 
-	 * <p>Note that type used for the entry (e.g. String) is not taken into account
-	 * when removing the entry. It's only done by key.
+	 * @see #remove(RemoveEntryOption)
+	 * 
 	 */
 	void remove();
+
+	/**
+	 * Removes all values in the scattered entry. In other words, it removes all
+	 * entries with the key.
+	 * 
+	 * <p>
+	 * Note that type used for the entry (e.g. String) is not taken into account
+	 * when removing the entry. It's only done by key.
+	 * 
+	 * <p>
+	 * Because this is an entry reference that takes into account all entries
+	 * associated to a key, it removes all of those entries.
+	 */
+	void remove(RemoveEntryOption removeOption);
 
 }

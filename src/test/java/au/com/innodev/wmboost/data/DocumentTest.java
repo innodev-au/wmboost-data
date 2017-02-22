@@ -898,7 +898,7 @@ public class DocumentTest {
 		assertEquals("B", IDataUtil.get(retrievedArray[1].getCursor(), "value1"));
 		
 	}
-	
+		
 	@Test
 	public void testRemove() {
 		IData idata = newIDataWithValue("anyValue");
@@ -913,6 +913,52 @@ public class DocumentTest {
 		assertNull(IDataUtil.get(document.getIData().getCursor(), "value1"));
 	}
 
+	@Test
+	public void testRemoveFailed() {
+		IData idata = newIDataWithValue("anyValue");
+		Document document = docFactory.wrap(idata);
+		assertEquals(1, IDataUtil.size(document.getIData().getCursor()));
+
+		try {
+			document.entry("nonExistingKey").remove();
+			fail();
+		} catch (InexistentEntryException e) {
+			// success
+		}
+
+		// confirm no value has been removed
+		assertEquals(1, IDataUtil.size(document.getIData().getCursor()));
+	}
+	
+	@Test
+	public void testRemoveFailedExplicitParam() {
+		IData idata = newIDataWithValue("anyValue");
+		Document document = docFactory.wrap(idata);
+		assertEquals(1, IDataUtil.size(document.getIData().getCursor()));
+
+		try {
+			document.entry("nonExistingKey").remove(RemoveEntryOption.STRICT);
+			fail();
+		} catch (InexistentEntryException e) {
+			// success
+		}
+
+		// confirm no value has been removed
+		assertEquals(1, IDataUtil.size(document.getIData().getCursor()));
+	}
+	
+	@Test
+	public void testRemoveFailedIgnore() {
+		IData idata = newIDataWithValue("anyValue");
+		Document document = docFactory.wrap(idata);
+		assertEquals(1, IDataUtil.size(document.getIData().getCursor()));
+
+		document.entry("nonExistingKey").remove(RemoveEntryOption.LENIENT);
+
+		// confirm no value has been removed
+		assertEquals(1, IDataUtil.size(document.getIData().getCursor()));
+	}
+	
 	@Test
 	public void testGetTopLevelKeys() {
 		List<String> expected = Lists.newArrayList("value1", "value2");

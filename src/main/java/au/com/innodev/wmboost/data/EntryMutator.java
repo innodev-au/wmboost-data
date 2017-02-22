@@ -6,5 +6,8 @@ package au.com.innodev.wmboost.data;
 interface EntryMutator<T> extends HasKey {
 
 	void put(T value);	
-	void remove();
+	
+	void remove() throws InexistentEntryException;
+	
+	void remove(RemoveEntryOption removeOption) throws InexistentEntryException;
 }

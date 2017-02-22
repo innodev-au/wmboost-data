@@ -3,6 +3,7 @@ package au.com.innodev.wmboost.data;
 import static au.com.innodev.wmboost.data.TestUtil.newIDataWithValue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.util.Collection;
 import java.util.List;
@@ -215,6 +216,49 @@ public class ScatteredEntryTest {
 		assertEquals("last", cursor2.getKey());
 		assertEquals("Z", cursor2.getValue());
 		
+	}
+	
+	@Test
+	public void testRemoveFailed() {
+		IData iData = IDataFactory.create();
+		{
+		IDataCursor cursor = iData.getCursor();
+		cursor.insertAfter("first", "A");
+		cursor.insertAfter("words", "Word to replace");
+		cursor.insertAfter("middle", "M");
+		cursor.insertAfter("words", "Another word to replace");
+		cursor.insertAfter("last", "Z");
+		}
+		
+		Document document = docFactory.wrap(iData);
+
+		try {
+			document.entry("nonExistingKey").remove();
+			fail();
+		} catch (InexistentEntryException e) {
+			// success
+		}
+
+		assertEquals(5, IDataUtil.size(document.getIData().getCursor()));
+	}
+	
+	@Test
+	public void testRemoveFailedIgnore() {
+		IData iData = IDataFactory.create();
+		{
+			IDataCursor cursor = iData.getCursor();
+			cursor.insertAfter("first", "A");
+			cursor.insertAfter("words", "Word to replace");
+			cursor.insertAfter("middle", "M");
+			cursor.insertAfter("words", "Another word to replace");
+			cursor.insertAfter("last", "Z");
+			}
+		Document document = docFactory.wrap(iData);
+
+		document.entry("nonExistingKey").remove(RemoveEntryOption.LENIENT);
+
+		// confirm no value has been removed
+		assertEquals(5, IDataUtil.size(document.getIData().getCursor()));
 	}
 
 }

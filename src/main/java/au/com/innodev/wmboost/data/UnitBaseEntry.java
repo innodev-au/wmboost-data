@@ -17,6 +17,7 @@ package au.com.innodev.wmboost.data;
 
 import org.springframework.core.convert.TypeDescriptor;
 
+import com.wm.data.IDataCursor;
 import com.wm.data.IDataUtil;
 
 import au.com.innodev.wmboost.data.internal.Preconditions;
@@ -108,14 +109,27 @@ class UnitBaseEntry<A, M> extends BaseEntry<A,M> {
 	}
 
 	public final void remove() {
-		// TODO see if this will return false or throw an exception if key
-		// doesn't exist
+		remove(RemoveEntryOption.STRICT);
+	}
+	
+	public final void remove(RemoveEntryOption removeOption) {
+		Preconditions.checkNotNull(removeOption, "Remove option cannot be null");
+		
 		IDataCursorResource cursorRes = newCursorResource();
+
 		try {
-			IDataUtil.remove(cursorRes.getCursor(), getKey());
-		}
-		finally {
+			IDataCursor cursor = cursorRes.getCursor();
+
+			boolean exists = cursor.first(getKey());
+
+			if (!exists && RemoveEntryOption.STRICT.equals(removeOption)) {
+					throw new InexistentEntryException(
+							"Entry with key '" + getKey() + "' doesn't exist and can't be removed");
+			}
+			deleteCurrentEntry(cursor);
+		} finally {
 			cursorRes.close();
 		}
 	}
+	
 }

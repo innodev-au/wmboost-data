@@ -23,16 +23,16 @@ import java.util.List;
  * collection. Allows access and modification of document entry.
  * <p>
  * This type is suitable when the entry's value consists in a collection of
- * elements. In contrast, a {@link ItemEntry} instance is used for an entry that contains a
- * single value.
+ * elements. In contrast, a {@link ItemEntry} instance is used for an entry that
+ * contains a single value.
  *
  * <p>
  * The behaviour of setters, getters, etc. in this class is very similar to
  * {@link ItemEntry}. Refer to its documentation for more information.
  * <h3>Other considerations</h3>
- * <p> This class exposes values as collections for
- * simplicity. Internally, values are stored as arrays, as expected by
- * webMethods.
+ * <p>
+ * This class exposes values as collections for simplicity. Internally, values
+ * are stored as arrays, as expected by webMethods.
  * <p>
  * This class manipulates only the first entry identified by the key. This is
  * the norm in most uses cases. In rare situations where multiple entries for a
@@ -174,14 +174,27 @@ public interface CollectionEntry<E> extends UnitEntryAccessor<List<E>>, EntryMut
 	void putConverted(Iterable<?> value);
 
 	/**
-	 * Deletes they entry identified by the element’s key. 
+	 * Deletes the entry identified by the element’s key in strict mode.
 	 * 
-	 * <p>Note that type used for the entry (e.g. String) is not taken into account
+	 * @see #remove(RemoveEntryOption)
+	 */
+	void remove() throws InexistentEntryException;
+
+	/**
+	 * Deletes the entry identified by the element’s key.
+	 * 
+	 * <p>
+	 * Note that type used for the entry (e.g. String) is not taken into account
 	 * when removing the entry. It's only done by key.
 	 * 
-	 * <p>If multiple elements exist in the IData
+	 * <p>
+	 * Because this is a unit entry reference, if multiple elements exist in the IData
 	 * with the given key, only the first occurrence of the key is deleted.
 	 * 
+	 * @param removeOption
+	 *            strict or lenient removal option
+	 *
 	 */
-	void remove();
+	void remove(RemoveEntryOption removeOption) throws InexistentEntryException;
+
 }
