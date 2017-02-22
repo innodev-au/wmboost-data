@@ -32,6 +32,7 @@ import com.wm.data.MInteger;
 import com.wm.data.MLong;
 
 import au.com.innodev.wmboost.data.preset.DocumentFactories;
+import au.com.innodev.wmboost.data.preset.Documents;
 public class DocumentTest {
 
 	private final DocumentFactory docFactory = DocumentFactories.getDefault();
@@ -1065,15 +1066,24 @@ public class DocumentTest {
 	}
 	
 	@Test
-	public void testGetEntries() {
-		Document document = docFactory.create();
-		document.entry("z").put("1");
-		document.entry("y").put("2");
-		document.entry("x").put("3");
+	public void testGetAllEntries() {
+		IData idata = IDataFactory.create();
+		IDataCursor cursor = idata.getCursor();
+		cursor.insertAfter("x", "0");
+		cursor.insertAfter("z", "1");
+		cursor.insertAfter("y", "2");
+		cursor.insertAfter("x", "3");
+		cursor.insertAfter("z", "4");
 		
+		Document document = Documents.wrap(idata);
 		EntryIterableResource docEntriesResource = document.getAllEntries();
 	    try {
 			Iterator<KeyValue> it = docEntriesResource.iterator();
+			
+			assertTrue(it.hasNext());
+			KeyValue keyValue0 = it.next();
+			assertEquals(keyValue0.getKey(), "x");
+			assertEquals(keyValue0.getValue(), "0");
 			
 			assertTrue(it.hasNext());
 			KeyValue keyValue1 = it.next();
@@ -1090,11 +1100,49 @@ public class DocumentTest {
 			assertEquals(keyValue3.getKey(), "x");
 			assertEquals(keyValue3.getValue(), "3");
 			
+			assertTrue(it.hasNext());
+			KeyValue keyValue4 = it.next();
+			assertEquals(keyValue4.getKey(), "z");
+			assertEquals(keyValue4.getValue(), "4");
+			
 			assertFalse(it.hasNext());
 		}
 		finally {
 			docEntriesResource.close();
 		}
+	}
+	
+	@Test
+	public void testGetUnitEntries() {
+		IData idata = IDataFactory.create();
+		IDataCursor cursor = idata.getCursor();
+		cursor.insertAfter("x", "0");
+		cursor.insertAfter("z", "1");
+		cursor.insertAfter("y", "2");
+		cursor.insertAfter("x", "3");
+		cursor.insertAfter("z", "4");
+		
+		Document document = Documents.wrap(idata);
+		
+		Iterable<KeyValue> unitEntries = document.getUnitEntries();
+		Iterator<KeyValue> it = unitEntries.iterator();
+		
+		assertTrue(it.hasNext());
+		KeyValue keyValue0 = it.next();
+		assertEquals(keyValue0.getKey(), "x");
+		assertEquals(keyValue0.getValue(), "0");
+		
+		assertTrue(it.hasNext());
+		KeyValue keyValue1 = it.next();
+		assertEquals(keyValue1.getKey(), "z");
+		assertEquals(keyValue1.getValue(), "1");
+		
+		assertTrue(it.hasNext());
+		KeyValue keyValue2 = it.next();
+		assertEquals(keyValue2.getKey(), "y");
+		assertEquals(keyValue2.getValue(), "2");
+			
+		assertFalse(it.hasNext());
 	}
 	
 	@Test

@@ -166,6 +166,11 @@ final class DocumentImpl implements Document {
 		return new IDataEntryIterable(iData);
 	}
 	
+	@Override
+	public Iterable<KeyValue> getUnitEntries() {
+		return new UnitEntryIterable(this);
+	}
+	
 
 	/* **************** Entries section *********************/	
 	public ItemEntry<Object> entry(String key) {

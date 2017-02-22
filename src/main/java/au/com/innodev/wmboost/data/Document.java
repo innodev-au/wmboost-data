@@ -139,7 +139,7 @@ public interface Document {
 	int getTotalEntries();
 
 	/**
-	 * Returns all document entries.
+	 * Returns <em>all</em> document entries.
 	 * <p>
 	 * If more than one entry exist for a particular key, multiple entries will
 	 * be returned for that key. The number of returned elements matches the one
@@ -184,6 +184,20 @@ public interface Document {
 	 * @return an iterable resource containing all entries
 	 */
 	EntryIterableResource getAllEntries();
+
+	/**
+	 * Returns unit entries. If multiple entries exist for a given key, only one
+	 * entry is returned.
+	 * <p>
+	 * Note that this method is consistent with {@link #entry(String, Class)}
+	 * and its variations.
+	 * <p>
+	 * The number of returned elements is the same as the size of {@link Document#getKeys()}.
+	 * {@link #getKeys()}.
+	 * 
+	 * @return unit entries
+	 */
+	Iterable<KeyValue> getUnitEntries();
 
 	/**
 	 * Removes all document entries
