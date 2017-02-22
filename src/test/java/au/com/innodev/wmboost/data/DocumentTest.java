@@ -770,7 +770,7 @@ public class DocumentTest {
 	}
 	
 	/*
-	 * Ensures that a an IData instance is retrieved as a Document, even through entry(Object)  
+	 * Ensures that an IData instance is retrieved as a Document, even through entry(Object)  
 	 */
 	@Test
 	public void testGetDocumentFromObjectEntry() {
@@ -826,6 +826,28 @@ public class DocumentTest {
 		assertEquals("B", ((Document)elem2).entry("value1").getVal());
 	}
 		
+	/*
+	 * Ensures that a an Integer[] instance is retrieved as a List of integers, even through entry(Object)  
+	 */
+	@Test
+	public void testGetFromIntegerArrayEntry() {
+		
+		IData iData = newIDataWithValue(new Integer[] {3,5});
+		Document topDoc = docFactory.wrap(iData);		
+		
+		Object retrievedDocs = topDoc.entry("value1").getVal();
+		
+		assertTrue(retrievedDocs instanceof List);
+		List<?> retrievedList = (List<?>) retrievedDocs;
+				
+		Object elem1 = retrievedList.get(0);		
+		assertTrue(elem1 instanceof Integer);
+		assertEquals(3, elem1);
+		
+		Object elem2 = retrievedList.get(1);		
+		assertTrue(elem2 instanceof Integer);
+		assertEquals(5, elem2);
+	}
 	
 	@Test
 	public void testPutConvertedIntegers() {
