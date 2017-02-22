@@ -824,23 +824,7 @@ public class DocumentTest {
 		assertTrue(elem2 instanceof Document);
 		assertEquals("B", ((Document)elem2).entry("value1").getVal());
 	}
-	
-	
-	
-	
-	@Test
-	public void testPutIntegerArray() {
-		Integer[] expected = {3, 1, 4};
-		Integer[] input = {3, 1, 4};
 		
-		Document document = docFactory.create();
-		document.entryOfIntegers("value1").put(input);
-
-		// confirm value has actually been added
-		IDataCursor cursor = document.getIData().getCursor();
-		Integer[] returnedValue = (Integer[]) IDataUtil.get(cursor, "value1");
-		assertArrayEquals(expected, returnedValue);
-	}
 	
 	@Test
 	public void testPutConvertedIntegers() {

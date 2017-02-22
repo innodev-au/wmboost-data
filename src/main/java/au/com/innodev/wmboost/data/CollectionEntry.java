@@ -138,17 +138,7 @@ public interface CollectionEntry<E> extends UnitEntryAccessor<List<E>>, EntryMut
 	 * @param value
 	 *            the new value to set for the entry
 	 */
-	void put(Iterable<? extends E> value);
-
-	/**
-	 * Sets the provided {@code value} as the entry's value
-	 * 
-	 * @param value
-	 *            the new value to set for the entry
-	 * 
-	 * @see #put(Iterable)
-	 */
-	void put(E[] value);
+	void put(Iterable<? extends E> value);	
 
 	/**
 	 * Converts the provided value and sets the converted value as the entry's

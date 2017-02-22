@@ -80,13 +80,7 @@ class CollectionEntryImpl<E> extends UnitBaseEntry<List<E>, Iterable<E>> impleme
 	@Override
 	public final void put(Iterable<? extends E> value) {	
 		super.doPut(value);
-	}
-	
-	@Override
-	public void put(E[] value) {
-		Preconditions.checkNotNull(value, "value cannot be null");
-		put(Arrays.asList(value));
-	}
+	}		
 
 	@Override
 	public void putConverted(Iterable<?> value) {
