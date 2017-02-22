@@ -15,14 +15,11 @@
  */
 package au.com.innodev.wmboost.data;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.springframework.core.convert.TypeDescriptor;
-
-import au.com.innodev.wmboost.data.internal.Preconditions;
 
 /**
  * Implementation of {@link CollectionEntry}.
@@ -73,7 +70,7 @@ class CollectionEntryImpl<E> extends UnitBaseEntry<List<E>, Iterable<E>> impleme
 		if (isAssigned()) {
 			return doGetVal();
 		} else {
-			return new CopyOnWriteArrayList<E>(defaultValue);
+			return (defaultValue!= null) ? new CopyOnWriteArrayList<E>(defaultValue) : null;
 		}
 	}
 	
