@@ -26,27 +26,27 @@ import au.com.innodev.wmboost.data.internal.Preconditions;
 /**
  * <p>Implementation of {@link EntryIterableResource}
  */
-class IDataEntryIterable implements EntryIterableResource {
+class DocEntryIterable implements EntryIterableResource {
 
-	private final IData iData;
-	private final List<IDataEntryIterator> iterators;
+	private final List<DocEntryIterator> iterators;
+	private final DocumentImpl document;
 
-	IDataEntryIterable(IData iData) {
-		Preconditions.checkNotNull(iData, "iData cannot be null");
-		this.iData = iData;
-		this.iterators = new LinkedList<IDataEntryIterator>();
+	DocEntryIterable(DocumentImpl document) {
+		Preconditions.checkNotNull(document, "document cannot be null");
+		this.document = document;
+		this.iterators = new LinkedList<DocEntryIterator>();
 	}
 	
 	@Override
 	public Iterator<KeyValue> iterator() {		
-		IDataEntryIterator iterator = new IDataEntryIterator(iData);
+		DocEntryIterator iterator = new DocEntryIterator(document);
 		iterators.add(iterator);
 		return iterator;
 	}
 
 	@Override
 	public void close() {
-		for (IDataEntryIterator iterator : iterators) {
+		for (DocEntryIterator iterator : iterators) {
 			iterator.close();
 		}
 	}

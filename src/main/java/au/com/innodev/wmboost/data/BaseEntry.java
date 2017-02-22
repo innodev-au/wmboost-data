@@ -113,7 +113,7 @@ class BaseEntry<A, M> {
 		if (normaliseOption.isDontNormalise()) {
 			normalised = convertedValue;
 		} else {
-			normalised = normaliseIdataToDocument(convertedValue);
+			normalised = EntryUtil.normaliseValueForGet(convertedValue, getConversionService());
 		}
 
 		return normalised;
@@ -126,7 +126,7 @@ class BaseEntry<A, M> {
 			normalised = getConvertedValue(value, mutatorType);
 		}
 		else if (! normaliseOption.isDontNormalise()) {			
-			normalised = normaliseDocumentToIData(value);
+			normalised = EntryUtil.normaliseValueForPut(value, getConversionService());
 		}
 		else {
 			normalised = value;
@@ -135,48 +135,6 @@ class BaseEntry<A, M> {
 		return normalised;
 	}
 
-	
-	private A normaliseIdataToDocument(A value) {
-		if (value instanceof IData) {
-			@SuppressWarnings("unchecked")
-			A normalised = (A) getConversionService().convert(value, TypeDescriptor.forObject(value), TypeDescriptor.valueOf(Document.class));
-			return normalised;
-		}		
-		if (value instanceof IData[]) {
-			@SuppressWarnings("unchecked")
-			A normalised = (A) getConversionService().convert(value, TypeDescriptor.forObject(value), getDocListType());
-			return normalised;
-		}
-		else {
-			return value;
-		}
-	}
-	
-	private Object normaliseDocumentToIData(Object value) {
-		if (value instanceof Document) {
-			return getConversionService().convert(value, TypeDescriptor.forObject(value), TypeDescriptor.valueOf(IData.class));
-		}
-		else if (value instanceof Document[]) {
-			return getConversionService().convert(value, TypeDescriptor.forObject(value), TypeDescriptor.valueOf(IData[].class));
-		}
-		else if (value instanceof Iterable<?>) {
-			if (CollectionUtil.areAllElementsOfType((Collection<?>) value, Document.class)) {
-				return getConversionService().convert(value, TypeDescriptor.forObject(value), TypeDescriptor.valueOf(IData[].class));
-			}
-			else {
-				return value;
-			}
-			 
-		}
-		else {
-			return value;
-		}
-	}
-
-	private TypeDescriptor getDocListType() {
-		TypeDescriptor docListType = TypeDescriptor.collection(List.class, TypeDescriptor.valueOf(Document.class));
-		return docListType;
-	}
 
 	protected final void deleteCurrentEntry(IDataCursor cursor) {
 		// Note: delete's return value indicates whether delete succeeded AND cursor not at end of document after invocation.

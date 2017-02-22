@@ -163,7 +163,7 @@ final class DocumentImpl implements Document {
 	
 	@Override
 	public EntryIterableResource getAllEntries() {
-		return new IDataEntryIterable(iData);
+		return new DocEntryIterable(this);
 	}
 	
 	@Override

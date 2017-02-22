@@ -19,7 +19,8 @@ import java.io.Closeable;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-import com.wm.data.IData;
+import org.springframework.core.convert.ConversionService;
+
 import com.wm.data.IDataCursor;
 
 import au.com.innodev.wmboost.data.internal.Preconditions;
@@ -27,13 +28,15 @@ import au.com.innodev.wmboost.data.internal.Preconditions;
 /**
  * An entry iterator
  */
-class IDataEntryIterator implements Iterator<KeyValue>, Closeable {
+class DocEntryIterator implements Iterator<KeyValue>, Closeable {
 
+	private final ConversionService conversionService;
 	private IDataCursor cursor;
 	
-	IDataEntryIterator(IData iData) {
-		Preconditions.checkNotNull(iData, "iData cannot be null");
-		this.cursor = iData.getCursor();
+	DocEntryIterator(DocumentImpl document) {
+		Preconditions.checkNotNull(document, "document cannot be null");
+		this.cursor = document.getIData().getCursor();
+		this.conversionService =  document.getInternalConversionService();
 	}
 
 	@Override
@@ -52,7 +55,7 @@ class IDataEntryIterator implements Iterator<KeyValue>, Closeable {
 		}
 		
 		String key = cursor.getKey();
-		Object value = cursor.getValue();
+		Object value = EntryUtil.normaliseValueForGet(cursor.getValue(), conversionService);
 		return new ImmutableKeyValue(key, value);
 	}
 
