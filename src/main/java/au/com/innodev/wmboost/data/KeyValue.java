@@ -18,8 +18,7 @@ package au.com.innodev.wmboost.data;
 /**
  * A key/value pair corresponding to a document entry
  */
-public interface KeyValue {
+public interface KeyValue extends HasKey {
 
-	String getKey();
 	Object getValue();
 }

@@ -90,7 +90,7 @@ package au.com.innodev.wmboost.data;
  * @param <T>
  *            type to treat the entry value as
  */
-public interface ItemEntry<T> {
+public interface ItemEntry<T> extends UnitEntryAccessor<T>, EntryMutator<T> {
 
 	/** -------- Accessors ------------------------------------------ */
 

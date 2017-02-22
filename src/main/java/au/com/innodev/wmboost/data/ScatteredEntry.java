@@ -23,7 +23,7 @@ import java.util.List;
  * @param <E>
  *            element type
  */
-public interface ScatteredEntry<E> {
+public interface ScatteredEntry<E> extends EntryMutator<Iterable<? extends E>> {
 	String getKey();
 
 	// TODO isAssigned? Doesn't have exact semantic meaning as for

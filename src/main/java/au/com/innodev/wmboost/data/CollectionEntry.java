@@ -42,7 +42,7 @@ import java.util.List;
  * @param <E>
  *            collection element type to treat the entry value as
  */
-public interface CollectionEntry<E> {
+public interface CollectionEntry<E> extends UnitEntryAccessor<List<E>>, EntryMutator<Iterable<? extends E>> {
 
 	/** -------- Accessors ------------------------------------------ */
 
