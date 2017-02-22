@@ -27,14 +27,14 @@ import au.com.innodev.wmboost.data.internal.Preconditions;
  * @param <A> Accessor type
  * @param <M> Mutator type
  */
-class MonoBaseEntry<A, M> extends BaseEntry<A,M> {
+class UnitBaseEntry<A, M> extends BaseEntry<A,M> {
 
 	private final TypeDescriptor accessorType;
 	// May be null, in which case no pre-conversion is done for 'put' 
 	private final TypeDescriptor mutatorType;
 	
 	
-	public MonoBaseEntry(DocumentImpl document, String key, TypeDescriptor accessorType, TypeDescriptor mutatorType, NormaliseOption normaliseOption) {
+	public UnitBaseEntry(DocumentImpl document, String key, TypeDescriptor accessorType, TypeDescriptor mutatorType, NormaliseOption normaliseOption) {
 		super(document, key, normaliseOption);
 		
 		this.accessorType = Preconditions.checkNotNull(accessorType);
