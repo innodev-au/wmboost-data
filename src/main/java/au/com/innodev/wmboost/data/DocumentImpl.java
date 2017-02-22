@@ -93,7 +93,7 @@ final class DocumentImpl implements Document {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-			int count = getNumRawEntries();
+			int count = getTotalEntries();
 
 			sb.append("Document with ");
 			sb.append(count);
@@ -122,7 +122,7 @@ final class DocumentImpl implements Document {
 	}
 
 	@Override
-	public int getNumRawEntries() {
+	public int getTotalEntries() {
 		int count = 0;
 		IDataCursorResource cursorRes = newCursorResource();
 		try {
@@ -162,7 +162,7 @@ final class DocumentImpl implements Document {
 	
 	
 	@Override
-	public DocEntryIterableResource getRawEntries() {
+	public EntryIterableResource getAllEntries() {
 		return new IDataEntryIterable(iData);
 	}
 	

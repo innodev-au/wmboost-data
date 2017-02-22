@@ -124,27 +124,29 @@ public interface Document {
 	boolean isEmpty();
 
 	/**
-	 * Returns the number of raw entries.
+	 * Returns the number of all entries.
 	 * <p>
 	 * If each key is unique in the document (which is the most common case),
 	 * then this method returns the same number as the size of elements in
-	 * {@link #getKeys()}. However, due to the fact that
-	 * {@link com.wm.data.IData} allows more than one entry to share the same
-	 * key, in those cases the returned value will be greater than through
 	 * {@link #getKeys()}.
+	 * <p>
+	 * However, for certain documents, such as deserialised XML content with
+	 * lists, more than one entry per key may exist. In those cases, the
+	 * returned value will be greater than the size of {@link #getKeys()}.
 	 * 
 	 * @return the number of entries in the document
 	 */
-	int getNumRawEntries();
+	int getTotalEntries();
 
 	/**
 	 * Returns all document entries.
 	 * <p>
 	 * If more than one entry exist for a particular key, multiple entries will
-	 * be returned for that key.
+	 * be returned for that key. The number of returned elements matches the one
+	 * given by {@link #getTotalEntries()}.
 	 * 
 	 * <p>
-	 * Note that the returned value is both an {@link java.lang.Iterable} and a 
+	 * Note that the returned value is both an {@link java.lang.Iterable} and a
 	 * {@link java.io.Closeable}. This means that the {@code close()} method
 	 * needs to be invoked after processing is complete.
 	 * 
@@ -156,7 +158,7 @@ public interface Document {
 	 * <em>Java 7 or Higher Example</em>
 	 * 
 	 * <pre>
-	 * try (DocEntryIterableResource entries = document.getEntries()) {
+	 * try (EntryIterableResource entries = document.getAllEntries()) {
 	 * 	for (KeyValue entry : entries) {
 	 * 		// do something
 	 * 	}
@@ -167,7 +169,7 @@ public interface Document {
 	 * <em>Java 6 Example</em>
 	 * 
 	 * <pre>
-	 * DocEntryIterableResource entries = document.getEntries();
+	 * EntryIterableResource entries = document.getAllEntries();
 	 * try {
 	 * 	while (entries.hasNext()) {
 	 * 		KeyValue entry = entries.next();
@@ -181,7 +183,7 @@ public interface Document {
 	 * 
 	 * @return an iterable resource containing all entries
 	 */
-	DocEntryIterableResource getRawEntries();
+	EntryIterableResource getAllEntries();
 
 	/**
 	 * Removes all document entries
@@ -592,7 +594,7 @@ public interface Document {
 	 * @see #scatteredEntry(String, Class)
 	 */
 	ScatteredEntry<Boolean> scatteredEntryOfBooleans(String key);
-	
+
 	/**
 	 * Returns a reference to a scattered entry of Integer instances.
 	 * 
@@ -603,7 +605,7 @@ public interface Document {
 	 * @see #scatteredEntry(String, Class)
 	 */
 	ScatteredEntry<Integer> scatteredEntryOfIntegers(String key);
-	
+
 	/**
 	 * Returns a reference to a scattered entry of Long instances.
 	 * 
@@ -614,7 +616,7 @@ public interface Document {
 	 * @see #scatteredEntry(String, Class)
 	 */
 	ScatteredEntry<Long> scatteredEntryOfLongs(String key);
-	
+
 	/**
 	 * Returns a reference to a scattered entry of Short instances.
 	 * 
@@ -625,7 +627,7 @@ public interface Document {
 	 * @see #scatteredEntry(String, Class)
 	 */
 	ScatteredEntry<Short> scatteredEntryOfShorts(String key);
-	
+
 	/**
 	 * Returns a reference to a scattered entry of Double instances.
 	 * 
@@ -636,7 +638,7 @@ public interface Document {
 	 * @see #scatteredEntry(String, Class)
 	 */
 	ScatteredEntry<Double> scatteredEntryOfDoubles(String key);
-	
+
 	/**
 	 * Returns a reference to a scattered entry of Float instances.
 	 * 
@@ -647,7 +649,7 @@ public interface Document {
 	 * @see #scatteredEntry(String, Class)
 	 */
 	ScatteredEntry<Float> scatteredEntryOfFloats(String key);
-	
+
 	/**
 	 * Returns a reference to a scattered entry of BigDecimal instances.
 	 * 
@@ -658,7 +660,7 @@ public interface Document {
 	 * @see #scatteredEntry(String, Class)
 	 */
 	ScatteredEntry<BigDecimal> scatteredEntryOfBigDecimal(String key);
-	
+
 	/**
 	 * Returns a reference to a scattered entry of strings.
 	 * 

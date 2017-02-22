@@ -24,6 +24,6 @@ import java.io.Closeable;
  * <p>In order to release internal resources once the iteration
  * is over, invoke the {@link #close() method}.
  */
-public interface DocEntryIterableResource extends Iterable<KeyValue>, Closeable {
+public interface EntryIterableResource extends Iterable<KeyValue>, Closeable {
 	void close();
 }

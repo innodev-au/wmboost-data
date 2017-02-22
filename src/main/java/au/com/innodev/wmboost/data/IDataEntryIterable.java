@@ -24,9 +24,9 @@ import com.wm.data.IData;
 import au.com.innodev.wmboost.data.internal.Preconditions;
 
 /**
- * <p>Implementation of {@link DocEntryIterableResource}
+ * <p>Implementation of {@link EntryIterableResource}
  */
-class IDataEntryIterable implements DocEntryIterableResource {
+class IDataEntryIterable implements EntryIterableResource {
 
 	private final IData iData;
 	private final List<IDataEntryIterator> iterators;

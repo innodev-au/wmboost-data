@@ -41,27 +41,27 @@ public class DocumentTest {
 		Document document = docFactory.create();
 
 		assertTrue(document.isEmpty());
-		assertEquals(document.getNumRawEntries(), 0);
+		assertEquals(document.getTotalEntries(), 0);
 		assertTrue(CollectionUtils.isEqualCollection(Lists.newArrayList(), document.getKeys()));
 
 		document.entry("val1").put("MyVal1");
 		assertFalse(document.isEmpty());
-		assertEquals(1, document.getNumRawEntries());
+		assertEquals(1, document.getTotalEntries());
 		assertTrue(CollectionUtils.isEqualCollection(Lists.newArrayList("val1"), document.getKeys()));
 
 		document.entry("val2").put("MyVal2");
 		assertFalse(document.isEmpty());
-		assertEquals(2, document.getNumRawEntries());
+		assertEquals(2, document.getTotalEntries());
 		assertTrue(CollectionUtils.isEqualCollection(Lists.newArrayList("val1", "val2"), document.getKeys()));
 
 		document.entry("val1").remove();
 		assertFalse(document.isEmpty());
-		assertEquals(1, document.getNumRawEntries());
+		assertEquals(1, document.getTotalEntries());
 		assertTrue(CollectionUtils.isEqualCollection(Lists.newArrayList("val2"), document.getKeys()));
 
 		document.entry("val2").remove();
 		assertTrue(document.isEmpty());
-		assertEquals(0, document.getNumRawEntries());
+		assertEquals(0, document.getTotalEntries());
 		assertTrue(CollectionUtils.isEqualCollection(Lists.newArrayList(), document.getKeys()));
 	}
 
@@ -1071,7 +1071,7 @@ public class DocumentTest {
 		document.entry("y").put("2");
 		document.entry("x").put("3");
 		
-		DocEntryIterableResource docEntriesResource = document.getRawEntries();
+		EntryIterableResource docEntriesResource = document.getAllEntries();
 	    try {
 			Iterator<KeyValue> it = docEntriesResource.iterator();
 			
@@ -1104,13 +1104,13 @@ public class DocumentTest {
 		document.entry("y").put("2");
 		document.entry("x").put("3");
 		
-		assertEquals(3, document.getNumRawEntries());
-		assertTrue(document.getRawEntries().iterator().hasNext());
+		assertEquals(3, document.getTotalEntries());
+		assertTrue(document.getAllEntries().iterator().hasNext());
 		
 		document.clear();
 		
-		assertEquals(0, document.getNumRawEntries());
-		assertFalse(document.getRawEntries().iterator().hasNext());
+		assertEquals(0, document.getTotalEntries());
+		assertFalse(document.getAllEntries().iterator().hasNext());
 	}
 	
 	
