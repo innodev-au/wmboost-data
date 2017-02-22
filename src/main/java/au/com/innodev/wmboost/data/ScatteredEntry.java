@@ -26,19 +26,25 @@ import java.util.List;
 public interface ScatteredEntry<E> extends EntryMutator<Iterable<? extends E>> {
 	String getKey();
 
-	// TODO isAssigned? Doesn't have exact semantic meaning as for
-	// CollectionEntry.
+	/**
+	 * Returns whether the key has been assigned to an entry the document. This
+	 * method is used to find out whether the document contains at least an entry with
+	 * that key.
+	 * 
+	 * @return true if the key has been assigned; false, otherwise
+	 */
+	boolean isAssigned();
+	
 	/**
 	 * Returns the values for the scattered entry.
+	 * <p>If there are no entries with the key, an empty collection is returned.
 	 * 
-	 * @return a non-null collection
+	 * @return a non-null list
 	 */
-	List<E> getValOrEmpty();
-
-	// TODO getNonEmptyVal ?
+	List<E> getValOrEmpty();	
 
 	/**
-	 * Replaces all values in the scattered entry with the provided ones.
+	 * Sets or replaces all values in the scattered entry with the provided ones.
 	 * 
 	 * @param values
 	 *            new values for the scattered entry
@@ -46,7 +52,7 @@ public interface ScatteredEntry<E> extends EntryMutator<Iterable<? extends E>> {
 	void put(Iterable<? extends E> values);
 
 	/**
-	 * Replaces all values in the scattered entry with the provided ones.
+	 * Sets or replaces all values in the scattered entry with the provided ones.
 	 * 
 	 * <p>
 	 * Use this method in cases where the value type is different to the type
@@ -75,8 +81,7 @@ public interface ScatteredEntry<E> extends EntryMutator<Iterable<? extends E>> {
 	void remove();
 
 	/**
-	 * Removes all values in the scattered entry. In other words, it removes all
-	 * entries with the key.
+	 * Removes all values in the scattered entry.
 	 * 
 	 * <p>
 	 * Note that type used for the entry (e.g. String) is not taken into account
