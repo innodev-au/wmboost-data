@@ -325,16 +325,30 @@ final class DocumentImpl implements Document {
 	
 	@Override
 	public ScatteredEntry<Object> scatteredEntry(String key) {
-		return scatteredEntry(key, Object.class);		
+		return new ScatteredEntryImpl<Object>(this, key, Object.class, MAY_NORMALISE);		
 	}
 	
 	@Override
 	public <T> ScatteredEntry<T> scatteredEntry(String key, Class<T> memberType) {		
-		return new ScatteredEntryImpl<T>(this, key, TypeDescriptor.valueOf(memberType), MAY_NORMALISE);
+		Preconditions.checkNotNull(memberType);
+		
+		if (Document.class.isAssignableFrom(memberType)) {
+			@SuppressWarnings("unchecked")
+			ScatteredEntry<T> entry = (ScatteredEntry<T>) scatteredEntryOfDocuments(key);
+			return entry;
+		}
+		else if (Object.class.equals(memberType)) {
+			@SuppressWarnings("unchecked")
+			ScatteredEntry<T> entry = (ScatteredEntry<T>) scatteredEntry(key);
+			return entry;
+		}
+		else {
+			return typedScatteredEntry(key, memberType);
+		}		
 	}
 	
 	private <T> ScatteredEntry<T> typedScatteredEntry(String key, Class<T> memberType) {		
-		return new ScatteredEntryImpl<T>(this, key, TypeDescriptor.valueOf(memberType), DONT_NORMALISE);
+		return new ScatteredEntryImpl<T>(this, key, memberType, DONT_NORMALISE);
 	}
 	
 	@Override

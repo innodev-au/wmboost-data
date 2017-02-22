@@ -62,6 +62,7 @@ public class ScatteredEntryTest {
 		assertEquals("c", actualList.get(2).entry("value1").getVal());
 	}
 	
+	
 	@Test
 	public void testPut() {
 		List<String> list = Lists.newArrayList("Hello", "World");

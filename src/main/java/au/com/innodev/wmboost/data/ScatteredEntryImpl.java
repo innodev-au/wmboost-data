@@ -37,9 +37,9 @@ class ScatteredEntryImpl<E> extends BaseEntry<E, E> implements ScatteredEntry<E>
 		this.mutatorType = mutatorType;
 	}
 
-	public ScatteredEntryImpl(DocumentImpl document, String key, TypeDescriptor typeSpec,
+	public ScatteredEntryImpl(DocumentImpl document, String key, Class<?> memberType,
 			NormaliseOption normaliseOption) {
-		this(document, key, typeSpec, null, normaliseOption);
+		this(document, key, TypeDescriptor.valueOf(memberType), null, normaliseOption);
 	}
 
 	@Override

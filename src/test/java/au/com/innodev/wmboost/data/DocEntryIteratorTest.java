@@ -39,7 +39,7 @@ public class DocEntryIteratorTest {
 		KeyValue keyValue1 = it.next();
 		assertEquals(keyValue1.getKey(), "intArray");
 		Object value1 = keyValue1.getValue();
-		assertTrue(List.class.isInstance(value1));
+		assertTrue(value1 instanceof List);
 		assertEquals(3, ((List<?>)value1).get(0));
 		assertEquals(5, ((List<?>)value1).get(1));
 		
@@ -47,14 +47,14 @@ public class DocEntryIteratorTest {
 		KeyValue keyValue2 = it.next();
 		assertEquals(keyValue2.getKey(), "iDataArray");
 		Object value2 = keyValue2.getValue();
-		assertTrue(List.class.isInstance(value2));
+		assertTrue(value2 instanceof List);
 		
 		Object nestedDoc1 = ((List<?>)value2).get(0);
-		assertTrue(Document.class.isInstance(nestedDoc1));
+		assertTrue(nestedDoc1 instanceof Document);
 		assertEquals("nested1", ((Document)nestedDoc1).entry("value1").getVal());
 		
 		Object nestedDoc2 = ((List<?>)value2).get(1);
-		assertTrue(Document.class.isInstance(nestedDoc2));
+		assertTrue(nestedDoc2 instanceof Document);
 		assertEquals("nested2", ((Document)nestedDoc2).entry("value1").getVal());
 		
 		assertFalse(it.hasNext());
