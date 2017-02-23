@@ -19,8 +19,6 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.wm.data.IData;
-
 import au.com.innodev.wmboost.data.internal.Preconditions;
 
 /**
