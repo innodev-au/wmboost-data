@@ -20,10 +20,10 @@ package au.com.innodev.wmboost.data;
  */
 public enum RemoveEntryOption {
 
-	/** Throws an exception if the entry can't be removed, such as when the entry doesn't actually exist */
+	/** Throws an exception if the entry being removed doesn't exist */
 	STRICT, 
 	
-	/** Attempts to remove the entry, but if it doesn't exist or can't be removed for some other reason, it doesn't throw an exception */
+	/** Attempts to remove the entry, but if it doesn't exist, no exception is thrown */
 	LENIENT;
 	
 }
