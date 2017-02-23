@@ -29,7 +29,7 @@ public static final void addNumToList(IData pipeline) throws ServiceException {
   Document pipeDoc = Documents.wrap(pipeline);
 
   int numToAdd = pipeDoc.entryOfInteger("numToAdd").getNonNullVal();
-  List<Integer> originalList = pipeDoc.entryOfIntegers("originalList").getVal();
+  List<Integer> originalList = pipeDoc.entryOfIntegers("originalList").getNonNullVal();
 
   List<Integer> newList = new ArrayList<>(originalList.size());
 
