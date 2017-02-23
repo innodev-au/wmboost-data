@@ -49,7 +49,7 @@ class DefaultDocumentFactory implements DocumentFactory {
 	@Override
 	public Document wrap(IData iData) {
 		Preconditions.checkNotNull(iData, "iData cannot be null");
-		return new DocumentImpl(iData, config);
+		return new DocumentImpl(iData, this, config);
 	}
 
 	private ConversionService createInternalConversionService(ConversionService baseConversionService) {

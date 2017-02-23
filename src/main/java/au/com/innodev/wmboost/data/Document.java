@@ -297,7 +297,7 @@ public interface Document {
 	 * 
 	 * @see #entry(String, Class)
 	 */
-	ItemEntry<Document> entryOfDocument(String key);
+	NestedDocEntry entryOfDocument(String key);
 
 	/**
 	 * Returns a reference to an entry with a value treated as a {@link String}.

@@ -38,12 +38,14 @@ import au.com.innodev.wmboost.data.internal.Preconditions;
  */
 final class DocumentImpl implements Document {
 
-	private final DocumentConfig config;
+	private final DocumentFactory factory;
 	private final IData iData;
+	private final ConversionService internalConversionService;
 
-	DocumentImpl(IData document, DocumentConfig config) {
+	DocumentImpl(IData document, DocumentFactory factory, DocumentConfig config) {
+		this.factory = factory;
 		this.iData = Preconditions.checkNotNull(document);
-		this.config = Preconditions.checkNotNull(config);
+		this.internalConversionService = config.getInternalConversionService();
 	}
 
 	IDataCursorResource newCursorResource() {
@@ -87,7 +89,7 @@ final class DocumentImpl implements Document {
 	}
 
 	ConversionService getInternalConversionService() {
-		return config.getInternalConversionService();
+		return internalConversionService;
 	}
 
 	@Override
@@ -202,9 +204,8 @@ final class DocumentImpl implements Document {
 		
 	}
 	
-	public ItemEntry<Document> entryOfDocument(String key) {
-		return new ItemEntryImpl<Document>(this, key, TypeDescriptor.valueOf(Document.class),
-				TypeDescriptor.valueOf(IData.class), DONT_NORMALISE);
+	public NestedDocEntry entryOfDocument(String key) {
+		return new NestedDocEntryImpl(this, factory, key);
 	}
 	
 	private <T> ItemEntry<T> specificTypeEntry(String key, Class<T> type) {
