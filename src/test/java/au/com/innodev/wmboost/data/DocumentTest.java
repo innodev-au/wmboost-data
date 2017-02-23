@@ -498,14 +498,14 @@ public class DocumentTest {
 	}
 	
 	@Test
-	public void testStringToDate() {
+	public void testStringToLegacyDate() {
 		String strValue = "2017-01-01T00:00:00.000Z";
 		Date expectedDate = DateTimeUtils.toDate(Instant.parse(strValue));
 		
 		IData idata = newIDataWithValue(strValue);
 
 		Document document = docFactory.wrap(idata);
-		assertEquals(expectedDate, document.entry("value1", Date.class).getValOrNull());
+		assertEquals(expectedDate, document.entryOfLegacyDate("value1").getValOrNull());
 	}
 
 	

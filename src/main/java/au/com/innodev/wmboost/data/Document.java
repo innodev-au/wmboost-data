@@ -17,6 +17,7 @@ package au.com.innodev.wmboost.data;
 
 import java.math.BigDecimal;
 import java.util.Collection;
+import java.util.Date;
 
 import com.wm.data.IData;
 
@@ -398,6 +399,21 @@ public interface Document {
 	 */
 	ItemEntry<BigDecimal> entryOfBigDecimal(String key);
 
+	/**
+	 * Returns a reference to an entry with a value treated as a {@link Date}.
+	 * <p>
+	 * As of 2017, webMethods still uses this class for dates but it's legacy as
+	 * of Java 8.
+	 * 
+	 * @param key
+	 *            key that identifies the document entry
+	 * 
+	 * @return an entry reference
+	 * 
+	 * @see #entry(String, Class)
+	 */
+	ItemEntry<Date> entryOfLegacyDate(String key);
+
 	/*
 	 * ---------- Collection Entry Section -------------------------------------
 	 */
@@ -569,6 +585,22 @@ public interface Document {
 	 */
 	CollectionEntry<BigDecimal> entryOfBigDecimals(String key);
 
+	/**
+	 * Returns a reference to an entry with a value treated as a collection of
+	 * {@link Date}.
+	 * <p>
+	 * As of 2017, webMethods still uses this class for dates but it's legacy as
+	 * of Java 8.
+	 * 
+	 * @param key
+	 *            key that identifies the document entry
+	 * 
+	 * @return an entry reference
+	 * 
+	 * @see #entry(String, Class)
+	 */
+	CollectionEntry<Date> entryOfLegacyDates(String key);
+
 	/*
 	 * ---------- Scattered Entry Section ----------------
 	 * 
@@ -686,6 +718,20 @@ public interface Document {
 	 * @see #scatteredEntry(String, Class)
 	 */
 	ScatteredEntry<BigDecimal> scatteredEntryOfBigDecimal(String key);
+
+	/**
+	 * Returns a reference to a scattered entry of {@link Date} instances.
+	 * <p>
+	 * As of 2017, webMethods still uses this class for dates but it's legacy as
+	 * of Java 8.
+	 * 
+	 * @param key
+	 *            key that identifies the scattered entry
+	 * @return a scattered entry reference
+	 * 
+	 * @see #scatteredEntry(String, Class)
+	 */
+	ScatteredEntry<Date> scatteredEntryOfLegacyDates(String key);
 
 	/**
 	 * Returns a reference to a scattered entry of {@link String} instances.

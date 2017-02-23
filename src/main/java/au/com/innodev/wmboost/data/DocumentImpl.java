@@ -21,6 +21,7 @@ import static au.com.innodev.wmboost.data.NormaliseOption.MAY_NORMALISE;
 import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -237,6 +238,11 @@ final class DocumentImpl implements Document {
 	}
 	
 	@Override
+	public ItemEntry<Float> entryOfFloat(String key) {
+		return specificTypeEntry(key, Float.class);
+	}
+	
+	@Override
 	public ItemEntry<Double> entryOfDouble(String key) {
 		return specificTypeEntry(key, Double.class);
 	}
@@ -247,10 +253,10 @@ final class DocumentImpl implements Document {
 	}
 	
 	@Override
-	public ItemEntry<Float> entryOfFloat(String key) {
-		return specificTypeEntry(key, Float.class);
+	public ItemEntry<Date> entryOfLegacyDate(String key) {
+		return specificTypeEntry(key, Date.class);
 	}
-
+	
 	public <E> CollectionEntry<E> entryOfCollection(String key, Class<E> memberType) {
 		
 		if (Document.class.isAssignableFrom(memberType)) {
@@ -310,6 +316,11 @@ final class DocumentImpl implements Document {
 	}
 	
 	@Override
+	public CollectionEntry<Float> entryOfFloats(String key) {
+		return entryOfTypedCollection(key, Float.class);		
+	}	
+	
+	@Override
 	public CollectionEntry<Double> entryOfDoubles(String key) {
 		return entryOfTypedCollection(key, Double.class);		
 	}
@@ -320,9 +331,9 @@ final class DocumentImpl implements Document {
 	}
 	
 	@Override
-	public CollectionEntry<Float> entryOfFloats(String key) {
-		return entryOfTypedCollection(key, Float.class);		
-	}	
+	public CollectionEntry<Date> entryOfLegacyDates(String key) {
+		return entryOfCollection(key, Date.class);		
+	}
 	
 	@Override
 	public ScatteredEntry<Object> scatteredEntry(String key) {
@@ -395,6 +406,10 @@ final class DocumentImpl implements Document {
 		return typedScatteredEntry(key, BigDecimal.class);
 	}
 	
+	@Override
+	public ScatteredEntry<Date> scatteredEntryOfLegacyDates(String key) {
+		return typedScatteredEntry(key, Date.class);
+	}
 	
 	@Override
 	public ScatteredEntry<Document> scatteredEntryOfDocuments(String key) {
