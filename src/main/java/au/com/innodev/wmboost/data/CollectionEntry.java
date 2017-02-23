@@ -18,7 +18,6 @@ package au.com.innodev.wmboost.data;
 import java.util.List;
 
 /**
- * <p>
  * A reference to a unit entry whose value is a collection. Allows access and
  * modification of the entry identified by the key.
  * <p>
@@ -58,12 +57,33 @@ public interface CollectionEntry<E>
 	boolean isAssigned();
 
 	/**
-	 * @see ItemEntry#getVal()
+	 * Returns the <em>value</em> component of an existing entry.
+	 * <p>
+	 * Use this method when you expect an entry with the key <em>to exist</em>.
+	 * <p>
+	 * If an entry with the key doesn't exist, an exception is thrown.
+	 * 
+	 * @return entry value, possibly {@code null}
+	 * @throws InexistentEntryException
+	 *             if there's no entry associated with the key
 	 */
 	List<E> getVal() throws InexistentEntryException;
 
 	/**
-	 * @see ItemEntry#getNonNullVal()
+	 * Returns the non-null <em>value</em> component of an existing entry.
+	 * <p>
+	 * Use this method when you expect an entry with the key <em>to exist</em>
+	 * and also <em>to have a non-null value</em>.
+	 * <p>
+	 * If an entry with the key doesn't exist or if it contains a null value, an
+	 * exception is thrown.
+	 * 
+	 * @return entry value, never {@code null}
+	 * @throws InexistentEntryException
+	 *             if there's no entry associated with the key
+	 * @throws UnexpectedEntryValueException
+	 *             if the entry contains a null value
+	 * @see #getVal()
 	 */
 	List<E> getNonNullVal() throws InexistentEntryException, UnexpectedEntryValueException;
 
