@@ -75,7 +75,7 @@ public interface CollectionEntry<E>
 	 * collection</em>. If any of those expectations isn't met, an exception is
 	 * thrown.
 	 * 
-	 * @return entry value, never {@null} and never an empty list
+	 * @return entry value, never {@code null} and never an empty list
 	 * @throws InexistentEntryException
 	 *             if there's no entry associated with the key
 	 * @throws UnexpectedEntryValueException

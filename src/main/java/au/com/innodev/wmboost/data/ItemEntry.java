@@ -111,7 +111,7 @@ public interface ItemEntry<T> extends BaseUnitEntry, UnitEntryAccessor<T>, UnitE
 	 * <p>
 	 * If an entry with the key doesn't exist, an exception is thrown.
 	 * 
-	 * @return entry value, possibly {@ null}
+	 * @return entry value, possibly {@code null}
 	 * @throws InexistentEntryException
 	 *             if there's no entry associated with the key
 	 */
