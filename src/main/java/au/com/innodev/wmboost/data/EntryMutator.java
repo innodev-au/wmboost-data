@@ -1,12 +1,12 @@
 package au.com.innodev.wmboost.data;
 
 /**
- * Changes an entry
+ * Changes an entry.
  */
-interface EntryMutator<T> extends HasKey {
+interface EntryMutator<T> {
 
 	void put(T value);	
-	
+		
 	void remove() throws InexistentEntryException;
 	
 	void remove(RemoveEntryOption removeOption) throws InexistentEntryException;

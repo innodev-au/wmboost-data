@@ -21,7 +21,8 @@ import java.util.Collection;
 import com.wm.data.IData;
 
 /**
- * Represents a document that contains key/value entries.
+ * Represents a document that contains key/value entries, as an abstraction of
+ * webMethods' {@link IData}.
  * 
  * <p>
  * Allows easy access and manipulation of an {@link IData} document. It provides
@@ -58,7 +59,7 @@ import com.wm.data.IData;
  * <li>It's possible to return the result as an integer as shown in the example.
  * If one wanted to return a string, then one would call
  * {@code pipelineDoc.entryOfString("result").putConverted(result)} and the
- * integer value would be automatically converted to string.
+ * integer value would be automatically converted to String.
  * </ul>
  * 
  * <h3>Automatic Conversion</h3>
@@ -89,7 +90,8 @@ import com.wm.data.IData;
  * This interface is not meant to be implemented outside this library.
  * 
  * <p>
- * Thread-safety is not guaranteed by implementations.
+ * Thread-safety is not guaranteed by implementations of this interface and the
+ * associated entry interfaces.
  * 
  * @see au.com.innodev.wmboost.data.preset.Documents
  */
@@ -186,13 +188,13 @@ public interface Document {
 	EntryIterableResource getAllEntries();
 
 	/**
-	 * Returns unit entries. If multiple entries exist for a given key, only one
-	 * entry is returned.
+	 * Returns unit entries. If multiple entries exist for a given key, only the
+	 * first with that key entry is returned.
 	 * <p>
 	 * Note that this method is consistent with {@link #entry(String, Class)}
 	 * and its variations.
 	 * <p>
-	 * The number of returned elements is the same as the size of {@link Document#getKeys()}.
+	 * The number of returned elements is the same as the size of
 	 * {@link #getKeys()}.
 	 * 
 	 * @return unit entries
@@ -233,17 +235,21 @@ public interface Document {
 	 * Use this method for types for which convenience methods haven't been
 	 * defined. {@link #entryOfString(String)} is recommended for string
 	 * entries. However, this method is suitable for types such as
-	 * <em>enums</em>, special types such as AtomicInteger and domain objects
-	 * (e.g. a Client object).
+	 * <em>enums</em>, special types such as AtomicInteger and File. Domain
+	 * objects (e.g. a Client object) are also supported but no out-of-the-box
+	 * conversion is provided for them.
 	 * <p>
-	 * For example, to retrieve automatically-converted value of a custom enum
-	 * {@code custom.Day}, you may use the following code:
+	 * For example, to retrieve an automatically-converted value of a custom
+	 * Enum such as {@link java.math.RoundingMode}, you may use the following
+	 * code:
 	 * 
 	 * <pre>
-	 * custom.Day day = document.entry("dayOfWeek", custom.Day.class);
+	 *  import java.math.RoundingMode;
+	 *	//...
+	 *	RoundingMode mode = document.entry("roundingMode", RoundingMode.class).getNonNullVal();
 	 * </pre>
 	 * <p>
-	 * Note that this and similar methods operate on a <em>single entry</em>. If
+	 * Note that this and similar methods operate on a <em>unit entry</em>. If
 	 * there were multiple entries associated to the key, only <em>the first
 	 * one</em> would be referenced. This behaviour supports typical use cases;
 	 * for situations where multiple entries for a key may exist and processing
@@ -263,8 +269,9 @@ public interface Document {
 	<T> ItemEntry<T> entry(String key, Class<T> type);
 
 	/**
-	 * Returns a reference to an entry. Use it when you don't know the type
-	 * beforehand or for other special cases.
+	 * Returns a reference to an entry. Use it when you don't know have an
+	 * assumption about the type of the entry's value or for other special
+	 * cases.
 	 * 
 	 * @param key
 	 *            key that identifies the document entry
@@ -405,7 +412,7 @@ public interface Document {
 	 * {@code type} instances. If it isn't, a conversion is performed. If that
 	 * conversion fails, an exception is thrown.
 	 * <p>
-	 * Note that this method operates on a <em>single entry</em> (albeit that
+	 * Note that this method operates on a <em>unit entry</em> (albeit that
 	 * entry's value is a collection). If there were multiple entries associated
 	 * to the key, only the <em>first one</em> would be referenced. This
 	 * behaviour supports typical use cases; for situations where multiple
@@ -428,7 +435,8 @@ public interface Document {
 
 	/**
 	 * Returns a reference to an entry with a value treated as a collection of
-	 * objects.
+	 * objects. Use it when you don't know have an assumption about the type of
+	 * the elements in the entry's value or for other special cases.
 	 * 
 	 * @param key
 	 *            key that identifies the document entry
@@ -567,23 +575,14 @@ public interface Document {
 	 */
 
 	/**
-	 * Returns a reference to a scattered entry.
-	 * 
-	 * @param key
-	 *            key that identifies the scattered entry
-	 * @return a scattered entry reference
-	 */
-	ScatteredEntry<Object> scatteredEntry(String key);
-
-	/**
 	 * /** Returns a reference to a scattered entry.
 	 * <p>
 	 * Through this reference, the scattered entry value can be retrieved, set
 	 * or removed.
 	 * <p>
-	 * As opposed to {@link #entry(String, Class)}, a scattered entry returns
-	 * <em>all</em> values associated wit a key, even if its shared acros
-	 * multiple entries.
+	 * As opposed to {@link #entry(String, Class)}, a scattered entry handles
+	 * <em>all</em> values associated wit a key, even if the key is shared
+	 * across multiple entries.
 	 * <p>
 	 * When a value is returned, all of the elements are checked to be of type
 	 * {@code T}. If it isn't, a conversion is performed. If that conversion
@@ -594,12 +593,25 @@ public interface Document {
 	 * @return a scattered entry reference
 	 * @param memberType
 	 *            type of each individual entry that makes up a scattered entry
+	 * @param <E>
+	 *            memberType
 	 * @return
 	 */
-	<T> ScatteredEntry<T> scatteredEntry(String key, Class<T> memberType);
+	<E> ScatteredEntry<E> scatteredEntry(String key, Class<E> memberType);
 
 	/**
-	 * Returns a reference to a scattered entry of Boolean instances.
+	 * Returns a reference to a scattered entry. Use it when you don't know have
+	 * an assumption about the type of the entry's value or for other special
+	 * cases.
+	 * 
+	 * @param key
+	 *            key that identifies the scattered entry
+	 * @return a scattered entry reference
+	 */
+	ScatteredEntry<Object> scatteredEntry(String key);
+
+	/**
+	 * Returns a reference to a scattered entry of {@link Boolean} instances.
 	 * 
 	 * @param key
 	 *            key that identifies the scattered entry
@@ -610,7 +622,7 @@ public interface Document {
 	ScatteredEntry<Boolean> scatteredEntryOfBooleans(String key);
 
 	/**
-	 * Returns a reference to a scattered entry of Integer instances.
+	 * Returns a reference to a scattered entry of {@link Integer} instances.
 	 * 
 	 * @param key
 	 *            key that identifies the scattered entry
@@ -621,7 +633,7 @@ public interface Document {
 	ScatteredEntry<Integer> scatteredEntryOfIntegers(String key);
 
 	/**
-	 * Returns a reference to a scattered entry of Long instances.
+	 * Returns a reference to a scattered entry of {@link Long} instances.
 	 * 
 	 * @param key
 	 *            key that identifies the scattered entry
@@ -632,7 +644,7 @@ public interface Document {
 	ScatteredEntry<Long> scatteredEntryOfLongs(String key);
 
 	/**
-	 * Returns a reference to a scattered entry of Short instances.
+	 * Returns a reference to a scattered entry of {@link Short} instances.
 	 * 
 	 * @param key
 	 *            key that identifies the scattered entry
@@ -643,7 +655,7 @@ public interface Document {
 	ScatteredEntry<Short> scatteredEntryOfShorts(String key);
 
 	/**
-	 * Returns a reference to a scattered entry of Double instances.
+	 * Returns a reference to a scattered entry of {@link Double} instances.
 	 * 
 	 * @param key
 	 *            key that identifies the scattered entry
@@ -654,7 +666,7 @@ public interface Document {
 	ScatteredEntry<Double> scatteredEntryOfDoubles(String key);
 
 	/**
-	 * Returns a reference to a scattered entry of Float instances.
+	 * Returns a reference to a scattered entry of {@link Float} instances.
 	 * 
 	 * @param key
 	 *            key that identifies the scattered entry
@@ -665,7 +677,7 @@ public interface Document {
 	ScatteredEntry<Float> scatteredEntryOfFloats(String key);
 
 	/**
-	 * Returns a reference to a scattered entry of BigDecimal instances.
+	 * Returns a reference to a scattered entry of {@link BigDecimal} instances.
 	 * 
 	 * @param key
 	 *            key that identifies the scattered entry
@@ -676,7 +688,7 @@ public interface Document {
 	ScatteredEntry<BigDecimal> scatteredEntryOfBigDecimal(String key);
 
 	/**
-	 * Returns a reference to a scattered entry of strings.
+	 * Returns a reference to a scattered entry of {@link String} instances.
 	 * 
 	 * @param key
 	 *            key that identifies the scattered entry

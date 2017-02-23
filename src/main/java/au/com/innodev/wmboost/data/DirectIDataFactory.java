@@ -20,14 +20,14 @@ import com.wm.data.IData;
 import au.com.innodev.wmboost.data.preset.DirectIDataFactories;
 
 /**
- * <p>Base factory for the creation of {@link com.wm.data.IData} instances. Subclasses instantiate
- * a specific {@link com.wm.data.IData} implementation (subclass).
+ * <p>Factory for the creation of {@link com.wm.data.IData} instances. Subclasses instantiate
+ * a specific webMethods {@link com.wm.data.IData} implementation.
  * 
  * <p>Use {@link DirectIDataFactories} for pre-defined implementations. You may
- * also provide a new implementation if you need a specific {@link com.wm.data.IData} implementation
+ * also provide a new implementation if you need a specific webMethods {@link com.wm.data.IData} implementation
  * to be created when manipulating {@link Document} content.
  * 
- * <p>Note that this factory differs from {@link com.wm.data.IDataFactory}.
+ * <p>Note that this factory differs from {@link com.wm.data.IDataFactory} provided by webMethods.
  *
  */
 public interface DirectIDataFactory {

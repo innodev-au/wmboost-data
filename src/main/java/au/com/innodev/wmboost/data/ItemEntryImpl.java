@@ -22,7 +22,7 @@ import org.springframework.core.convert.TypeDescriptor;
  *
  * @param <T> value type
  */
-class ItemEntryImpl<T> extends UnitBaseEntry<T,T> implements ItemEntry<T> {
+class ItemEntryImpl<T> extends BaseUnitEntryImpl<T,T> implements ItemEntry<T> {
 
 	public ItemEntryImpl(DocumentImpl document, String key, TypeDescriptor accessorType, TypeDescriptor mutatorType, NormaliseOption normaliseOption) {
 		super(document, key, accessorType, mutatorType, normaliseOption);

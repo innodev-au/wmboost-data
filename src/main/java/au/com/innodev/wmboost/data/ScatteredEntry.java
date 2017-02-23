@@ -19,32 +19,33 @@ import java.util.List;
 
 /**
  * Allows access and modification of a group of entries that share the same key.
- *
+ * <p>
+ * Use it in cases where you need to process all entries, such as deserialised
+ * XML list. For most common uses cases, use a unit entry, i.e., {@link ItemEntry}
+ * or {@link CollectionEntry}.
+ * 
  * @param <E>
  *            element type
  */
-public interface ScatteredEntry<E> extends EntryMutator<Iterable<? extends E>> {
+public interface ScatteredEntry<E> extends HasKey, EntryMutator<Iterable<? extends E>> {
+	
+	/**
+	 * @see HasKey#getKey()
+	 */
 	String getKey();
 
 	/**
-	 * Returns whether the key has been assigned to an entry the document. This
-	 * method is used to find out whether the document contains at least an entry with
-	 * that key.
-	 * 
-	 * @return true if the key has been assigned; false, otherwise
-	 */
-	boolean isAssigned();
-	
-	/**
 	 * Returns the values for the scattered entry.
-	 * <p>If there are no entries with the key, an empty collection is returned.
+	 * <p>
+	 * If there are no entries with the key, an empty collection is returned.
 	 * 
 	 * @return a non-null list
 	 */
-	List<E> getValOrEmpty();	
+	List<E> getValOrEmpty();
 
 	/**
-	 * Sets or replaces all values in the scattered entry with the provided ones.
+	 * Sets or replaces all values in the scattered entry with the provided
+	 * ones.
 	 * 
 	 * @param values
 	 *            new values for the scattered entry
@@ -52,7 +53,8 @@ public interface ScatteredEntry<E> extends EntryMutator<Iterable<? extends E>> {
 	void put(Iterable<? extends E> values);
 
 	/**
-	 * Sets or replaces all values in the scattered entry with the provided ones.
+	 * Sets or replaces all values in the scattered entry with the provided
+	 * ones.
 	 * 
 	 * <p>
 	 * Use this method in cases where the value type is different to the type

@@ -16,16 +16,16 @@
 package au.com.innodev.wmboost.data;
 
 /**
- * A reference to a document entry identified by a key. Allows access and
- * modification of document entry.
+ * A reference to a unit entry whose value is a single item. Allows access and
+ * modification of the entry identified by the key.
  * <p>
- * It's suitable when an entry's value corresponds to a scalar, i.e., a
- * single-element. A {@link CollectionEntry} instance is used for an entry that
- * contains a collection of values.
+ * It's suitable when an entry's value corresponds to a single item, such as a
+ * string. In contrast, a {@link CollectionEntry} is used for an entry that
+ * contains a collection of values, such as a string list.
  * 
  * <h3>Retrieving a Value</h3>
  * <p>
- * The getters allow retrieving an entry's value. A value of type {@code T} is
+ * The <em>get</em> methods allow retrieving an entry's value. A value of type {@code T} is
  * returned. If the original value is of type {@code T}, it is returned directly
  * and the consuming code doesn't need to cast it. If the type is different, a
  * conversion is attempted. For example, you may use an integer entry to
@@ -82,37 +82,30 @@ package au.com.innodev.wmboost.data;
  * not very common), only the first entry is removed.
  * <h3>Other considerations</h3>
  * <p>
- * This class manipulates only the first entry identified by the key. This is
- * the norm in most uses cases. In rare situations where multiple entries for a
- * key may exist and processing is required for all those entries, use of
- * {@link ScatteredEntry} would be more appropriate.
+ * An instance manipulates a unit entry, that is, the first entry identified by
+ * the key. This is the norm in most uses cases. In rare situations where
+ * multiple entries for a key may exist and processing is required for all of
+ * those entries, use of {@link ScatteredEntry} would be more appropriate.
  *
  * @param <T>
  *            type to treat the entry value as
  */
-public interface ItemEntry<T> extends UnitEntryAccessor<T>, EntryMutator<T> {
+public interface ItemEntry<T> extends BaseUnitEntry, UnitEntryAccessor<T>, UnitEntryMutator<T> {
 
 	/** -------- Accessors ------------------------------------------ */
 
 	/**
-	 * Returns the key associated to the entry being referenced
-	 * 
-	 * @return key associated to the entry
+	 * @see HasKey#getKey()
 	 */
 	String getKey();
 
 	/**
-	 * Returns whether the key has been assigned to an entry the document. This
-	 * method is used to find out whether the document contains an entry with
-	 * that key.
-	 * 
-	 * @return true if the key has been assigned; false, otherwise
+	 * @see BaseUnitEntry#isAssigned()
 	 */
 	boolean isAssigned();
 
 	/**
-	 * Returns the <em>value</em> component of the key/value entry in the
-	 * document.
+	 * Returns the <em>value</em> component of the key/value entry.
 	 * <p>
 	 * Use this method when you expect an entry with the key <em>to exist</em>.
 	 * <p>
@@ -211,10 +204,9 @@ public interface ItemEntry<T> extends UnitEntryAccessor<T>, EntryMutator<T> {
 	void putConverted(Object value);
 
 	/**
-	 * Deletes the entry identified by the element’s key in strict mode.
+	 * Deletes the entry in strict mode.
 	 * 
 	 * @see #remove(RemoveEntryOption)
-	 * 
 	 */
 	void remove() throws InexistentEntryException;
 
@@ -227,8 +219,7 @@ public interface ItemEntry<T> extends UnitEntryAccessor<T>, EntryMutator<T> {
 	 * 
 	 * <p>
 	 * Because this is a unit entry reference, if multiple elements exist in the
-	 * IData with the given key, only the first occurrence of the key is
-	 * deleted.
+	 * document for the given key, only the first entry is deleted.
 	 * 
 	 * @param removeOption
 	 *            strict or lenient removal option

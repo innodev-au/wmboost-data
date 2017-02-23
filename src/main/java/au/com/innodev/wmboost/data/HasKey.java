@@ -1,10 +1,15 @@
 package au.com.innodev.wmboost.data;
 
 /**
- * An interface for entries, which have got a key.
+ * An interface for entries, which have a key.
  */
-interface HasKey {
-
+public interface HasKey {
+	
+	/**
+	 * Returns the key associated to the entry being referenced
+	 * 
+	 * @return key associated to the entry
+	 */
 	String getKey();
 	
 }

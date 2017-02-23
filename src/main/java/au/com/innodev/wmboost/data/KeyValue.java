@@ -20,5 +20,10 @@ package au.com.innodev.wmboost.data;
  */
 public interface KeyValue extends HasKey {
 
+	/**
+	 * Retrieves the value component of the key/value pair
+	 * 
+	 * @return value component of key/value pair
+	 */
 	Object getValue();
 }

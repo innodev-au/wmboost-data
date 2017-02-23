@@ -3,10 +3,9 @@ package au.com.innodev.wmboost.data;
 /**
  * Views a unit entry
  */
-interface UnitEntryAccessor<T> extends HasKey {
+interface UnitEntryAccessor<T> {
 
-	boolean isAssigned();
-	
 	T getVal() throws InexistentEntryException;
 
+	T getNonNullVal() throws InexistentEntryException, UnexpectedEntryValueException;
 }

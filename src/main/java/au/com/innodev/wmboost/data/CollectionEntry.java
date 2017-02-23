@@ -19,52 +19,46 @@ import java.util.List;
 
 /**
  * <p>
- * A reference to a document entry identified by a key and whose value is a
- * collection. Allows access and modification of document entry.
+ * A reference to a unit entry whose value is a collection. Allows access and
+ * modification of the entry identified by the key.
  * <p>
  * This type is suitable when the entry's value consists in a collection of
- * elements. In contrast, a {@link ItemEntry} instance is used for an entry that
- * contains a single value.
+ * elements, such as a list if strings. In contrast, a {@link ItemEntry}
+ * instance is used for an entry that contains a single value, such as a string.
  *
  * <p>
- * The behaviour of setters, getters, etc. in this class is very similar to
+ * The behaviour of get, put, and other methods in this class is very similar to
  * {@link ItemEntry}. Refer to its documentation for more information.
  * <h3>Other considerations</h3>
  * <p>
  * This class exposes values as collections for simplicity. Internally, values
  * are stored as arrays, as expected by webMethods.
  * <p>
- * This class manipulates only the first entry identified by the key. This is
- * the norm in most uses cases. In rare situations where multiple entries for a
- * key may exist and processing is required for all those entries, use of
- * {@link ScatteredEntry} would be more appropriate.
+ * An instance manipulates a unit entry, that is, the first entry identified by
+ * the key. This is the norm in most uses cases. In rare situations where
+ * multiple entries for a key may exist and processing is required for all of
+ * those entries, use of {@link ScatteredEntry} would be more appropriate.
  *
  * @param <E>
  *            collection element type to treat the entry value as
  */
-public interface CollectionEntry<E> extends UnitEntryAccessor<List<E>>, EntryMutator<Iterable<? extends E>> {
+public interface CollectionEntry<E>
+		extends BaseUnitEntry, UnitEntryAccessor<List<E>>, UnitEntryMutator<Iterable<? extends E>> {
 
 	/** -------- Accessors ------------------------------------------ */
 
 	/**
-	 * Returns the key associated to the entry being referenced
-	 * 
-	 * @return key associated to the entry
+	 * @see HasKey#getKey()
 	 */
 	String getKey();
 
 	/**
-	 * Returns whether the key has been assigned to an entry the document. This
-	 * method is used to find out whether the document contains an entry with
-	 * that key.
-	 * 
-	 * @return true if the key has been assigned; false, otherwise
+	 * @see BaseUnitEntry#isAssigned()
 	 */
 	boolean isAssigned();
 
 	/**
-	 * Returns the <em>value</em> component of the key/value entry in the
-	 * document.
+	 * Returns the <em>value</em> component of an existing entry.
 	 * <p>
 	 * Use this method when you expect an entry with the key <em>to exist</em>.
 	 * <p>
@@ -78,14 +72,11 @@ public interface CollectionEntry<E> extends UnitEntryAccessor<List<E>>, EntryMut
 	List<E> getVal() throws InexistentEntryException;
 
 	/**
-	 * Returns the <em>value</em> component of the key/value entry in the
-	 * document.
+	 * Returns the non-empty <em>value</em> of an existing entry.
 	 * <p>
 	 * Use this method when you expect an entry with the key <em>to exist</em>
-	 * and for the value to <em>non-null</em> and <em>non-empty</em>.
-	 * <p>
-	 * If an entry with the key doesn't exist or if it contains a null value, an
-	 * exception is thrown.
+	 * and the value to be both <em>non-null</em> and <em>non-empty</em>. If
+	 * those expectations aren't met, an exception is thrown.
 	 * 
 	 * @return entry value
 	 * @throws InexistentEntryException
@@ -96,14 +87,12 @@ public interface CollectionEntry<E> extends UnitEntryAccessor<List<E>>, EntryMut
 	 */
 	List<E> getNonEmptyVal() throws InexistentEntryException, UnexpectedEntryValueException;
 
-	// TODO keep both 'orNull' and 'orEmpy'?
-
 	/**
-	 * Returns the <em>value</em> component of the key/value entry in the
-	 * document.
+	 * Returns the <em>value</em> component of an existing entry or an empty
+	 * list.
 	 * <p>
-	 * Use this method when you don't know if the entry exists and you want an
-	 * empty list to be returned if it doesn't.
+	 * Use this method when you don't know whether the entry exists and you want
+	 * an empty list to be returned if it doesn't.
 	 * 
 	 * @return entry value
 	 * 
@@ -112,8 +101,8 @@ public interface CollectionEntry<E> extends UnitEntryAccessor<List<E>>, EntryMut
 	List<E> getValOrEmpty();
 
 	/**
-	 * Returns the <em>value</em> component of the key/value entry in the
-	 * document.
+	 * Returns the <em>value</em> component of an existing entry or a default
+	 * value.
 	 * <p>
 	 * Use this method when you don't know if the entry exists and you want
 	 * {@code defaultValue} to be returned if it doesn't.
@@ -138,22 +127,16 @@ public interface CollectionEntry<E> extends UnitEntryAccessor<List<E>>, EntryMut
 	 * @param value
 	 *            the new value to set for the entry
 	 */
-	void put(Iterable<? extends E> value);	
+	void put(Iterable<? extends E> value);
 
 	/**
 	 * Converts the provided value and sets the converted value as the entry's
 	 * value.
 	 * <p>
 	 * Use this method in cases where the value type is different to the type
-	 * you want to be stored in the entry. For example, if you wanted an
-	 * {@code Integer} value of 5 to be stored as a {@code String} in the entry,
-	 * you could use the following code:
+	 * you want to be stored in the entry.
 	 * 
-	 * <pre>
-	 * doc.entryOfString("total").putConverted(5);
-	 * </pre>
-	 * <p>
-	 * If the provided {@code value} can't be converted to the entry's type, an
+	 * <p>If the provided {@code value} can't be converted to the entry's type, an
 	 * exception is thrown.
 	 * 
 	 * @param value
@@ -164,7 +147,7 @@ public interface CollectionEntry<E> extends UnitEntryAccessor<List<E>>, EntryMut
 	void putConverted(Iterable<?> value);
 
 	/**
-	 * Deletes the entry identified by the element’s key in strict mode.
+	 * Deletes the entry in strict mode.
 	 * 
 	 * @see #remove(RemoveEntryOption)
 	 */
@@ -178,8 +161,8 @@ public interface CollectionEntry<E> extends UnitEntryAccessor<List<E>>, EntryMut
 	 * when removing the entry. It's only done by key.
 	 * 
 	 * <p>
-	 * Because this is a unit entry reference, if multiple elements exist in the IData
-	 * with the given key, only the first occurrence of the key is deleted.
+	 * Because this is a unit entry reference, if multiple elements exist in the
+	 * document for the given key, only the first entry is deleted.
 	 * 
 	 * @param removeOption
 	 *            strict or lenient removal option

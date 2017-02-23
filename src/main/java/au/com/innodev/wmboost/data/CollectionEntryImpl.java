@@ -26,7 +26,7 @@ import org.springframework.core.convert.TypeDescriptor;
  *
  * @param <E> element type
  */
-class CollectionEntryImpl<E> extends UnitBaseEntry<List<E>, Iterable<E>> implements CollectionEntry<E> {
+class CollectionEntryImpl<E> extends BaseUnitEntryImpl<List<E>, Iterable<E>> implements CollectionEntry<E> {
 
 	public CollectionEntryImpl(DocumentImpl document, String key, Class<?> accessorElementType, Class<?> mutatorType, NormaliseOption normaliseOption) {
 		super(document, key, listAccessorType(accessorElementType), arrayMutatorType(mutatorType), normaliseOption);

@@ -15,13 +15,9 @@
  */
 package au.com.innodev.wmboost.data;
 
-import java.util.Collection;
-import java.util.List;
-
 import org.springframework.core.convert.ConversionService;
 import org.springframework.core.convert.TypeDescriptor;
 
-import com.wm.data.IData;
 import com.wm.data.IDataCursor;
 
 import au.com.innodev.wmboost.data.internal.Preconditions;
@@ -52,10 +48,6 @@ class BaseEntry<A, M> {
 
 	public String getKey() {
 		return key;
-	}
-
-	public boolean isAssigned() {
-		return document.containsKey(key);
 	}
 
 	protected final <T> T getConvertedValue(Object value, TypeDescriptor destTypeSpec) {
@@ -140,6 +132,10 @@ class BaseEntry<A, M> {
 		// Note: delete's return value indicates whether delete succeeded AND cursor not at end of document after invocation.
 		// This means we can't rely on this value to see if deletion worked
 		cursor.delete();
+	}
+	
+	protected final DocumentImpl getDocument() {
+		return document;
 	}
 
 }
