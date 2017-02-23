@@ -35,6 +35,9 @@ public interface BaseUnitEntry extends HasKey {
 	 * <p>
 	 * Note that this method doesn't take into account the type of the value in
 	 * the key/value pair.
+	 * <p>
+	 * The result is the same as invoking {@link Document#containsKey(String)}
+	 * with the entry's key.
 	 * 
 	 * @return true if an entry with the key exists; false, otherwise
 	 */
