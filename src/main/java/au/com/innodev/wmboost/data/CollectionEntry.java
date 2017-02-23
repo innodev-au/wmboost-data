@@ -31,7 +31,7 @@ import java.util.List;
  * {@link ItemEntry}. Refer to its documentation for more information.
  * <h3>Other considerations</h3>
  * <p>
- * This class exposes values as collections for simplicity. Internally, values
+ * For simplicity, this class exposes values as collections. Internally, values
  * are stored as arrays, as expected by webMethods.
  * <p>
  * An instance manipulates a unit entry, that is, the first entry identified by
@@ -58,27 +58,24 @@ public interface CollectionEntry<E>
 	boolean isAssigned();
 
 	/**
-	 * Returns the <em>value</em> component of an existing entry.
-	 * <p>
-	 * Use this method when you expect an entry with the key <em>to exist</em>.
-	 * <p>
-	 * If an entry with the key doesn't exist, an exception is thrown.
-	 *
-	 * @return entry value
-	 * @throws InexistentEntryException
-	 *             if there's no entry associated with the key
-	 * 
+	 * @see ItemEntry#getVal()
 	 */
 	List<E> getVal() throws InexistentEntryException;
 
 	/**
-	 * Returns the non-empty <em>value</em> of an existing entry.
+	 * @see ItemEntry#getNonNullVal()
+	 */
+	List<E> getNonNullVal() throws InexistentEntryException, UnexpectedEntryValueException;
+
+	/**
+	 * Returns a non-empty list <em>value</em> of an existing entry.
 	 * <p>
-	 * Use this method when you expect an entry with the key <em>to exist</em>
-	 * and the value to be both <em>non-null</em> and <em>non-empty</em>. If
-	 * those expectations aren't met, an exception is thrown.
+	 * Use this method when you expect an entry with the key <em>to exist</em>,
+	 * and the value to be both <em>non-null</em> and <em>a non-empty
+	 * collection</em>. If any of those expectations isn't met, an exception is
+	 * thrown.
 	 * 
-	 * @return entry value
+	 * @return entry value, never {@null} and never an empty list
 	 * @throws InexistentEntryException
 	 *             if there's no entry associated with the key
 	 * @throws UnexpectedEntryValueException
@@ -136,7 +133,8 @@ public interface CollectionEntry<E>
 	 * Use this method in cases where the value type is different to the type
 	 * you want to be stored in the entry.
 	 * 
-	 * <p>If the provided {@code value} can't be converted to the entry's type, an
+	 * <p>
+	 * If the provided {@code value} can't be converted to the entry's type, an
 	 * exception is thrown.
 	 * 
 	 * @param value

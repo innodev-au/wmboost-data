@@ -105,21 +105,20 @@ public interface ItemEntry<T> extends BaseUnitEntry, UnitEntryAccessor<T>, UnitE
 	boolean isAssigned();
 
 	/**
-	 * Returns the <em>value</em> component of the key/value entry.
+	 * Returns the <em>value</em> component of an existing entry.
 	 * <p>
 	 * Use this method when you expect an entry with the key <em>to exist</em>.
 	 * <p>
 	 * If an entry with the key doesn't exist, an exception is thrown.
 	 * 
-	 * @return entry value
+	 * @return entry value, possibly {@ null}
 	 * @throws InexistentEntryException
 	 *             if there's no entry associated with the key
 	 */
 	T getVal() throws InexistentEntryException;
 
 	/**
-	 * Returns the <em>value</em> component of the key/value entry in the
-	 * document.
+	 * Returns the non-null <em>value</em> component of an existing entry.
 	 * <p>
 	 * Use this method when you expect an entry with the key <em>to exist</em>
 	 * and also <em>to have a non-null value</em>.
@@ -127,7 +126,7 @@ public interface ItemEntry<T> extends BaseUnitEntry, UnitEntryAccessor<T>, UnitE
 	 * If an entry with the key doesn't exist or if it contains a null value, an
 	 * exception is thrown.
 	 * 
-	 * @return entry value
+	 * @return entry value, never {@code null}
 	 * @throws InexistentEntryException
 	 *             if there's no entry associated with the key
 	 * @throws UnexpectedEntryValueException
@@ -143,10 +142,8 @@ public interface ItemEntry<T> extends BaseUnitEntry, UnitEntryAccessor<T>, UnitE
 	 * Use this method when you don't know if the entry exists and you don't
 	 * want to distinguish between the case when the key is not assigned to an
 	 * entry and the case when the value is {@code null}.
-	 * <p>
-	 * If an entry with the key doesn't exist, an exception is thrown.
 	 * 
-	 * @return entry value
+	 * @return entry value or null if entry doesn't exist
 	 * 
 	 * @see #getVal()
 	 */
@@ -161,7 +158,7 @@ public interface ItemEntry<T> extends BaseUnitEntry, UnitEntryAccessor<T>, UnitE
 	 * 
 	 * @param defaultValue
 	 *            value to return if entry doesn't exist
-	 * @return entry value
+	 * @return entry value or {@code defaultValue} if entry doesn't exist
 	 * 
 	 * @see #getVal()
 	 */
