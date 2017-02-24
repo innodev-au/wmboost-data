@@ -102,8 +102,8 @@ public interface CollectionEntry<E>
 	 *             if the entry contains a null value or is empty
 	 * @see #getVal()
 	 */
-	List<E> getNonEmptyVal() throws InexistentEntryException, UnexpectedEntryValueException;
-
+	List<E> getNonEmptyVal() throws InexistentEntryException, UnexpectedEntryValueException;	
+	
 	/**
 	 * Returns the <em>value</em> component of an existing entry or an empty
 	 * list.
@@ -115,7 +115,7 @@ public interface CollectionEntry<E>
 	 * 
 	 * @see #getVal()
 	 */
-	List<E> getValOrEmpty();
+	List<E> getValOrEmpty(NullValHandling nullHandling);
 
 	/**
 	 * Returns the <em>value</em> component of an existing entry or a default
@@ -131,7 +131,7 @@ public interface CollectionEntry<E>
 	 * 
 	 * @see #getVal()
 	 */
-	List<E> getValOrDefault(List<? extends E> defaultValue);
+	List<E> getValOrDefault(List<? extends E> defaultValue, NullValHandling nullHandling);
 
 	/** -------- Mutators ------------------------------------------ */
 

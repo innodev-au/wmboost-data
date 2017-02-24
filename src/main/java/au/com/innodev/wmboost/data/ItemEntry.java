@@ -147,7 +147,7 @@ public interface ItemEntry<T> extends BaseUnitEntry, UnitEntryAccessor<T>, UnitE
 	 * 
 	 * @see #getVal()
 	 */
-	T getValOrNull();
+	T getValOrNull(NullValHandling nullValHandling);
 
 	/**
 	 * Returns the <em>value</em> component of the key/value entry in the
@@ -162,7 +162,7 @@ public interface ItemEntry<T> extends BaseUnitEntry, UnitEntryAccessor<T>, UnitE
 	 * 
 	 * @see #getVal()
 	 */
-	T getValOrDefault(T defaultValue);
+	T getValOrDefault(T defaultValue, NullValHandling nullValHandling);
 
 	/** -------- Mutators ------------------------------------------ */
 

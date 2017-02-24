@@ -17,6 +17,8 @@ package au.com.innodev.wmboost.data;
 
 import org.springframework.core.convert.TypeDescriptor;
 
+import au.com.innodev.wmboost.data.internal.Preconditions;
+
 /**
  * <p>Implementation of {@link ItemEntry}.
  *
@@ -38,9 +40,53 @@ class ItemEntryImpl<T> extends BaseUnitEntryImpl<T,T> implements ItemEntry<T> {
 	}
 
 	@Override
-	public T getValOrDefault(T defaultValue) {
-		return super.doGetValOrDefault(defaultValue);
+	public T getValOrDefault(T defaultValue, NullValHandling nullHandling) {
+		return doGetValOrDefault(defaultValue, nullHandling);
 	}
 
+	
+	@Override
+	public T getVal() throws InexistentEntryException {	
+		return doGetVal();
+	}
+	
+	@Override
+	public T getNonNullVal() throws InexistentEntryException, UnexpectedEntryValueException {	
+		return doGetNonNullVal();
+	}
+	
+	@Override
+	public T getValOrNull(NullValHandling nullValHandling) {	
+		return doGetValOrDefault(null, NullValHandling.RETURN_NULL);
+	}
+	
+	public final T doGetValOrDefault(T defaultValue, NullValHandling nullHandling) {
+		Preconditions.checkNotNull(nullHandling, "null handling parameter was not set");
+		if (isAssigned()) {
+			T value = internalGetVal();
+			value = applyValNullHandling(value, nullHandling, defaultValue);
+			return value;
+		} else {
+			return defaultValue;
+		}
+	}
+
+	protected final T applyValNullHandling(T value, NullValHandling nullHandling, T defaultValue) {
+		if (value == null) {
+			switch(nullHandling) {
+			case FAIL:
+				throw new UnexpectedEntryValueException("Unexpected null value for entry with key '"+ getKey() + "'");
+			case TREAT_AS_DEFAULT: 
+				return defaultValue;
+			case RETURN_NULL:
+				return null;
+			default:
+				throw new IllegalArgumentException("Unsupported null handling value: " + nullHandling);
+			}
+		}
+		else {
+			return value;
+		}
+	}
 
 }

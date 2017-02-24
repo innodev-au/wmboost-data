@@ -46,13 +46,10 @@ class BaseUnitEntryImpl<A, M> extends BaseEntry<A,M> {
 		return getDocument().containsKey(getKey());
 	}
 	
-	public final A getValOrNull() {
-		return doGetValOrDefault(null);
-	}
 
-	public final A getNonNullVal() {
+	public final A doGetNonNullVal() {
 
-		A v = getVal();
+		A v = doGetVal();
 		if (v == null) {
 			throw new UnexpectedEntryValueException("Unexpected null value was found for key '" + getKey() + "' in document");
 		}
@@ -60,17 +57,17 @@ class BaseUnitEntryImpl<A, M> extends BaseEntry<A,M> {
 		return v;
 	}
 
-	public final A getVal() {
+	public final A doGetVal() {
 
 		if (!isAssigned()) {
 			throw new InexistentEntryException(
 					"Unable to retrieve value for key '" + getKey() + "'. Entry doesn't exist in document");
 		}
 
-		return doGetVal();
+		return internalGetVal();
 	}
 
-	protected final A doGetVal() {
+	protected final A internalGetVal() {
 		IDataCursorResource cursorRes = newCursorResource();
 		try {
 			Object value = IDataUtil.get(cursorRes.getCursor(), getKey());
@@ -81,14 +78,7 @@ class BaseUnitEntryImpl<A, M> extends BaseEntry<A,M> {
 		}
 	}	
 	
-	public final A doGetValOrDefault(A defaultValue) {
-
-		if (isAssigned()) {
-			return doGetVal();
-		} else {
-			return defaultValue;
-		}
-	}
+	
 
 	protected void doPut(Object value) {
 		Object valueToPut = convertAndNormaliseValForPut(value, mutatorType);

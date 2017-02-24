@@ -17,9 +17,10 @@ package au.com.innodev.wmboost.data;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.springframework.core.convert.TypeDescriptor;
+
+import com.google.common.base.Preconditions;
 
 /**
  * Implementation of {@link CollectionEntry}.
@@ -45,18 +46,23 @@ class CollectionEntryImpl<E> extends BaseUnitEntryImpl<List<E>, Iterable<E>> imp
 	}
 
 	@Override
-	public List<E> getValOrEmpty() {	
-		if (isAssigned()) {
-			return doGetVal();
-		}
-		else {
-			return Collections.emptyList();
-		}
+	public List<E> getValOrEmpty(NullValHandling nullHandling) {	
+		return getValOrDefault(Collections.<E>emptyList(), nullHandling);
 	}
 
 	
 	@Override
-	public List<E> getNonEmptyVal() {	
+	public final List<E> getNonNullVal() {
+		return doGetNonNullVal();
+	}
+	
+	@Override
+	public List<E> getVal() throws InexistentEntryException {	
+		return doGetVal();
+	}	
+
+	@Override
+	public List<E> getNonEmptyVal() {
 		List<E> v = getNonNullVal();
 		if (v.isEmpty()) {
 			throw new UnexpectedEntryValueException("Unexpected empty collection value was found for key '" + getKey() + "' in document");
@@ -66,14 +72,36 @@ class CollectionEntryImpl<E> extends BaseUnitEntryImpl<List<E>, Iterable<E>> imp
 	}
 
 	@Override
-	public final List<E> getValOrDefault(List<? extends E> defaultValue) {
+	public final List<E> getValOrDefault(List<? extends E> defaultValue, NullValHandling nullHandling) {
+		Preconditions.checkNotNull(nullHandling);
+		
 		if (isAssigned()) {
-			return doGetVal();
+			List<E> val =  internalGetVal();
+			
+			if (val == null) {
+				switch (nullHandling) {
+				case FAIL:
+					throw new UnexpectedEntryValueException("Unexpected null value for entry with key '" + getKey() + "'");				
+				case RETURN_NULL:
+					return null;
+				case TREAT_AS_DEFAULT:
+					return doGetDefaultValue(defaultValue);
+				default:
+					throw new RuntimeException("Unsupported null handling option - " + nullHandling);
+				}
+			}
+			else {
+				return val;
+			}
 		} else {
-			return (defaultValue!= null) ? new CopyOnWriteArrayList<E>(defaultValue) : null;
+			return (defaultValue!= null) ? doGetDefaultValue(defaultValue) : null;
 		}
 	}
-	
+
+	private List<E> doGetDefaultValue(List<? extends E> defaultValue) {
+		return Collections.unmodifiableList(defaultValue);
+	}
+
 	@Override
 	public final void put(Iterable<? extends E> value) {	
 		super.doPut(value);

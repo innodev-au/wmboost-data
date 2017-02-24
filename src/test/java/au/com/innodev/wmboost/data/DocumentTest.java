@@ -73,7 +73,7 @@ public class DocumentTest {
 		IData idata = newIDataWithValue(originalValue);
 
 		Document document = docFactory.wrap(idata);
-		assertEquals(expected, document.entry("value1").getValOrNull());
+		assertEquals(expected, document.entry("value1").getVal());
 	}
 
 	@Test
@@ -83,7 +83,7 @@ public class DocumentTest {
 		IData idata = newIDataWithValue(originalValue);
 
 		Document document = docFactory.wrap(idata);
-		assertEquals(expected, document.entry("value1", Integer.class).getValOrNull());
+		assertEquals(expected, document.entry("value1", Integer.class).getVal());
 	}
 
 	@Test
@@ -94,7 +94,7 @@ public class DocumentTest {
 		IData idata = newIDataWithValue(originalValue);
 
 		Document document = docFactory.wrap(idata);
-		assertEquals(expected, document.entry("value1", Integer.class).getValOrNull());
+		assertEquals(expected, document.entry("value1", Integer.class).getVal());
 	}
 
 	@Test
@@ -105,7 +105,7 @@ public class DocumentTest {
 		IData idata = newIDataWithValue(originalValue);
 
 		Document document = docFactory.wrap(idata);
-		assertEquals(expected, document.entry("value1", Integer.class).getValOrNull());
+		assertEquals(expected, document.entry("value1", Integer.class).getVal());
 	}
 
 	@Test
@@ -116,7 +116,7 @@ public class DocumentTest {
 		IData idata = newIDataWithValue(originalValue);
 
 		Document document = docFactory.wrap(idata);
-		assertEquals(expected, document.entry("value1", Integer.class).getValOrNull());
+		assertEquals(expected, document.entry("value1", Integer.class).getVal());
 	}
 
 	@Test
@@ -127,7 +127,7 @@ public class DocumentTest {
 
 		Document document = docFactory.wrap(idata);
 		try {
-			document.entry("value1", Integer.class).getValOrNull();
+			document.entry("value1", Integer.class).getVal();
 			fail();
 		} catch (RuntimeException e) {
 			assertTrue(e.getMessage().toLowerCase().contains("integer"));
@@ -144,7 +144,7 @@ public class DocumentTest {
 		IData idata = newIDataWithValue(originalValue);
 
 		Document document = docFactory.wrap(idata);
-		assertEquals(expected, document.entry("value1", Boolean.class).getValOrNull());
+		assertEquals(expected, document.entry("value1", Boolean.class).getVal());
 	}
 
 	@Test
@@ -155,7 +155,7 @@ public class DocumentTest {
 		IData idata = newIDataWithValue(originalValue);
 
 		Document document = docFactory.wrap(idata);
-		assertEquals(expected, document.entry("value1", Boolean.class).getValOrNull());
+		assertEquals(expected, document.entry("value1", Boolean.class).getVal());
 	}
 
 	@Test
@@ -166,7 +166,7 @@ public class DocumentTest {
 		IData idata = newIDataWithValue(originalValue);
 
 		Document document = docFactory.wrap(idata);
-		assertEquals(expected, document.entry("value1", Boolean.class).getValOrNull());
+		assertEquals(expected, document.entry("value1", Boolean.class).getVal());
 	}
 
 	@Test
@@ -177,7 +177,7 @@ public class DocumentTest {
 
 		Document document = docFactory.wrap(idata);
 		try {
-			document.entry("value1", Boolean.class).getValOrNull();
+			document.entry("value1", Boolean.class).getVal();
 			fail();
 		} catch (Exception e) {
 			assertTrue(e.getMessage().toLowerCase().contains("boolean"));
@@ -193,7 +193,7 @@ public class DocumentTest {
 		IData idata = newIDataWithValue(originalValue);
 
 		Document document = docFactory.wrap(idata);
-		assertEquals(expectedValue, document.entry("value1", Boolean.class).getValOrNull());
+		assertEquals(expectedValue, document.entry("value1", Boolean.class).getVal());
 	}
 
 	@Test
@@ -204,7 +204,7 @@ public class DocumentTest {
 		IData idata = newIDataWithValue(originalValue);
 
 		Document document = docFactory.wrap(idata);
-		assertEquals(expected, document.entry("value1", Boolean.class).getValOrNull());
+		assertEquals(expected, document.entry("value1", Boolean.class).getVal());
 	}
 
 	@Test
@@ -214,7 +214,7 @@ public class DocumentTest {
 		IData idata = newIDataWithValue(originalValue);
 
 		Document document = docFactory.wrap(idata);
-		assertEquals(expectedValue, document.entryOfString("value1").getValOrNull());
+		assertEquals(expectedValue, document.entryOfString("value1").getVal());
 	}
 
 	@Test
@@ -224,7 +224,7 @@ public class DocumentTest {
 		IData idata = newIDataWithValue(originalValue);
 
 		Document document = docFactory.wrap(idata);
-		assertEquals(expected, document.entry("value1", Integer.class).getValOrNull());
+		assertEquals(expected, document.entry("value1", Integer.class).getVal());
 	}
 	
 	@Test
@@ -234,7 +234,7 @@ public class DocumentTest {
 		IData idata = newIDataWithValue(originalValue);
 
 		Document document = docFactory.wrap(idata);
-		assertEquals(expected, document.entry("value1", BigInteger.class).getValOrNull());
+		assertEquals(expected, document.entry("value1", BigInteger.class).getVal());
 	}
 
 	@Test
@@ -245,7 +245,7 @@ public class DocumentTest {
 		IData idata = newIDataWithValue(originalValue);
 
 		Document document = docFactory.wrap(idata);
-		assertEquals(expected, document.entry("value1", Integer.class).getValOrNull());
+		assertEquals(expected, document.entry("value1", Integer.class).getVal());
 	}
 
 	@Test
@@ -256,7 +256,7 @@ public class DocumentTest {
 		IData idata = newIDataWithValue(originalValue);
 
 		Document document = docFactory.wrap(idata);
-		MInteger value = document.entry("value1", MInteger.class).getValOrNull();
+		MInteger value = document.entry("value1", MInteger.class).getVal();
 		assertEquals(expected, value.intValue());
 	}
 
@@ -268,7 +268,7 @@ public class DocumentTest {
 		IData idata = newIDataWithValue(originalValue);
 
 		Document document = docFactory.wrap(idata);
-		assertEquals(expected, document.entryOfString("value1").getValOrNull());
+		assertEquals(expected, document.entryOfString("value1").getVal());
 	}
 
 	@Test
@@ -279,7 +279,7 @@ public class DocumentTest {
 		IData idata = newIDataWithValue(originalValue);
 
 		Document document = docFactory.wrap(idata);
-		assertEquals(expected, document.entry("value1", MLong.class).getValOrNull().longValue());
+		assertEquals(expected, document.entry("value1", MLong.class).getVal().longValue());
 	}
 
 	private static class Test1 {
@@ -293,7 +293,7 @@ public class DocumentTest {
 
 		Document document = docFactory.wrap(idata);
 		try {
-			document.entryOfString("value1").getValOrNull();
+			document.entryOfString("value1").getVal();
 			fail();
 		} catch (RuntimeException e) {
 			assertTrue(e.getMessage().toLowerCase().contains("string"));
@@ -308,7 +308,7 @@ public class DocumentTest {
 		IData idata = newIDataWithValue(originalValue);
 
 		Document document = docFactory.wrap(idata);
-		assertEquals(expected, document.entryOfString("value1").getValOrNull());
+		assertEquals(expected, document.entryOfString("value1").getVal());
 	}
 	
 	@Test
@@ -318,7 +318,7 @@ public class DocumentTest {
 		IData idata = newIDataWithValue(originalValue);
 
 		Document document = docFactory.wrap(idata);
-		assertEquals(expected, document.entryOfBoolean("value1").getValOrNull());
+		assertEquals(expected, document.entryOfBoolean("value1").getVal());
 	}
 	
 	@Test
@@ -328,7 +328,7 @@ public class DocumentTest {
 		IData idata = newIDataWithValue(originalValue);
 
 		Document document = docFactory.wrap(idata);
-		assertEquals(expected, document.entryOfInteger("value1").getValOrNull());
+		assertEquals(expected, document.entryOfInteger("value1").getVal());
 	}
 	
 	@Test
@@ -338,7 +338,7 @@ public class DocumentTest {
 		IData idata = newIDataWithValue(originalValue);
 
 		Document document = docFactory.wrap(idata);
-		assertEquals(expected, document.entryOfLong("value1").getValOrNull());
+		assertEquals(expected, document.entryOfLong("value1").getVal());
 	}
 	
 	@Test
@@ -348,7 +348,7 @@ public class DocumentTest {
 		IData idata = newIDataWithValue(originalValue);
 
 		Document document = docFactory.wrap(idata);
-		assertEquals(expected, document.entryOfShort("value1").getValOrNull());
+		assertEquals(expected, document.entryOfShort("value1").getVal());
 	}
 	
 	@Test
@@ -358,7 +358,7 @@ public class DocumentTest {
 		IData idata = newIDataWithValue(originalValue);
 
 		Document document = docFactory.wrap(idata);
-		assertEquals(expected, document.entryOfFloat("value1").getValOrNull());
+		assertEquals(expected, document.entryOfFloat("value1").getVal());
 	}
 	
 	@Test
@@ -368,7 +368,7 @@ public class DocumentTest {
 		IData idata = newIDataWithValue(originalValue);
 
 		Document document = docFactory.wrap(idata);
-		assertEquals(expected, document.entryOfDouble("value1").getValOrNull());
+		assertEquals(expected, document.entryOfDouble("value1").getVal());
 	}
 	
 	@Test
@@ -378,7 +378,7 @@ public class DocumentTest {
 		IData idata = newIDataWithValue(originalValue);
 
 		Document document = docFactory.wrap(idata);
-		assertEquals(expected, document.entryOfBigDecimal("value1").getValOrNull());
+		assertEquals(expected, document.entryOfBigDecimal("value1").getVal());
 	}
 	
 	@Test
@@ -388,7 +388,7 @@ public class DocumentTest {
 		IData idata = newIDataWithValue(originalValue);
 
 		Document document = docFactory.wrap(idata);
-		assertEquals(expected, document.entry("value1", Character.class).getValOrNull());
+		assertEquals(expected, document.entry("value1", Character.class).getVal());
 	}	
 
 	@Test
@@ -494,7 +494,7 @@ public class DocumentTest {
 		IData idata = newIDataWithValue(instant);
 
 		Document document = docFactory.wrap(idata);
-		assertEquals(expected, document.entryOfString("value1").getValOrNull());
+		assertEquals(expected, document.entryOfString("value1").getVal());
 	}
 	
 	@Test
@@ -505,7 +505,7 @@ public class DocumentTest {
 		IData idata = newIDataWithValue(strValue);
 
 		Document document = docFactory.wrap(idata);
-		assertEquals(expectedDate, document.entryOfLegacyDate("value1").getValOrNull());
+		assertEquals(expectedDate, document.entryOfLegacyDate("value1").getVal());
 	}
 
 	
@@ -602,7 +602,7 @@ public class DocumentTest {
 		IData idata = newIDataWithValue(originalValue);
 
 		Document document = docFactory.wrap(idata);
-		assertEquals(expected, document.entryOfIntegers("value1").getValOrEmpty());
+		assertEquals(expected, document.entryOfIntegers("value1").getValOrEmpty(NullValHandling.RETURN_NULL));
 	}
 	
 	@Test
@@ -612,7 +612,7 @@ public class DocumentTest {
 		IData idata = IDataFactory.create();
 
 		Document document = docFactory.wrap(idata);
-		assertEquals(expected, document.entryOfIntegers("inexistentEntry").getValOrEmpty());
+		assertEquals(expected, document.entryOfIntegers("inexistentEntry").getValOrEmpty(NullValHandling.RETURN_NULL));
 	}
 	
 	@Test
@@ -681,7 +681,7 @@ public class DocumentTest {
 		Document pipelineRes = docFactory.wrap(idata);
 		Document nestedRes = pipelineRes.entryOfDocument("subDocument").getVal();
 		{
-			assertEquals("inside!", nestedRes.entryOfString("value1").getValOrNull());
+			assertEquals("inside!", nestedRes.entryOfString("value1").getVal());
 		}
 	}
 
@@ -690,7 +690,7 @@ public class DocumentTest {
 		IData idata = newIDataWithValue("someValue");
 
 		Document res = docFactory.wrap(idata);
-		assertNull(res.entryOfDocument("inexsitentDoc").getValOrNull());
+		assertNull(res.entryOfDocument("inexsitentDoc").getValOrNull(NullValHandling.RETURN_NULL));
 	}
 
 
@@ -750,19 +750,25 @@ public class DocumentTest {
 	}
 	
 	@Test
-	public void testGetValOrDefault_Covariant() {
+	public void testGetValOrDefault_CovariantAndUnmodifiable() {
 		List<Object> expected = Lists.<Object>newArrayList(3, 1, 4);
 		List<Integer> input = Lists.newArrayList(3, 1, 4);
 		
 		Document document = docFactory.create();
 		
 		// This compiles because we accept a covariant, e.g., List<Integer> on an Object collection default value
-		List<Object> returnedValue = document.entryOfCollection("value1").getValOrDefault(input);
+		List<Object> returnedValue = document.entryOfCollection("value1").getValOrDefault(input, NullValHandling.RETURN_NULL);
 		
 		assertEquals(expected, returnedValue);
 		
-		// modify returning value
-		returnedValue.add("A");
+		// Ensure returned list is unmodifieable
+		try {
+			returnedValue.add("A");
+			fail();
+		}
+		catch (UnsupportedOperationException e) {
+			// success
+		}
 		
 		// but ensure original list hasn't been altered - an Integer List shouldn't contain a String
 		assertEquals(3, input.size()); 
@@ -1081,10 +1087,10 @@ public class DocumentTest {
 		
 		Iterator<Document> it = p.getVal().iterator();
 		Document doc1 = it.next();
-		assertEquals("nestedValue1", doc1.entry("value1").getValOrNull());
+		assertEquals("nestedValue1", doc1.entry("value1").getVal());
 		
 		Document doc2 = it.next();
-		assertEquals("nestedValue2", doc2.entry("value1").getValOrNull());
+		assertEquals("nestedValue2", doc2.entry("value1").getVal());
 	}
 	
 	@Test
