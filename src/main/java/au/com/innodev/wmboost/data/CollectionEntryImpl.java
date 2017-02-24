@@ -20,7 +20,7 @@ import java.util.List;
 
 import org.springframework.core.convert.TypeDescriptor;
 
-import com.google.common.base.Preconditions;
+import au.com.innodev.wmboost.data.internal.Preconditions;
 
 /**
  * Implementation of {@link CollectionEntry}.
