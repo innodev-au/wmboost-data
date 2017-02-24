@@ -25,11 +25,11 @@ package au.com.innodev.wmboost.data;
  * 
  * <h3>Retrieving a Value</h3>
  * <p>
- * The <em>get</em> methods allow retrieving an entry's value. A value of type {@code T} is
- * returned. If the original value is of type {@code T}, it is returned directly
- * and the consuming code doesn't need to cast it. If the type is different, a
- * conversion is attempted. For example, you may use an integer entry to
- * retrieve an integer from a entry originally containing a string.
+ * The <em>get</em> methods allow retrieving an entry's value. A value of type
+ * {@code T} is returned. If the original value is of type {@code T}, it is
+ * returned directly and the consuming code doesn't need to cast it. If the type
+ * is different, a conversion is attempted. For example, you may use an integer
+ * entry to retrieve an integer from a entry originally containing a string.
  *
  * <p>
  * The following getters are available:
@@ -144,7 +144,8 @@ public interface ItemEntry<T> extends BaseUnitEntry, UnitEntryAccessor<T>, UnitE
 	 * entry and the case when the value is {@code null}.
 	 * 
 	 * @return entry value or null if entry doesn't exist
-	 * 
+	 * @param nullHandling
+	 *            behaviour when entry contains a null value
 	 * @see #getVal()
 	 */
 	T getValOrNull(NullValHandling nullValHandling);
@@ -158,6 +159,8 @@ public interface ItemEntry<T> extends BaseUnitEntry, UnitEntryAccessor<T>, UnitE
 	 * 
 	 * @param defaultValue
 	 *            value to return if entry doesn't exist
+	 * @param nullHandling
+	 *            behaviour when entry contains a null value
 	 * @return entry value or {@code defaultValue} if entry doesn't exist
 	 * 
 	 * @see #getVal()

@@ -76,7 +76,7 @@ class ItemEntryImpl<T> extends BaseUnitEntryImpl<T,T> implements ItemEntry<T> {
 			switch(nullHandling) {
 			case FAIL:
 				throw new UnexpectedEntryValueException("Unexpected null value for entry with key '"+ getKey() + "'");
-			case TREAT_AS_DEFAULT: 
+			case RETURN_DEFAULT: 
 				return defaultValue;
 			case RETURN_NULL:
 				return null;

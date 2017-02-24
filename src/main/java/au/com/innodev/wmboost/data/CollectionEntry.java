@@ -102,8 +102,8 @@ public interface CollectionEntry<E>
 	 *             if the entry contains a null value or is empty
 	 * @see #getVal()
 	 */
-	List<E> getNonEmptyVal() throws InexistentEntryException, UnexpectedEntryValueException;	
-	
+	List<E> getNonEmptyVal() throws InexistentEntryException, UnexpectedEntryValueException;
+
 	/**
 	 * Returns the <em>value</em> component of an existing entry or an empty
 	 * list.
@@ -111,6 +111,8 @@ public interface CollectionEntry<E>
 	 * Use this method when you don't know whether the entry exists and you want
 	 * an empty list to be returned if it doesn't.
 	 * 
+	 * @param nullHandling
+	 *            behaviour when entry contains a null value
 	 * @return entry value
 	 * 
 	 * @see #getVal()
@@ -126,7 +128,8 @@ public interface CollectionEntry<E>
 	 * 
 	 * @param defaultValue
 	 *            value to return if entry doesn't exist
-	 * 
+	 * @param nullHandling
+	 *            behaviour when entry contains a null value
 	 * @return entry value
 	 * 
 	 * @see #getVal()

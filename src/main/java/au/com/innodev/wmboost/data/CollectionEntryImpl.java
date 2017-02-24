@@ -84,7 +84,7 @@ class CollectionEntryImpl<E> extends BaseUnitEntryImpl<List<E>, Iterable<E>> imp
 					throw new UnexpectedEntryValueException("Unexpected null value for entry with key '" + getKey() + "'");				
 				case RETURN_NULL:
 					return null;
-				case TREAT_AS_DEFAULT:
+				case RETURN_DEFAULT:
 					return doGetDefaultValue(defaultValue);
 				default:
 					throw new RuntimeException("Unsupported null handling option - " + nullHandling);
