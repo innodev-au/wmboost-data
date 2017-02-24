@@ -111,13 +111,13 @@ public interface CollectionEntry<E>
 	 * Use this method when you don't know whether the entry exists and you want
 	 * an empty list to be returned if it doesn't.
 	 * 
-	 * @param nullHandling
+	 * @param nullValHandling
 	 *            behaviour when entry contains a null value
 	 * @return entry value
 	 * 
 	 * @see #getVal()
 	 */
-	List<E> getValOrEmpty(NullValHandling nullHandling);
+	List<E> getValOrEmpty(NullValHandling nullValHandling);
 
 	/**
 	 * Returns the <em>value</em> component of an existing entry or a default
@@ -128,13 +128,13 @@ public interface CollectionEntry<E>
 	 * 
 	 * @param defaultValue
 	 *            value to return if entry doesn't exist
-	 * @param nullHandling
+	 * @param nullValHandling
 	 *            behaviour when entry contains a null value
 	 * @return entry value
 	 * 
 	 * @see #getVal()
 	 */
-	List<E> getValOrDefault(List<? extends E> defaultValue, NullValHandling nullHandling);
+	List<E> getValOrDefault(List<? extends E> defaultValue, NullValHandling nullValHandling);
 
 	/** -------- Mutators ------------------------------------------ */
 

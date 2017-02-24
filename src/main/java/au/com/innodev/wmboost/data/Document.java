@@ -627,7 +627,7 @@ public interface Document {
 	 *            type of each individual entry that makes up a scattered entry
 	 * @param <E>
 	 *            memberType
-	 * @return
+	 * @return a scattered entry reference
 	 */
 	<E> ScatteredEntry<E> scatteredEntry(String key, Class<E> memberType);
 
