@@ -62,6 +62,46 @@ public class ScatteredEntryTest {
 		assertEquals("c", actualList.get(2).entry("value1").getVal());
 	}
 	
+	@Test
+	public void testGetNonEmptyVal_WithValue() {
+		IData idata = IDataFactory.create();
+		IDataCursor cursor = idata.getCursor();
+		cursor.insertAfter("something", newIDataWithValue("x"));
+		cursor.insertAfter("item", newIDataWithValue("a"));
+		cursor.insertAfter("item", newIDataWithValue("b"));
+		cursor.insertAfter("somethingElse", newIDataWithValue("y"));
+		cursor.insertAfter("item", newIDataWithValue("c"));
+		cursor.insertAfter("somethingDifferent", newIDataWithValue("z"));
+
+		Document res = docFactory.wrap(idata);
+		Collection<Document> actual = res.scatteredEntryOfDocuments("item").getNonEmptyVal();
+		List<Document> actualList = Lists.newArrayList(actual);
+
+		assertEquals(3, actual.size());
+		assertEquals("a", actualList.get(0).entry("value1").getVal());
+		assertEquals("b", actualList.get(1).entry("value1").getVal());
+		assertEquals("c", actualList.get(2).entry("value1").getVal());
+		
+		
+	}
+	
+	@Test
+	public void testGetNonEmptyVal_WithoutValue() {
+		IData idata = IDataFactory.create();
+		IDataCursor cursor = idata.getCursor();
+		cursor.insertAfter("something", newIDataWithValue("x"));
+
+		Document res = docFactory.wrap(idata);
+		try {
+			res.scatteredEntryOfDocuments("item").getNonEmptyVal();
+			fail();
+		}
+		catch (InexistentEntryException e) {
+			// success
+		}
+		
+		
+	}
 	
 	@Test
 	public void testPut() {

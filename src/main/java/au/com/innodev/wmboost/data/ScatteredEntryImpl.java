@@ -37,9 +37,19 @@ class ScatteredEntryImpl<E> extends BaseEntry<E, E> implements ScatteredEntry<E>
 		this.mutatorType = mutatorType;
 	}
 
-	public ScatteredEntryImpl(DocumentImpl document, String key, Class<?> memberType,
-			NormaliseOption normaliseOption) {
+	public ScatteredEntryImpl(DocumentImpl document, String key, Class<?> memberType, NormaliseOption normaliseOption) {
 		this(document, key, TypeDescriptor.valueOf(memberType), null, normaliseOption);
+	}
+
+	@Override
+	public List<E> getNonEmptyVal() {
+		List<E> val = getValOrEmpty();
+		if (val.isEmpty()) {
+			throw new InexistentEntryException(
+					"No value found in scattered entry with key '" + getKey() + "'");
+		}
+
+		return val;
 	}
 
 	@Override
@@ -123,7 +133,8 @@ class ScatteredEntryImpl<E> extends BaseEntry<E, E> implements ScatteredEntry<E>
 			boolean hasFirst = cursor.first(getKey());
 
 			if (!hasFirst && RemoveEntryOption.STRICT.equals(removeOption)) {
-				throw new InexistentEntryException("Entry with key '" + getKey() + "' doesn't exist and can't be removed");
+				throw new InexistentEntryException(
+						"Entry with key '" + getKey() + "' doesn't exist and can't be removed");
 			}
 
 			hasMore = hasFirst;
@@ -138,5 +149,5 @@ class ScatteredEntryImpl<E> extends BaseEntry<E, E> implements ScatteredEntry<E>
 		}
 
 	}
-	
+
 }

@@ -21,23 +21,33 @@ import java.util.List;
  * Allows access and modification of a group of entries that share the same key.
  * <p>
  * Use it in cases where you need to process all entries, such as deserialised
- * XML list. For most common uses cases, use a unit entry, i.e., {@link ItemEntry}
- * or {@link CollectionEntry}.
+ * XML list. For most common uses cases, use a unit entry, i.e.,
+ * {@link ItemEntry} or {@link CollectionEntry}.
  * 
  * @param <E>
  *            element type
  */
 public interface ScatteredEntry<E> extends HasKey, EntryMutator<Iterable<? extends E>> {
-	
+
 	/**
 	 * @see HasKey#getKey()
 	 */
 	String getKey();
 
 	/**
-	 * Returns the values for the scattered entry.
+	 * Returns a non-empty list of values in the scattered entry.
 	 * <p>
-	 * If there are no entries with the key, an empty collection is returned.
+	 * 
+	 * @throws InexistentEntryException
+	 *             if there's no entry associated with the key
+	 * 
+	 * @return a non-null, non-empty list
+	 */
+	List<E> getNonEmptyVal() throws InexistentEntryException;
+
+	/**
+	 * Returns the values in the scattered entry. If there are no entries with
+	 * the key, an empty collection is returned.
 	 * 
 	 * @return a non-null list
 	 */
