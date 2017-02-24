@@ -98,7 +98,7 @@ final class DocumentImpl implements Document {
 		StringBuilder sb = new StringBuilder();
 			int count = getTotalEntries();
 
-			sb.append("Document with ");
+			sb.append("{Document with ");
 			sb.append(count);
 			if (count == 1) {
 				sb.append(" entry");
@@ -107,7 +107,7 @@ final class DocumentImpl implements Document {
 			}
 			sb.append(", wrapping IData of type ");
 			sb.append(iData.getClass().getCanonicalName());
-			sb.append("");
+			sb.append("}");
 
 		return sb.toString();
 	}
