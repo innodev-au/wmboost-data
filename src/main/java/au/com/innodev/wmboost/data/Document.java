@@ -310,7 +310,7 @@ public interface Document {
 	 * 
 	 * @see #entry(String, Class)
 	 */
-	ItemEntry<String> entryOfString(String key);
+	StringEntry entryOfString(String key);
 
 	/**
 	 * Returns a reference to an entry with a value treated as a {@link Boolean}

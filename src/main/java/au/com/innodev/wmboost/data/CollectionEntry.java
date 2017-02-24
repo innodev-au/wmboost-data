@@ -99,7 +99,7 @@ public interface CollectionEntry<E>
 	 * @throws InexistentEntryException
 	 *             if there's no entry associated with the key
 	 * @throws UnexpectedEntryValueException
-	 *             if the entry contains a null value or is empty
+	 *             if the entry contains a null or empty value
 	 * @see #getVal()
 	 */
 	List<E> getNonEmptyVal() throws InexistentEntryException, UnexpectedEntryValueException;

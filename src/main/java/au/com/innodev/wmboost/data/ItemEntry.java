@@ -45,7 +45,7 @@ package au.com.innodev.wmboost.data;
  * cases, this method is not used as often as other alternatives.</li>
  * </ul>
  * When you want to optionally retrieve values, you may use a combination of
- * {@link BaseUnitEntry#isAssigned()} and {@link #getVal()}. For example, the
+ * {@link #isAssigned()} and {@link #getVal()}. For example, the
  * following code is a snippet of a transformer that takes a string and returns
  * a lower-case version. If the string is not provided, the pipeline is not
  * modified. If the value is {@code null}, {@code null} is returned:

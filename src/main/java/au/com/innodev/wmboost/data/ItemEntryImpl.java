@@ -30,8 +30,8 @@ class ItemEntryImpl<T> extends BaseUnitEntryImpl<T,T> implements ItemEntry<T> {
 		super(document, key, accessorType, mutatorType, normaliseOption);
 	}
 
-	public ItemEntryImpl(DocumentImpl document, String key, TypeDescriptor typeSpec, NormaliseOption normaliseOption) {
-		this(document, key, typeSpec, null, normaliseOption);
+	public ItemEntryImpl(DocumentImpl document, String key, Class<T> type, NormaliseOption normaliseOption) {
+		this(document, key, TypeDescriptor.valueOf(type), null, normaliseOption);
 	}
 	
 	@Override

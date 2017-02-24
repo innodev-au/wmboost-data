@@ -177,7 +177,7 @@ final class DocumentImpl implements Document {
 
 	/* **************** Entries section *********************/	
 	public ItemEntry<Object> entry(String key) {
-		return new ItemEntryImpl<Object>(this, key, TypeDescriptor.valueOf(Object.class), MAY_NORMALISE);
+		return new ItemEntryImpl<Object>(this, key, Object.class, MAY_NORMALISE);
 	}
 
 	public <T> ItemEntry<T> entry(String key, Class<T> type) {
@@ -210,11 +210,11 @@ final class DocumentImpl implements Document {
 	}
 	
 	private <T> ItemEntry<T> specificTypeEntry(String key, Class<T> type) {
-		return new ItemEntryImpl<T>(this, key, TypeDescriptor.valueOf(type), DONT_NORMALISE);
+		return new ItemEntryImpl<T>(this, key, type, DONT_NORMALISE);
 	}
 	
-	public ItemEntry<String> entryOfString(String key) {
-		return specificTypeEntry(key, String.class);
+	public StringEntry entryOfString(String key) {
+		return new StringEntryImpl(this, key);
 	}
 
 	@Override
