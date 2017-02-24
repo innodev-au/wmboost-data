@@ -255,7 +255,7 @@ public interface Document {
 	 * one</em> would be referenced. This behaviour supports typical use cases;
 	 * for situations where multiple entries for a key may exist and processing
 	 * is required for all those entries, use of
-	 * {@link #scatteredEntry(String, Class)} would be more appropriate.
+	 * {@link #scattered(String, Class)} would be more appropriate.
 	 * 
 	 * @param key
 	 *            key that identifies the document entry
@@ -432,7 +432,7 @@ public interface Document {
 	 * entry's value is a collection). If there were multiple entries associated
 	 * to the key, only the <em>first one</em> would be referenced. This
 	 * behaviour supports typical use cases; for situations where multiple
-	 * entries per key are expected, use {@link #scatteredEntry(String, Class)}
+	 * entries per key are expected, use {@link #scattered(String, Class)}
 	 * instead.
 	 * 
 	 * @param key
@@ -629,7 +629,7 @@ public interface Document {
 	 *            memberType
 	 * @return a scattered entry reference
 	 */
-	<E> ScatteredEntry<E> scatteredEntry(String key, Class<E> memberType);
+	<E> ScatteredEntry<E> scattered(String key, Class<E> memberType);
 
 	/**
 	 * Returns a reference to a scattered entry. Use it when you don't know have
@@ -640,7 +640,7 @@ public interface Document {
 	 *            key that identifies the scattered entry
 	 * @return a scattered entry reference
 	 */
-	ScatteredEntry<Object> scatteredEntry(String key);
+	ScatteredEntry<Object> scattered(String key);
 
 	/**
 	 * Returns a reference to a scattered entry of {@link Boolean} instances.
@@ -649,9 +649,9 @@ public interface Document {
 	 *            key that identifies the scattered entry
 	 * @return a scattered entry reference
 	 * 
-	 * @see #scatteredEntry(String, Class)
+	 * @see #scattered(String, Class)
 	 */
-	ScatteredEntry<Boolean> scatteredEntryOfBooleans(String key);
+	ScatteredEntry<Boolean> scatteredOfBooleans(String key);
 
 	/**
 	 * Returns a reference to a scattered entry of {@link Integer} instances.
@@ -660,9 +660,9 @@ public interface Document {
 	 *            key that identifies the scattered entry
 	 * @return a scattered entry reference
 	 * 
-	 * @see #scatteredEntry(String, Class)
+	 * @see #scattered(String, Class)
 	 */
-	ScatteredEntry<Integer> scatteredEntryOfIntegers(String key);
+	ScatteredEntry<Integer> scatteredOfIntegers(String key);
 
 	/**
 	 * Returns a reference to a scattered entry of {@link Long} instances.
@@ -671,9 +671,9 @@ public interface Document {
 	 *            key that identifies the scattered entry
 	 * @return a scattered entry reference
 	 * 
-	 * @see #scatteredEntry(String, Class)
+	 * @see #scattered(String, Class)
 	 */
-	ScatteredEntry<Long> scatteredEntryOfLongs(String key);
+	ScatteredEntry<Long> scatteredOfLongs(String key);
 
 	/**
 	 * Returns a reference to a scattered entry of {@link Short} instances.
@@ -682,9 +682,9 @@ public interface Document {
 	 *            key that identifies the scattered entry
 	 * @return a scattered entry reference
 	 * 
-	 * @see #scatteredEntry(String, Class)
+	 * @see #scattered(String, Class)
 	 */
-	ScatteredEntry<Short> scatteredEntryOfShorts(String key);
+	ScatteredEntry<Short> scatteredOfShorts(String key);
 
 	/**
 	 * Returns a reference to a scattered entry of {@link Double} instances.
@@ -693,9 +693,9 @@ public interface Document {
 	 *            key that identifies the scattered entry
 	 * @return a scattered entry reference
 	 * 
-	 * @see #scatteredEntry(String, Class)
+	 * @see #scattered(String, Class)
 	 */
-	ScatteredEntry<Double> scatteredEntryOfDoubles(String key);
+	ScatteredEntry<Double> scatteredOfDoubles(String key);
 
 	/**
 	 * Returns a reference to a scattered entry of {@link Float} instances.
@@ -704,9 +704,9 @@ public interface Document {
 	 *            key that identifies the scattered entry
 	 * @return a scattered entry reference
 	 * 
-	 * @see #scatteredEntry(String, Class)
+	 * @see #scattered(String, Class)
 	 */
-	ScatteredEntry<Float> scatteredEntryOfFloats(String key);
+	ScatteredEntry<Float> scatteredOfFloats(String key);
 
 	/**
 	 * Returns a reference to a scattered entry of {@link BigDecimal} instances.
@@ -715,9 +715,9 @@ public interface Document {
 	 *            key that identifies the scattered entry
 	 * @return a scattered entry reference
 	 * 
-	 * @see #scatteredEntry(String, Class)
+	 * @see #scattered(String, Class)
 	 */
-	ScatteredEntry<BigDecimal> scatteredEntryOfBigDecimal(String key);
+	ScatteredEntry<BigDecimal> scatteredOfBigDecimal(String key);
 
 	/**
 	 * Returns a reference to a scattered entry of {@link Date} instances.
@@ -729,9 +729,9 @@ public interface Document {
 	 *            key that identifies the scattered entry
 	 * @return a scattered entry reference
 	 * 
-	 * @see #scatteredEntry(String, Class)
+	 * @see #scattered(String, Class)
 	 */
-	ScatteredEntry<Date> scatteredEntryOfLegacyDates(String key);
+	ScatteredEntry<Date> scatteredOfLegacyDates(String key);
 
 	/**
 	 * Returns a reference to a scattered entry of {@link String} instances.
@@ -740,9 +740,9 @@ public interface Document {
 	 *            key that identifies the scattered entry
 	 * @return a scattered entry reference
 	 * 
-	 * @see #scatteredEntry(String, Class)
+	 * @see #scattered(String, Class)
 	 */
-	ScatteredEntry<String> scatteredEntryOfStrings(String key);
+	ScatteredEntry<String> scatteredOfStrings(String key);
 
 	/**
 	 * Returns a reference to a scattered entry of nested document instances.
@@ -751,8 +751,8 @@ public interface Document {
 	 *            key that identifies the scattered entry
 	 * @return a scattered entry reference
 	 * 
-	 * @see #scatteredEntry(String, Class)
+	 * @see #scattered(String, Class)
 	 */
-	ScatteredEntry<Document> scatteredEntryOfDocuments(String key);
+	ScatteredEntry<Document> scatteredOfDocuments(String key);
 
 }

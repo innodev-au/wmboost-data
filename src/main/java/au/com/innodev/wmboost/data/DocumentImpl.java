@@ -336,22 +336,22 @@ final class DocumentImpl implements Document {
 	}
 	
 	@Override
-	public ScatteredEntry<Object> scatteredEntry(String key) {
+	public ScatteredEntry<Object> scattered(String key) {
 		return new ScatteredEntryImpl<Object>(this, key, Object.class, MAY_NORMALISE);		
 	}
 	
 	@Override
-	public <T> ScatteredEntry<T> scatteredEntry(String key, Class<T> memberType) {		
+	public <T> ScatteredEntry<T> scattered(String key, Class<T> memberType) {		
 		Preconditions.checkNotNull(memberType);
 		
 		if (Document.class.isAssignableFrom(memberType)) {
 			@SuppressWarnings("unchecked")
-			ScatteredEntry<T> entry = (ScatteredEntry<T>) scatteredEntryOfDocuments(key);
+			ScatteredEntry<T> entry = (ScatteredEntry<T>) scatteredOfDocuments(key);
 			return entry;
 		}
 		else if (Object.class.equals(memberType)) {
 			@SuppressWarnings("unchecked")
-			ScatteredEntry<T> entry = (ScatteredEntry<T>) scatteredEntry(key);
+			ScatteredEntry<T> entry = (ScatteredEntry<T>) scattered(key);
 			return entry;
 		}
 		else {
@@ -364,55 +364,55 @@ final class DocumentImpl implements Document {
 	}
 	
 	@Override
-	public ScatteredEntry<String> scatteredEntryOfStrings(String key) {	
+	public ScatteredEntry<String> scatteredOfStrings(String key) {	
 		return typedScatteredEntry(key, String.class);
 	}
 	
 	
 	@Override
-	public ScatteredEntry<Boolean> scatteredEntryOfBooleans(String key) {
+	public ScatteredEntry<Boolean> scatteredOfBooleans(String key) {
 		return typedScatteredEntry(key, Boolean.class);
 	}
 	
 	
 	@Override
-	public ScatteredEntry<Integer> scatteredEntryOfIntegers(String key) {
+	public ScatteredEntry<Integer> scatteredOfIntegers(String key) {
 		return typedScatteredEntry(key, Integer.class);
 	}
 	
 	@Override
-	public ScatteredEntry<Long> scatteredEntryOfLongs(String key) {
+	public ScatteredEntry<Long> scatteredOfLongs(String key) {
 		return typedScatteredEntry(key, Long.class);
 	}
 	
 	@Override
-	public ScatteredEntry<Short> scatteredEntryOfShorts(String key) {
+	public ScatteredEntry<Short> scatteredOfShorts(String key) {
 		return typedScatteredEntry(key, Short.class);
 	}
 	
 	@Override
-	public ScatteredEntry<Float> scatteredEntryOfFloats(String key) {
+	public ScatteredEntry<Float> scatteredOfFloats(String key) {
 		return typedScatteredEntry(key, Float.class);
 	}
 	
 	
 	@Override
-	public ScatteredEntry<Double> scatteredEntryOfDoubles(String key) {
+	public ScatteredEntry<Double> scatteredOfDoubles(String key) {
 		return typedScatteredEntry(key, Double.class);
 	}
 	
 	@Override
-	public ScatteredEntry<BigDecimal> scatteredEntryOfBigDecimal(String key) {
+	public ScatteredEntry<BigDecimal> scatteredOfBigDecimal(String key) {
 		return typedScatteredEntry(key, BigDecimal.class);
 	}
 	
 	@Override
-	public ScatteredEntry<Date> scatteredEntryOfLegacyDates(String key) {
+	public ScatteredEntry<Date> scatteredOfLegacyDates(String key) {
 		return typedScatteredEntry(key, Date.class);
 	}
 	
 	@Override
-	public ScatteredEntry<Document> scatteredEntryOfDocuments(String key) {
+	public ScatteredEntry<Document> scatteredOfDocuments(String key) {
 		return new ScatteredEntryImpl<Document>(this, key, TypeDescriptor.valueOf(Document.class),
 				TypeDescriptor.valueOf(IData.class), DONT_NORMALISE);
 	}
