@@ -76,7 +76,7 @@ public interface ScatteredEntry<E> extends HasKey, EntryMutator<Iterable<? exten
 	 * List&lt;Integer&gt; list = new ArrayList&lt;Integer&gt;();
 	 * list.add(5);
 	 * list.add(8);
-	 * doc.scatteredOfString("values").putConverted(list);
+	 * doc.scatteredEntryOfString("values").putConverted(list);
 	 * </pre>
 	 * 
 	 * @param values
