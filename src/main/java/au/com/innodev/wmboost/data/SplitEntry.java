@@ -27,7 +27,7 @@ import java.util.List;
  * @param <E>
  *            element type
  */
-public interface ScatteredEntry<E> extends HasKey, EntryMutator<Iterable<? extends E>> {
+public interface SplitEntry<E> extends HasKey, EntryMutator<Iterable<? extends E>> {
 
 	/**
 	 * @see HasKey#getKey()

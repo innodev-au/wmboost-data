@@ -631,7 +631,7 @@ public interface Document {
 	 *            memberType
 	 * @return a scattered entry reference
 	 */
-	<E> ScatteredEntry<E> splitEntry(String key, Class<E> memberType);
+	<E> SplitEntry<E> splitEntry(String key, Class<E> memberType);
 
 	/**
 	 * Returns a reference to a scattered entry. Use it when you don't know have
@@ -642,7 +642,7 @@ public interface Document {
 	 *            key that identifies the scattered entry
 	 * @return a scattered entry reference
 	 */
-	ScatteredEntry<Object> splitEntry(String key);
+	SplitEntry<Object> splitEntry(String key);
 
 	/**
 	 * Returns a reference to a scattered entry of {@link Boolean} instances.
@@ -653,7 +653,7 @@ public interface Document {
 	 * 
 	 * @see #splitEntry(String, Class)
 	 */
-	ScatteredEntry<Boolean> booleansSplitEntry(String key);
+	SplitEntry<Boolean> booleansSplitEntry(String key);
 
 	/**
 	 * Returns a reference to a scattered entry of {@link Integer} instances.
@@ -664,7 +664,7 @@ public interface Document {
 	 * 
 	 * @see #splitEntry(String, Class)
 	 */
-	ScatteredEntry<Integer> intsSplitEntry(String key);
+	SplitEntry<Integer> intsSplitEntry(String key);
 
 	/**
 	 * Returns a reference to a scattered entry of {@link Long} instances.
@@ -675,7 +675,7 @@ public interface Document {
 	 * 
 	 * @see #splitEntry(String, Class)
 	 */
-	ScatteredEntry<Long> longsSplitEntry(String key);
+	SplitEntry<Long> longsSplitEntry(String key);
 
 	/**
 	 * Returns a reference to a scattered entry of {@link Short} instances.
@@ -686,7 +686,7 @@ public interface Document {
 	 * 
 	 * @see #splitEntry(String, Class)
 	 */
-	ScatteredEntry<Short> shortsSplitEntry(String key);
+	SplitEntry<Short> shortsSplitEntry(String key);
 
 	/**
 	 * Returns a reference to a scattered entry of {@link Double} instances.
@@ -697,7 +697,7 @@ public interface Document {
 	 * 
 	 * @see #splitEntry(String, Class)
 	 */
-	ScatteredEntry<Double> doublesSplitEntry(String key);
+	SplitEntry<Double> doublesSplitEntry(String key);
 
 	/**
 	 * Returns a reference to a scattered entry of {@link Float} instances.
@@ -708,7 +708,7 @@ public interface Document {
 	 * 
 	 * @see #splitEntry(String, Class)
 	 */
-	ScatteredEntry<Float> floatsSplitEntry(String key);
+	SplitEntry<Float> floatsSplitEntry(String key);
 
 	/**
 	 * Returns a reference to a scattered entry of {@link BigDecimal} instances.
@@ -719,7 +719,7 @@ public interface Document {
 	 * 
 	 * @see #splitEntry(String, Class)
 	 */
-	ScatteredEntry<BigDecimal> bigDecimalsSplitEntry(String key);
+	SplitEntry<BigDecimal> bigDecimalsSplitEntry(String key);
 
 	/**
 	 * Returns a reference to a scattered entry of {@link Date} instances.
@@ -733,7 +733,7 @@ public interface Document {
 	 * 
 	 * @see #splitEntry(String, Class)
 	 */
-	ScatteredEntry<Date> legacyDatesSplitEntry(String key);
+	SplitEntry<Date> legacyDatesSplitEntry(String key);
 
 	/**
 	 * Returns a reference to a scattered entry of {@link String} instances.
@@ -744,7 +744,7 @@ public interface Document {
 	 * 
 	 * @see #splitEntry(String, Class)
 	 */
-	ScatteredEntry<String> stringsSplitEntry(String key);
+	SplitEntry<String> stringsSplitEntry(String key);
 
 	/**
 	 * Returns a reference to a scattered entry of nested document instances.
@@ -755,6 +755,6 @@ public interface Document {
 	 * 
 	 * @see #splitEntry(String, Class)
 	 */
-	ScatteredEntry<Document> docsSplitEntry(String key);
+	SplitEntry<Document> docsSplitEntry(String key);
 
 }

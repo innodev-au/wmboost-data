@@ -19,7 +19,7 @@ import com.wm.data.IDataUtil;
 
 import au.com.innodev.wmboost.data.preset.DocumentFactories;
 
-public class ScatteredEntryTest {
+public class SplitEntryTest {
 
 	private final DocumentFactory docFactory = DocumentFactories.getDefault();
 	

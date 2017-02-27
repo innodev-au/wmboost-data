@@ -85,7 +85,7 @@ package au.com.innodev.wmboost.data;
  * An instance manipulates a unit entry, that is, the first entry identified by
  * the key. This is the norm in most uses cases. In rare situations where
  * multiple entries for a key may exist and processing is required for all of
- * those entries, use of {@link ScatteredEntry} would be more appropriate.
+ * those entries, use of {@link SplitEntry} would be more appropriate.
  *
  * @param <T>
  *            type to treat the entry value as

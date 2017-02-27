@@ -24,7 +24,7 @@ package au.com.innodev.wmboost.data;
  * functionality is required.
  * <p>
  * A unit entry handles only one entry per key. Contrast this with
- * {@link ScatteredEntry}, which handles cases when the key is shared across
+ * {@link SplitEntry}, which handles cases when the key is shared across
  * more than one entry.
  * 
  */

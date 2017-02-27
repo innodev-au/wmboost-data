@@ -24,12 +24,12 @@ import com.wm.data.IDataCursor;
 
 import au.com.innodev.wmboost.data.internal.Preconditions;
 
-class ScatteredEntryImpl<E> extends BaseEntry<E, E> implements ScatteredEntry<E> {
+class SplitEntryImpl<E> extends BaseEntry<E, E> implements SplitEntry<E> {
 
 	private final TypeDescriptor accessorType;
 	private final TypeDescriptor mutatorType;
 
-	public ScatteredEntryImpl(DocumentImpl document, String key, TypeDescriptor accessorType,
+	public SplitEntryImpl(DocumentImpl document, String key, TypeDescriptor accessorType,
 			TypeDescriptor mutatorType, NormaliseOption normaliseOption) {
 		super(document, key, normaliseOption);
 
@@ -37,7 +37,7 @@ class ScatteredEntryImpl<E> extends BaseEntry<E, E> implements ScatteredEntry<E>
 		this.mutatorType = mutatorType;
 	}
 
-	public ScatteredEntryImpl(DocumentImpl document, String key, Class<?> memberType, NormaliseOption normaliseOption) {
+	public SplitEntryImpl(DocumentImpl document, String key, Class<?> memberType, NormaliseOption normaliseOption) {
 		this(document, key, TypeDescriptor.valueOf(memberType), null, normaliseOption);
 	}
 

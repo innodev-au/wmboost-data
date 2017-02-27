@@ -336,22 +336,22 @@ final class DocumentImpl implements Document {
 	}
 	
 	@Override
-	public ScatteredEntry<Object> splitEntry(String key) {
-		return new ScatteredEntryImpl<Object>(this, key, Object.class, MAY_NORMALISE);		
+	public SplitEntry<Object> splitEntry(String key) {
+		return new SplitEntryImpl<Object>(this, key, Object.class, MAY_NORMALISE);		
 	}
 	
 	@Override
-	public <T> ScatteredEntry<T> splitEntry(String key, Class<T> memberType) {		
+	public <T> SplitEntry<T> splitEntry(String key, Class<T> memberType) {		
 		Preconditions.checkNotNull(memberType);
 		
 		if (Document.class.isAssignableFrom(memberType)) {
 			@SuppressWarnings("unchecked")
-			ScatteredEntry<T> entry = (ScatteredEntry<T>) docsSplitEntry(key);
+			SplitEntry<T> entry = (SplitEntry<T>) docsSplitEntry(key);
 			return entry;
 		}
 		else if (Object.class.equals(memberType)) {
 			@SuppressWarnings("unchecked")
-			ScatteredEntry<T> entry = (ScatteredEntry<T>) splitEntry(key);
+			SplitEntry<T> entry = (SplitEntry<T>) splitEntry(key);
 			return entry;
 		}
 		else {
@@ -359,61 +359,61 @@ final class DocumentImpl implements Document {
 		}		
 	}
 	
-	private <T> ScatteredEntry<T> typedScatteredEntry(String key, Class<T> memberType) {		
-		return new ScatteredEntryImpl<T>(this, key, memberType, DONT_NORMALISE);
+	private <T> SplitEntry<T> typedScatteredEntry(String key, Class<T> memberType) {		
+		return new SplitEntryImpl<T>(this, key, memberType, DONT_NORMALISE);
 	}
 	
 	@Override
-	public ScatteredEntry<String> stringsSplitEntry(String key) {	
+	public SplitEntry<String> stringsSplitEntry(String key) {	
 		return typedScatteredEntry(key, String.class);
 	}
 	
 	
 	@Override
-	public ScatteredEntry<Boolean> booleansSplitEntry(String key) {
+	public SplitEntry<Boolean> booleansSplitEntry(String key) {
 		return typedScatteredEntry(key, Boolean.class);
 	}
 	
 	
 	@Override
-	public ScatteredEntry<Integer> intsSplitEntry(String key) {
+	public SplitEntry<Integer> intsSplitEntry(String key) {
 		return typedScatteredEntry(key, Integer.class);
 	}
 	
 	@Override
-	public ScatteredEntry<Long> longsSplitEntry(String key) {
+	public SplitEntry<Long> longsSplitEntry(String key) {
 		return typedScatteredEntry(key, Long.class);
 	}
 	
 	@Override
-	public ScatteredEntry<Short> shortsSplitEntry(String key) {
+	public SplitEntry<Short> shortsSplitEntry(String key) {
 		return typedScatteredEntry(key, Short.class);
 	}
 	
 	@Override
-	public ScatteredEntry<Float> floatsSplitEntry(String key) {
+	public SplitEntry<Float> floatsSplitEntry(String key) {
 		return typedScatteredEntry(key, Float.class);
 	}
 	
 	
 	@Override
-	public ScatteredEntry<Double> doublesSplitEntry(String key) {
+	public SplitEntry<Double> doublesSplitEntry(String key) {
 		return typedScatteredEntry(key, Double.class);
 	}
 	
 	@Override
-	public ScatteredEntry<BigDecimal> bigDecimalsSplitEntry(String key) {
+	public SplitEntry<BigDecimal> bigDecimalsSplitEntry(String key) {
 		return typedScatteredEntry(key, BigDecimal.class);
 	}
 	
 	@Override
-	public ScatteredEntry<Date> legacyDatesSplitEntry(String key) {
+	public SplitEntry<Date> legacyDatesSplitEntry(String key) {
 		return typedScatteredEntry(key, Date.class);
 	}
 	
 	@Override
-	public ScatteredEntry<Document> docsSplitEntry(String key) {
-		return new ScatteredEntryImpl<Document>(this, key, TypeDescriptor.valueOf(Document.class),
+	public SplitEntry<Document> docsSplitEntry(String key) {
+		return new SplitEntryImpl<Document>(this, key, TypeDescriptor.valueOf(Document.class),
 				TypeDescriptor.valueOf(IData.class), DONT_NORMALISE);
 	}
 	
