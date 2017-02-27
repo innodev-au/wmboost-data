@@ -21,6 +21,7 @@ import org.springframework.core.convert.TypeDescriptor;
 import com.wm.data.IDataCursor;
 
 import au.com.innodev.wmboost.data.internal.Preconditions;
+import au.com.innodev.wmboost.data.internal.TextUtil;
 
 /**
  * Base implementation of an document entry.
@@ -81,8 +82,7 @@ class BaseEntry<A, M> {
 				message.append("' while retrieving document field '");
 				message.append(key);
 				message.append("'. Actual value was [");
-				// TODO restrict value to a certain number of characters
-				message.append(value);
+				message.append(TextUtil.abbreviateObj(value, 100));
 				message.append("]");
 				if (value != null) {
 					message.append(" of type '");
