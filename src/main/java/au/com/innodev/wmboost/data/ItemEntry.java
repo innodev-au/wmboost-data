@@ -155,7 +155,7 @@ public interface ItemEntry<T> extends BaseUnitEntry, UnitEntryAccessor<T>, UnitE
 	 * {@link NullValHandling#RETURN_DEFAULT}.
 	 * 
 	 * @return entry value or null if entry doesn't exist
-	 * @see #getValOrNull()
+	 * @see #getValOrNull(NullValHandling)
 	 */
 	T getValOrNull();
 
@@ -196,7 +196,7 @@ public interface ItemEntry<T> extends BaseUnitEntry, UnitEntryAccessor<T>, UnitE
 	 *            value to return if entry doesn't exist
 	 * @return entry value or {@code defaultValue} if entry doesn't exist
 	 * 
-	 * @see #getVal()
+	 * @see #getValOrDefault(Object, NullValHandling)
 	 */
 	T getValOrDefault(T defaultValue);
 
