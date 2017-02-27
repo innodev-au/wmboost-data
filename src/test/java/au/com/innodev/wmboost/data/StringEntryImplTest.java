@@ -6,8 +6,6 @@ import org.junit.Test;
 
 import com.wm.data.IData;
 
-import au.com.innodev.wmboost.data.Document;
-import au.com.innodev.wmboost.data.UnexpectedEntryValueException;
 import au.com.innodev.wmboost.data.preset.Documents;
 
 public class StringEntryImplTest {
