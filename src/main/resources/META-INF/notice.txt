@@ -1,0 +1,6 @@
+The distribution of wmboost-data uses and/or adapts
+code from the following projects:
+
+- Spring Framework [Apache 2.0 license]
+- Apache Commons Lang [Apache 2.0 license]
+- Jackson Data-Bind project [Apache 2.0 license]
