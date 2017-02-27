@@ -28,12 +28,12 @@ import au.com.innodev.wmboost.data.internal.Preconditions;
 /**
  * An entry iterator
  */
-class DocEntryIterator implements Iterator<KeyValue>, Closeable {
+class EntryIterator implements Iterator<KeyValue>, Closeable {
 
 	private final ConversionService conversionService;
 	private IDataCursor cursor;
 	
-	DocEntryIterator(DocumentImpl document) {
+	EntryIterator(DocumentImpl document) {
 		Preconditions.checkNotNull(document, "document cannot be null");
 		this.cursor = document.getIData().getCursor();
 		this.conversionService =  document.getInternalConversionService();

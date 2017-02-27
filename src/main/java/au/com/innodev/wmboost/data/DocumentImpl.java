@@ -166,7 +166,7 @@ final class DocumentImpl implements Document {
 	
 	@Override
 	public EntryIterableResource getAllEntries() {
-		return new DocEntryIterable(this);
+		return new EntryIterable(this);
 	}
 	
 	@Override

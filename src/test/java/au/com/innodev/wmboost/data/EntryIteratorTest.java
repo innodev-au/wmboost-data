@@ -13,7 +13,7 @@ import com.wm.data.IDataFactory;
 
 import au.com.innodev.wmboost.data.preset.Documents;
 
-public class DocEntryIteratorTest {
+public class EntryIteratorTest {
 
 	@Test
 	public void testDocumentAndListConversion() {
@@ -28,7 +28,7 @@ public class DocEntryIteratorTest {
 		cursor.insertAfter("iDataArray", new IData[] {nested1, nested2});
 		
 		Document document = Documents.wrap(idata);
-		DocEntryIterator it = new DocEntryIterator((DocumentImpl)document);
+		EntryIterator it = new EntryIterator((DocumentImpl)document);
 		
 		assertTrue(it.hasNext());
 		KeyValue keyValue0 = it.next();
