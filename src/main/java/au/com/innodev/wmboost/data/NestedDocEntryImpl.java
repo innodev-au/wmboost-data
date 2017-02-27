@@ -6,7 +6,7 @@ import org.springframework.core.convert.TypeDescriptor;
 
 import com.wm.data.IData;
 
-public class NestedDocEntryImpl extends ItemEntryImpl<Document> implements NestedDocEntry {
+class NestedDocEntryImpl extends ItemEntryImpl<Document> implements NestedDocEntry {
 
 	private final DocumentFactory documentFactory;
 

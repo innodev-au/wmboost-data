@@ -17,7 +17,7 @@ package au.com.innodev.wmboost.data;
 
 import org.springframework.util.StringUtils;
 
-public class StringEntryImpl extends ItemEntryImpl<String> implements StringEntry {
+class StringEntryImpl extends ItemEntryImpl<String> implements StringEntry {
 
 	public StringEntryImpl(DocumentImpl document, String key) {
 		super(document, key, String.class, NormaliseOption.DONT_NORMALISE);
