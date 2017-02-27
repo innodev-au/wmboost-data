@@ -35,14 +35,13 @@ package au.com.innodev.wmboost.data;
  * The following getters are available:
  * <ul>
  * <li>{@link #getVal()}: use it when you expect the entry to exist</li>
- * <li>{@link #getNonNullVal()}: use it when you expect the value to exist and
- * also for it to be non-null</li>
- * <li>{@link #getValOrDefault(Object, NullValHandling)}: use it to retrieve an
- * optional value. If the entry doesn't exist, the provided default value is
- * returned.</li>
- * <li>{@link #getValOrNull()} and {@link #getValOrDefault(Object)}: use it when
- * you don't know if the entry exists and want to return the default if it
- * doesn't. These methods are not used as often as other alternatives.</li>
+ * <li>{@link #getNonNullVal()}: use it when you expect the entry to exist and
+ * for its value to be non-null</li>
+ * <li>{@link #getValOrNull()} and {@link #getValOrDefault(Object)} (and the
+ * overloaded variations): use them when you don't know if the entry exists and
+ * want to return the default value if it doesn't. The limitation of these
+ * methods is the inability to differentiate between cases when the entry exists
+ * and cases when it doesn't.</li>
  * </ul>
  * <p>
  * When you want to optionally retrieve values, you may use a combination of
@@ -64,6 +63,9 @@ package au.com.innodev.wmboost.data;
  * 
  * }
  * </pre>
+ * <p>
+ * Note that in the example {@code getVal} may be invoked without it failing
+ * because the {@code isAssigned} check already confirmed the entry's existence.
  * 
  * <h3>Setting a Value</h3>
  * <p>
@@ -264,8 +266,8 @@ public interface ItemEntry<T> extends BaseUnitEntry, UnitEntryAccessor<T>, UnitE
 	 * Deletes the entry identified by the element’s key.
 	 * 
 	 * <p>
-	 * Note that type used for the entry (e.g. String) is not taken into account
-	 * when removing the entry. It's only done by key.
+	 * Note that type used for the entry (e.g. String) is not considered when
+	 * removing the entry. It's only done by key.
 	 * 
 	 * <p>
 	 * Because this is a unit entry reference, if multiple elements exist in the
