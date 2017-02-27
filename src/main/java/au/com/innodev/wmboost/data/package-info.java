@@ -1,5 +1,10 @@
 /**
- * Contains classes for easy access and manipulation of webMethods documents.
+ * Contains classes that make it easier to access and manipulate webMethods
+ * documents.
+ * <p>
+ * It provides an abstraction on top of classes like webMethods' IData and
+ * IDataUtil. Behind the scenes, the types and structures expected by webMethods
+ * are used.
  * 
  * @see Document
  */
