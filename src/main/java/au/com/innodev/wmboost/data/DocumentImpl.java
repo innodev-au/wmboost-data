@@ -270,7 +270,7 @@ final class DocumentImpl implements Document {
 			return entry;
 		}		
 		else {
-			return entryOfTypedCollection(key, memberType);
+			return typedCollectionEntry(key, memberType);
 		}		
 		
 	}
@@ -281,7 +281,7 @@ final class DocumentImpl implements Document {
 	}
 	
 
-	private <E> CollectionEntry<E> entryOfTypedCollection(String key, Class<E> memberType) {
+	private <E> CollectionEntry<E> typedCollectionEntry(String key, Class<E> memberType) {
 		return new CollectionEntryImpl<E>(this, key, memberType, DONT_NORMALISE);
 	}
 	
@@ -292,37 +292,37 @@ final class DocumentImpl implements Document {
 
 	@Override
 	public CollectionEntry<String> stringsEntry(String key) {
-		return entryOfTypedCollection(key, String.class);
+		return typedCollectionEntry(key, String.class);
 	}
 	
 	@Override
 	public CollectionEntry<Boolean> booleansEntry(String key) {
-		return entryOfTypedCollection(key, Boolean.class);		
+		return typedCollectionEntry(key, Boolean.class);		
 	}
 	
 	@Override
 	public CollectionEntry<Integer> intsEntry(String key) {
-		return entryOfTypedCollection(key, Integer.class);		
+		return typedCollectionEntry(key, Integer.class);		
 	}
 	
 	@Override
 	public CollectionEntry<Long> longsEntry(String key) {
-		return entryOfTypedCollection(key, Long.class);		
+		return typedCollectionEntry(key, Long.class);		
 	}
 	
 	@Override
 	public CollectionEntry<Short> shortsEntry(String key) {
-		return entryOfTypedCollection(key, Short.class);		
+		return typedCollectionEntry(key, Short.class);		
 	}
 	
 	@Override
 	public CollectionEntry<Float> floatsEntry(String key) {
-		return entryOfTypedCollection(key, Float.class);		
+		return typedCollectionEntry(key, Float.class);		
 	}	
 	
 	@Override
 	public CollectionEntry<Double> doublesEntry(String key) {
-		return entryOfTypedCollection(key, Double.class);		
+		return typedCollectionEntry(key, Double.class);		
 	}
 	
 	@Override
