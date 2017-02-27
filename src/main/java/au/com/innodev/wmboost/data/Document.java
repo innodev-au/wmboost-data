@@ -61,7 +61,7 @@ import com.wm.data.IData;
  * similar had been found, the conversion would've been done automatically.
  * <li>It's possible to return the result as an integer as shown in the example.
  * If one wanted to return a string, then one would call
- * {@code pipelineDoc.entryOfString("result").putConverted(result)} and the
+ * {@code pipelineDoc.stringEntry("result").putConverted(result)} and the
  * integer value would be automatically converted to String.
  * </ul>
  * 
@@ -609,7 +609,7 @@ public interface Document {
 	 */
 
 	/**
-	 * /** Returns a reference to a split entry.
+	 * Returns a reference to a split entry.
 	 * <p>
 	 * Through this reference, the split entry value can be retrieved, set
 	 * or removed.

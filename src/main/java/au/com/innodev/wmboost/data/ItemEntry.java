@@ -15,6 +15,11 @@
  */
 package au.com.innodev.wmboost.data;
 
+import com.wm.app.b2b.server.ServiceException;
+import com.wm.data.IData;
+
+import au.com.innodev.wmboost.data.preset.Documents;
+
 /**
  * A reference to a unit entry whose value is a single item. Allows access and
  * modification of the entry identified by the key.
@@ -37,25 +42,30 @@ package au.com.innodev.wmboost.data;
  * <li>{@link #getVal()}: use it when you expect the entry to exist</li>
  * <li>{@link #getNonNullVal()}: use it when you expect the value to exist and
  * also for it to be non-null</li>
- * <li>{@link #getValOrDefault(Object, NullValHandling)}: use it to retrieve an optional value.
- * If the entry doesn't exist, the provided default value is returned.</li>
- * <li>{@link #getValOrNull(NullValHandling)}: use it when you don't know if the entry exists.
- * A null value is returned when either the entry doesn't exist or the actual
- * entry value is null. Because there's no differentiation between those two
- * cases, this method is not used as often as other alternatives.</li>
+ * <li>{@link #getValOrDefault(Object, NullValHandling)}: use it to retrieve an
+ * optional value. If the entry doesn't exist, the provided default value is
+ * returned.</li>
+ * <li>{@link #getValOrNull(NullValHandling)}: use it when you don't know if the
+ * entry exists. A null value is returned when either the entry doesn't exist or
+ * the actual entry value is null. Because there's no differentiation between
+ * those two cases, this method is not used as often as other alternatives.</li>
  * </ul>
  * When you want to optionally retrieve values, you may use a combination of
- * {@link #isAssigned()} and {@link #getVal()}. For example, the
- * following code is a snippet of a transformer that takes a string and returns
- * a lower-case version. If the string is not provided, the pipeline is not
- * modified. If the value is {@code null}, {@code null} is returned:
+ * {@link #isAssigned()} and {@link #getVal()}. For example, the following code
+ * is a snippet of a transformer that takes a string and returns a lower-case
+ * version. If the string is not provided, the pipeline is not modified. If the
+ * value is {@code null}, {@code null} is returned:
  * 
  * <pre>
- * DocEntry&lt;String&gt; originalEntry = pipelineDoc.entryOfString("original");
- * if (originalEntry.isAssigned()) {
- * 	String originalString = originalEntry.getVal();
- * 	String lowerString = (originalString != null) ? originalString.toLowerCase() : null;
- * 	pipelineDoc.entryOfString("lower").put(lowerString);
+ * public void toLower(IData pipeline) throws ServiceException {
+ * 	Document pipeDoc = Documents.wrap(pipeline);
+ * 	StringEntry originalEntry = pipeDoc.stringEntry("original");
+ * 	if (originalEntry.isAssigned()) {
+ * 		String originalString = originalEntry.getVal();
+ * 		String lowerString = (originalString != null) ? originalString.toLowerCase() : null;
+ * 		pipeDoc.stringEntry("lower").put(lowerString);
+ * 	}
+ * 
  * }
  * </pre>
  * 

@@ -23,7 +23,8 @@ import java.util.List;
  * <p>
  * This type is suitable when the entry's value consists in a collection of
  * elements, such as a list if strings. In contrast, a {@link ItemEntry}
- * instance is used for an entry that contains a single value, such as a string.
+ * instance is used for an entry that contains a single element, such as a
+ * string.
  *
  * <p>
  * The behaviour of get, put, and other methods in this class is very similar to

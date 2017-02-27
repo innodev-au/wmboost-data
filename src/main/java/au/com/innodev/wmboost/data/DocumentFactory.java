@@ -23,9 +23,7 @@ import com.wm.data.IData;
  * allows the creation a {@link Document} based on an existing {@link com.wm.data.IData}
  * instance and also the creation of a {@link Document} from scratch.
  *
- * <p>
- * An internal implementation for this interface is provided. This interface is not meant to
- * be implemented outside this library.
+ * <p>Use a {@link DocumentFactoryBuilder} to create an instance.
  */
 public interface DocumentFactory {
 

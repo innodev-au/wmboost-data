@@ -312,7 +312,7 @@ public class DocumentTest {
 	}
 	
 	@Test
-	public void testEntryOfIBoolean() {
+	public void testEntryOfBoolean() {
 		String originalValue = "true";
 		Boolean expected = true;
 		IData idata = newIDataWithValue(originalValue);
