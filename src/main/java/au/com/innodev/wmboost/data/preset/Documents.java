@@ -29,35 +29,37 @@ import au.com.innodev.wmboost.data.internal.Preconditions;
  * {@link #wrap(IData)} method. The typical use case is to wrap a pipeline
  * {@code IData} instance when implementing a Java service in webMethods.
  * <p>
- * If you'd like to create a new document (with it's) associated {@code IData}
- * instance, invoke the {@link #create()} method.
+ * If you'd like to create a new document invoke the {@link #create()} method.
+ * It will internally have it's own associated {@link com.wm.data.IData}
+ * instance.
  * <p>
  * It provides static versions of the {@link DocumentFactory} methods provided
  * by {@link DocumentFactories#getDefault()}
  * <p>
  * This class is used when the default behaviour is enough. If you need to
- * customise the type conversion or the {@link com.wm.data.IData} instances that are
- * created, you may create an alternative convenience class that returns your
- * own that {@link DocumentFactory} instance.
+ * customise the type conversion or the {@link com.wm.data.IData} instances that
+ * are created, you may create an alternative convenience class that returns
+ * your own that {@link DocumentFactory} instance.
  * 
  * @see Document
  */
 public final class Documents {
 
 	/**
-	 * Wraps an existing {@link com.wm.data.IData} instance for easy manipulation in a
-	 * {@link Document}.
+	 * Wraps an existing {@link com.wm.data.IData} instance for easy
+	 * manipulation as a {@link Document}.
 	 * <p>
 	 * Example:
 	 * 
 	 * <pre>
 	 * public static final void sayHello(IData pipeline) throws ServiceException {
-	 * 	  Document pipelineDoc = Documents.wrap(pipeline);
-	 * 	  pipelineDoc.entry("message").put("hello");
+	 * 	Document pipeDoc = Documents.wrap(pipeline);
+	 * 	pipeDoc.entry("message").put("hello");
 	 * }
 	 * </pre>
 	 * 
-	 * Note that in the example there's not need to wrap the code in try-finally because no cursors are used.
+	 * Note that in the example there's not need to wrap the code in try-finally
+	 * because no cursors are used.
 	 * 
 	 * @param iData
 	 *            the {@code IData} document to wrap
@@ -76,7 +78,6 @@ public final class Documents {
 	public static Document create() {
 		return DocumentFactories.getDefault().create();
 	}
-
 
 	private Documents() {
 		// Non-instantiable
