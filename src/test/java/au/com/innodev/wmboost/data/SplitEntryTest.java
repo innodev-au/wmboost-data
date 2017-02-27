@@ -274,7 +274,7 @@ public class SplitEntryTest {
 		Document document = docFactory.wrap(iData);
 
 		try {
-			document.entry("nonExistingKey").remove();
+			document.splitEntry("nonExistingKey").remove();
 			fail();
 		} catch (InexistentEntryException e) {
 			// success
