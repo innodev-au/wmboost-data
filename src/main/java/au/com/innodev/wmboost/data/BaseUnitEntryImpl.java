@@ -47,7 +47,7 @@ class BaseUnitEntryImpl<A, M> extends BaseEntry<A,M> {
 	}
 	
 
-	public final A doGetNonNullVal() {
+	protected final A doGetNonNullVal() {
 
 		A v = doGetVal();
 		if (v == null) {
@@ -57,7 +57,7 @@ class BaseUnitEntryImpl<A, M> extends BaseEntry<A,M> {
 		return v;
 	}
 
-	public final A doGetVal() {
+	protected final A doGetVal() {
 
 		if (!isAssigned()) {
 			throw new InexistentEntryException(

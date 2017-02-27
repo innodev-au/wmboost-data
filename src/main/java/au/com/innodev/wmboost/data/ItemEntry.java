@@ -15,6 +15,8 @@
  */
 package au.com.innodev.wmboost.data;
 
+import java.util.List;
+
 /**
  * A reference to a unit entry whose value is a single item. Allows access and
  * modification of the entry identified by the key.
@@ -40,17 +42,17 @@ package au.com.innodev.wmboost.data;
  * <li>{@link #getValOrDefault(Object, NullValHandling)}: use it to retrieve an
  * optional value. If the entry doesn't exist, the provided default value is
  * returned.</li>
- * <li>{@link #getValOrNull(NullValHandling)}: use it when you don't know if the
- * entry exists. A null value is returned when either the entry doesn't exist or
- * the actual entry value is null. Because there's no differentiation between
- * those two cases, this method is not used as often as other alternatives.</li>
+ * <li>{@link #getValOrNull()} and {@link #getValOrDefault(Object)}: use it when
+ * you don't know if the entry exists and want to return the default if it
+ * doesn't. These methods are not used as often as other alternatives.</li>
  * </ul>
+ * <p>
  * When you want to optionally retrieve values, you may use a combination of
  * {@link #isAssigned()} and {@link #getVal()}. For example, the following code
  * is a snippet of a transformer that takes a string and returns a lower-case
  * version. If the string is not provided, the pipeline is not modified. If the
  * value is {@code null}, {@code null} is returned:
- * 
+ * <p>
  * <pre>
  * public void toLower(IData pipeline) throws ServiceException {
  * 	Document pipeDoc = Documents.wrap(pipeline);
@@ -147,14 +149,56 @@ public interface ItemEntry<T> extends BaseUnitEntry, UnitEntryAccessor<T>, UnitE
 	 * Use this method when you don't know if the entry exists and you don't
 	 * want to distinguish between the case when the key is not assigned to an
 	 * entry and the case when the value is {@code null}.
+	 * <p>
+	 * This method is equivalent to {@link #getValOrNull(NullValHandling)}
+	 * with {@link NullValHandling} set to
+	 * {@link NullValHandling#RETURN_DEFAULT}.
+	 * 
+	 * @return entry value or null if entry doesn't exist
+	 * @see #getValOrNull()
+	 */
+	T getValOrNull();
+
+	/**
+	 * Returns the <em>value</em> component of the key/value entry in the
+	 * document. If the entry doesn't exist or the entry value is null, the
+	 * provided default value is returned.
+	 * <p>
+	 * Use this method when you don't know if the entry exists and you don't
+	 * want to distinguish between the case when the key is not assigned to an
+	 * entry and the case when the value is {@code null}.
 	 * 
 	 * 
 	 * @param nullValHandling
 	 *            behaviour when entry contains a null value
 	 * @return entry value or null if entry doesn't exist
+	 * @throws UnexpectedEntryValueException
+	 *             when the entry value is null and {@link NullValHandling#FAIL}
+	 *             is used
+	 * 
 	 * @see #getVal()
 	 */
-	T getValOrNull(NullValHandling nullValHandling);
+	T getValOrNull(NullValHandling nullValHandling) throws UnexpectedEntryValueException;
+
+	/**
+	 * Returns the <em>value</em> component of the key/value entry in the
+	 * document. If the entry doesn't exist or the entry value is null, the
+	 * provided default value is returned.
+	 * <p>
+	 * Use this method when you don't know if the entry exists and you want
+	 * {@code defaultValue} to be returned if it doesn't.
+	 * <p>
+	 * This method is equivalent to
+	 * {@link #getValOrDefault(Object, NullValHandling)} with
+	 * {@link NullValHandling} set to {@link NullValHandling#RETURN_DEFAULT}.
+	 * 
+	 * @param defaultValue
+	 *            value to return if entry doesn't exist
+	 * @return entry value or {@code defaultValue} if entry doesn't exist
+	 * 
+	 * @see #getVal()
+	 */
+	T getValOrDefault(T defaultValue);
 
 	/**
 	 * Returns the <em>value</em> component of the key/value entry in the
@@ -168,10 +212,12 @@ public interface ItemEntry<T> extends BaseUnitEntry, UnitEntryAccessor<T>, UnitE
 	 * @param nullValHandling
 	 *            behaviour when entry contains a null value
 	 * @return entry value or {@code defaultValue} if entry doesn't exist
-	 * 
+	 * @throws UnexpectedEntryValueException
+	 *             when the entry value is null and {@link NullValHandling#FAIL}
+	 *             is used.
 	 * @see #getVal()
 	 */
-	T getValOrDefault(T defaultValue, NullValHandling nullValHandling);
+	T getValOrDefault(T defaultValue, NullValHandling nullValHandling) throws UnexpectedEntryValueException;
 
 	/** -------- Mutators ------------------------------------------ */
 

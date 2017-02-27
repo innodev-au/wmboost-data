@@ -39,10 +39,7 @@ class ItemEntryImpl<T> extends BaseUnitEntryImpl<T,T> implements ItemEntry<T> {
 		doPut(value);
 	}
 
-	@Override
-	public T getValOrDefault(T defaultValue, NullValHandling nullHandling) {
-		return doGetValOrDefault(defaultValue, nullHandling);
-	}
+	
 
 	
 	@Override
@@ -56,11 +53,27 @@ class ItemEntryImpl<T> extends BaseUnitEntryImpl<T,T> implements ItemEntry<T> {
 	}
 	
 	@Override
-	public T getValOrNull(NullValHandling nullValHandling) {	
-		return doGetValOrDefault(null, NullValHandling.RETURN_NULL);
+	public T getValOrNull() {
+		return getValOrNull(NullValHandling.RETURN_DEFAULT);
 	}
 	
-	public final T doGetValOrDefault(T defaultValue, NullValHandling nullHandling) {
+	@Override
+	public T getValOrNull(NullValHandling nullValHandling) {	
+		return doGetValOrDefault(null, nullValHandling);
+	}
+	
+	
+	@Override
+	public T getValOrDefault(T defaultValue) {
+		return getValOrDefault(defaultValue, NullValHandling.RETURN_DEFAULT);
+	}
+	
+	@Override
+	public T getValOrDefault(T defaultValue, NullValHandling nullHandling) {
+		return doGetValOrDefault(defaultValue, nullHandling);
+	}
+	
+	private final T doGetValOrDefault(T defaultValue, NullValHandling nullHandling) {
 		Preconditions.checkNotNull(nullHandling, "null handling parameter was not set");
 		if (isAssigned()) {
 			T value = internalGetVal();

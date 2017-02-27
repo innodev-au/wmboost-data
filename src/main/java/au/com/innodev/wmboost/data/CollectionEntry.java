@@ -106,6 +106,23 @@ public interface CollectionEntry<E>
 	List<E> getNonEmptyVal() throws InexistentEntryException, UnexpectedEntryValueException;
 
 	/**
+	 * Returns the <em>value</em> component of an existing entry. It returns an
+	 * empty list if the entry doesn't exist or the entry value is {@code null}.
+	 * <p>
+	 * Use this method when you don't know whether the entry exists and you want
+	 * an empty list to be returned if it doesn't.
+	 * <p>
+	 * This method is equivalent to
+	 * {@link #getValOrEmpty(NullValHandling)} with
+	 * {@link NullValHandling} set to {@link NullValHandling#RETURN_DEFAULT}.
+	 * 
+	 * @return entry value
+	 * 
+	 * @see #getValOrEmpty(NullValHandling)
+	 */
+	List<E> getValOrEmpty();
+
+	/**
 	 * Returns the <em>value</em> component of an existing entry or an empty
 	 * list.
 	 * <p>
@@ -115,10 +132,32 @@ public interface CollectionEntry<E>
 	 * @param nullValHandling
 	 *            behaviour when entry contains a null value
 	 * @return entry value
-	 * 
+	 * @throws UnexpectedEntryValueException
+	 *             when the entry value is null and {@link NullValHandling#FAIL}
+	 *             is used.
 	 * @see #getVal()
 	 */
-	List<E> getValOrEmpty(NullValHandling nullValHandling);
+	List<E> getValOrEmpty(NullValHandling nullValHandling) throws UnexpectedEntryValueException;
+
+	/**
+	 * Returns the <em>value</em> component of an existing entry. The provided
+	 * default value is returned if the entry doesn't exist or the entry value
+	 * is {@code null}.
+	 * <p>
+	 * Use this method when you don't know if the entry exists and you want
+	 * {@code defaultValue} to be returned if it doesn't.
+	 * <p>
+	 * This method is equivalent to
+	 * {@link #getValOrDefault(List, NullValHandling)} with
+	 * {@link NullValHandling} set to {@link NullValHandling#RETURN_DEFAULT}.
+	 * 
+	 * @param defaultValue
+	 *            value to return if entry doesn't exist
+	 * @return entry value
+	 * 
+	 * @see #getValOrDefault(List, NullValHandling)
+	 */
+	List<E> getValOrDefault(List<? extends E> defaultValue);
 
 	/**
 	 * Returns the <em>value</em> component of an existing entry or a default
@@ -132,10 +171,14 @@ public interface CollectionEntry<E>
 	 * @param nullValHandling
 	 *            behaviour when entry contains a null value
 	 * @return entry value
+	 * @throws UnexpectedEntryValueException
+	 *             when the entry value is null and {@link NullValHandling#FAIL}
+	 *             is used.
 	 * 
 	 * @see #getVal()
 	 */
-	List<E> getValOrDefault(List<? extends E> defaultValue, NullValHandling nullValHandling);
+	List<E> getValOrDefault(List<? extends E> defaultValue, NullValHandling nullValHandling)
+			throws UnexpectedEntryValueException;
 
 	/** -------- Mutators ------------------------------------------ */
 

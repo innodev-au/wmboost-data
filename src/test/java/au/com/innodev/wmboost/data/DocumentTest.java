@@ -197,6 +197,86 @@ public class DocumentTest {
 	}
 
 	@Test
+	public void testSplitEntryOfIntegers() {
+		List<Integer> expected = Lists.newArrayList(3,5);;
+		IData idata = IDataFactory.create();
+		idata.getCursor().insertAfter("myVal", "3");
+		idata.getCursor().insertAfter("myVal", "5");
+
+		Document document = docFactory.wrap(idata);
+		assertEquals(expected, document.intsSplitEntry("myVal").getValOrEmpty());
+	}
+	
+	@Test
+	public void testSplitEntryOfBoolean() {
+		List<Boolean> expected = Lists.newArrayList(true,false);
+		IData idata = IDataFactory.create();
+		idata.getCursor().insertAfter("myVal", "true");
+		idata.getCursor().insertAfter("myVal", "false");
+
+		Document document = docFactory.wrap(idata);
+		assertEquals(expected, document.booleansSplitEntry("myVal").getValOrEmpty());
+	}
+	
+	@Test
+	public void testSplitEntryOfLongs() {
+		List<Long> expected = Lists.newArrayList(3L,5L);;
+		IData idata = IDataFactory.create();
+		idata.getCursor().insertAfter("myVal", "3");
+		idata.getCursor().insertAfter("myVal", "5");
+
+		Document document = docFactory.wrap(idata);
+		assertEquals(expected, document.longsSplitEntry("myVal").getValOrEmpty());
+	}
+	
+	@Test
+	public void testSplitEntryOfShorts() {
+		Short s1 = 3;
+		Short s2 = 5;
+		List<Short> expected = Lists.newArrayList(s1,s2);
+		IData idata = IDataFactory.create();
+		idata.getCursor().insertAfter("myVal", "3");
+		idata.getCursor().insertAfter("myVal", "5");
+
+		Document document = docFactory.wrap(idata);
+		assertEquals(expected, document.shortsSplitEntry("myVal").getValOrEmpty());
+	}
+	
+	@Test
+	public void testSplitEntryOfDoubles() {
+		List<Double> expected = Lists.newArrayList(3.14,1.156);
+		IData idata = IDataFactory.create();
+		idata.getCursor().insertAfter("myVal", "3.14");
+		idata.getCursor().insertAfter("myVal", "1.156");
+
+		Document document = docFactory.wrap(idata);
+		assertEquals(expected, document.doublesSplitEntry("myVal").getValOrEmpty());
+	}
+	
+	@Test
+	public void testSplitEntryOfFloats() {
+		List<Float> expected = Lists.newArrayList(3.14f,1.156f);
+		IData idata = IDataFactory.create();
+		idata.getCursor().insertAfter("myVal", "3.14");
+		idata.getCursor().insertAfter("myVal", "1.156");
+
+		Document document = docFactory.wrap(idata);
+		assertEquals(expected, document.floatsSplitEntry("myVal").getValOrEmpty());
+	}
+	
+	@Test
+	public void testSplitEntryOfBigDecimals() {
+		List<BigDecimal> expected = Lists.newArrayList(new BigDecimal("3.14"), new BigDecimal("1.156"));
+		IData idata = IDataFactory.create();
+		idata.getCursor().insertAfter("myVal", "3.14");
+		idata.getCursor().insertAfter("myVal", "1.156");
+
+		Document document = docFactory.wrap(idata);
+		assertEquals(expected, document.bigDecimalsSplitEntry("myVal").getValOrEmpty());
+	}
+	
+	
+	@Test
 	public void testMBooleanToBoolean() {
 		MBoolean originalValue = new MBoolean(true);
 		Boolean expected = Boolean.TRUE;
@@ -594,66 +674,7 @@ public class DocumentTest {
 		assertEquals(expected, document.collectionEntry("value1", Integer.class).getVal());
 	}
 	
-	@Test
-	public void testIntegersFromStringArrayWithGetValOrEmpty() {
-		String[] originalValue = new String[] { "1", "2" };
-		List<Integer> expected = Lists.newArrayList(1, 2);
-
-		IData idata = newIDataWithValue(originalValue);
-
-		Document document = docFactory.wrap(idata);
-		assertEquals(expected, document.intsEntry("value1").getValOrEmpty(NullValHandling.RETURN_NULL));
-	}
 	
-	@Test
-	public void testEmpty_GetValOrEmpty() {
-		List<Integer> expected = Lists.newArrayList();
-
-		IData idata = IDataFactory.create();
-
-		Document document = docFactory.wrap(idata);
-		assertEquals(expected, document.intsEntry("inexistentEntry").getValOrEmpty(NullValHandling.RETURN_NULL));
-	}
-	
-	@Test
-	public void testGetNonEmptyVal_withItems() {
-		String[] originalValue = new String[] { "1", "2" };
-		List<Integer> expected = Lists.newArrayList(1, 2);
-
-		IData idata = newIDataWithValue(originalValue);
-		
-		Document document = docFactory.wrap(idata);
-		assertEquals(expected, document.intsEntry("value1").getNonEmptyVal());
-	}
-	
-	@Test
-	public void testGetNonEmptyVal_withNonExistent() {
-		IData idata = IDataFactory.create();
-
-		Document document = docFactory.wrap(idata);
-		try {
-			document.intsEntry("inexistentEntry").getNonEmptyVal();
-			fail();
-		}
-		catch (InexistentEntryException e) {
-			// test succeeded
-		}		
-	}
-	
-	@Test
-	public void testGetNonEmptyVal_withEmpty() {
-		String[] originalValue = new String[] {};
-		IData idata = newIDataWithValue(originalValue);
-
-		Document document = docFactory.wrap(idata);
-		try {
-			document.intsEntry("value1").getNonEmptyVal();
-			fail();
-		}
-		catch (UnexpectedEntryValueException e) {
-			// test succeeded
-		}		
-	}
 	
 
 	@Test

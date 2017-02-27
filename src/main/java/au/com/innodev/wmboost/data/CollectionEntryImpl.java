@@ -45,11 +45,7 @@ class CollectionEntryImpl<E> extends BaseUnitEntryImpl<List<E>, Iterable<E>> imp
 		this(document, key, accessorType, accessorType, normaliseOption);
 	}
 
-	@Override
-	public List<E> getValOrEmpty(NullValHandling nullHandling) {	
-		return getValOrDefault(Collections.<E>emptyList(), nullHandling);
-	}
-
+	
 	
 	@Override
 	public final List<E> getNonNullVal() {
@@ -71,6 +67,23 @@ class CollectionEntryImpl<E> extends BaseUnitEntryImpl<List<E>, Iterable<E>> imp
 		return v;
 	}
 
+	@Override
+	public List<E> getValOrEmpty() {
+		return getValOrEmpty(NullValHandling.RETURN_DEFAULT); 
+	}
+	
+	@Override
+	public List<E> getValOrEmpty(NullValHandling nullHandling) {	
+		return getValOrDefault(Collections.<E>emptyList(), nullHandling);
+	}
+
+	
+	
+	@Override
+	public List<E> getValOrDefault(List<? extends E> defaultValue) {	
+		return getValOrDefault(defaultValue, NullValHandling.RETURN_DEFAULT);
+	}
+	
 	@Override
 	public final List<E> getValOrDefault(List<? extends E> defaultValue, NullValHandling nullHandling) {
 		Preconditions.checkNotNull(nullHandling);
