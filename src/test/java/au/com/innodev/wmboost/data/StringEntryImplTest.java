@@ -1,3 +1,4 @@
+package au.com.innodev.wmboost.data;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
@@ -6,7 +7,6 @@ import org.junit.Test;
 import com.wm.data.IData;
 
 import au.com.innodev.wmboost.data.Document;
-import au.com.innodev.wmboost.data.TestUtil;
 import au.com.innodev.wmboost.data.UnexpectedEntryValueException;
 import au.com.innodev.wmboost.data.preset.Documents;
 
