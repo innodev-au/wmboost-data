@@ -56,9 +56,10 @@ import com.wm.data.IData;
  * the pipeline document and that they are non-null. There's no need for
  * associated {@code if} statements.</li>
  * <li>Automatic conversion to Integer is performed for the input numbers. For
- * instance, if {@code number1} was actually stored as a string, it's converted
- * automatically to an integer. Similarly, if a value of Long, BigDecimal or
- * similar had been found, the conversion would've been done automatically.
+ * instance, if {@code number1} was actually stored as a string, it would
+ * automatically be converted to an integer. Similarly, if a value of Long,
+ * BigDecimal or similar had been found, the conversion would've been done
+ * automatically.
  * <li>It's possible to return the result as an integer as shown in the example.
  * If one wanted to return a string, then one would call
  * {@code pipelineDoc.stringEntry("result").putConverted(result)} and the
@@ -78,7 +79,7 @@ import com.wm.data.IData;
  * <li>String to numbers, such as Integer, Long, BigDecimal, etc. and vice-versa
  * </li>
  * <li>Numbers to numbers: such as Integer to Long</li>
- * <li>File object to strings</li>
+ * <li>Strings to enumerations and vice versa</li>
  * <li>etc.</li>
  * </ul>
  * 
@@ -90,7 +91,6 @@ import com.wm.data.IData;
  * <h3>Implementation</h3>
  * <p>
  * An internal implementation for this {@link Document} interface is provided.
- * This interface is not meant to be implemented outside this library.
  * 
  * <p>
  * Thread-safety is not guaranteed by implementations of this interface and the
@@ -176,12 +176,12 @@ public interface Document {
 	 * <pre>
 	 * EntryIterableResource entries = document.getAllEntries();
 	 * try {
-	 * 	  while (entries.hasNext()) {
+	 * 	while (entries.hasNext()) {
 	 * 		KeyValue entry = entries.next();
 	 * 		// do something
-	 * 	  }
+	 * 	}
 	 * } finally {
-	 * 	  entries.close();
+	 * 	entries.close();
 	 * }
 	 * 
 	 * </pre>
@@ -191,8 +191,8 @@ public interface Document {
 	EntryIterableResource getAllEntries();
 
 	/**
-	 * Returns unit entries. If multiple entries exist for a given key, only the
-	 * first entry is retrieved for that key.
+	 * Returns unit entries in the document. If multiple entries exist for a
+	 * given key, only the first entry is retrieved for that key.
 	 * <p>
 	 * Note that this method is consistent with {@link #entry(String, Class)}
 	 * and its variations.
@@ -245,9 +245,9 @@ public interface Document {
 	 * code:
 	 * 
 	 * <pre>
-	 *  import java.math.RoundingMode;
-	 *	//...
-	 *	RoundingMode mode = document.entry("roundingMode", RoundingMode.class).getNonNullVal();
+	 * import java.math.RoundingMode;
+	 * //...
+	 * RoundingMode mode = document.entry("roundingMode", RoundingMode.class).getNonNullVal();
 	 * </pre>
 	 * <p>
 	 * Note that this and similar methods operate on a <em>unit entry</em>. If
@@ -313,8 +313,8 @@ public interface Document {
 	StringEntry stringEntry(String key);
 
 	/**
-	 * Returns a reference to an entry with a value treated as a {@link Boolean}
-	 * .
+	 * Returns a reference to an entry with a value treated as a
+	 * {@link Boolean}.
 	 * 
 	 * @param key
 	 *            key that identifies the document entry
