@@ -40,12 +40,12 @@ import com.wm.data.IData;
  * 
  * <pre>
  * public static final void addInts(IData pipeline) throws ServiceException {
- *    Document pipeDoc = Documents.wrap(pipeline);
- *    Integer number1 = pipeDoc.intEntry("number1").getNonNullVal();
- *    Integer number2 = pipeDoc.intEntry("number2").getNonNullVal();
+ * 	Document pipeDoc = Documents.wrap(pipeline);
+ * 	Integer number1 = pipeDoc.intEntry("number1").getNonNullVal();
+ * 	Integer number2 = pipeDoc.intEntry("number2").getNonNullVal();
  * 
- *    Integer result = number1 + number2;
- *    pipeDoc.intEntry("result").put(result);
+ * 	Integer result = number1 + number2;
+ * 	pipeDoc.intEntry("result").put(result);
  * }
  * </pre>
  * 
@@ -144,11 +144,11 @@ public interface Document {
 	int getTotalEntries();
 
 	/**
-	 * Returns <em>all</em> document entries.
+	 * Returns <em>all</em> document entries, including multiple entries sharing
+	 * the same key (i.e. split entries).
 	 * <p>
-	 * If more than one entry exist for a particular key, multiple entries will
-	 * be returned for that key. The number of returned elements matches the one
-	 * given by {@link #getTotalEntries()}.
+	 * The number of returned elements matches the one given by
+	 * {@link #getTotalEntries()}.
 	 * 
 	 * <p>
 	 * Note that the returned value is both an {@link java.lang.Iterable} and a
@@ -164,9 +164,9 @@ public interface Document {
 	 * 
 	 * <pre>
 	 * try (EntryIterableResource entries = document.getAllEntries()) {
-	 * 	for (KeyValue entry : entries) {
+	 * 	 for (KeyValue entry : entries) {
 	 * 		// do something
-	 * 	}
+	 * 	 }
 	 * }
 	 * </pre>
 	 * 
@@ -176,12 +176,12 @@ public interface Document {
 	 * <pre>
 	 * EntryIterableResource entries = document.getAllEntries();
 	 * try {
-	 * 	while (entries.hasNext()) {
+	 * 	  while (entries.hasNext()) {
 	 * 		KeyValue entry = entries.next();
 	 * 		// do something
-	 * 	}
+	 * 	  }
 	 * } finally {
-	 * 	entries.close();
+	 * 	  entries.close();
 	 * }
 	 * 
 	 * </pre>
@@ -192,7 +192,7 @@ public interface Document {
 
 	/**
 	 * Returns unit entries. If multiple entries exist for a given key, only the
-	 * first with that key entry is returned.
+	 * first entry is retrieved for that key.
 	 * <p>
 	 * Note that this method is consistent with {@link #entry(String, Class)}
 	 * and its variations.
@@ -222,8 +222,6 @@ public interface Document {
 	 */
 	IData getIData();
 
-	// TODO add merge
-
 	/* ---------- Entry Section ----------------------------------------- */
 
 	/**
@@ -236,11 +234,11 @@ public interface Document {
 	 * is thrown.
 	 * <p>
 	 * Use this method for types for which convenience methods haven't been
-	 * defined. {@link #stringEntry(String)} is recommended for string
-	 * entries. However, this method is suitable for types such as
-	 * <em>enums</em>, special types such as AtomicInteger and File. Domain
-	 * objects (e.g. a Client object) are also supported but no out-of-the-box
-	 * conversion is provided for them.
+	 * defined. {@link #stringEntry(String)} is recommended for string entries.
+	 * However, this method is suitable for types such as <em>enums</em>,
+	 * special types such as AtomicInteger and File. Domain objects (e.g. a
+	 * Client object) are also supported but no out-of-the-box conversion is
+	 * provided for them.
 	 * <p>
 	 * For example, to retrieve an automatically-converted value of a custom
 	 * Enum such as {@link java.math.RoundingMode}, you may use the following
@@ -611,8 +609,8 @@ public interface Document {
 	/**
 	 * Returns a reference to a split entry.
 	 * <p>
-	 * Through this reference, the split entry value can be retrieved, set
-	 * or removed.
+	 * Through this reference, the split entry value can be retrieved, set or
+	 * removed.
 	 * <p>
 	 * As opposed to {@link #entry(String, Class)}, a split entry handles
 	 * <em>all</em> values associated wit a key, even if the key is shared
@@ -634,8 +632,8 @@ public interface Document {
 	<E> SplitEntry<E> splitEntry(String key, Class<E> memberType);
 
 	/**
-	 * Returns a reference to a split entry. Use it when you don't know have
-	 * an assumption about the type of the entry's value or for other special
+	 * Returns a reference to a split entry. Use it when you don't know have an
+	 * assumption about the type of the entry's value or for other special
 	 * cases.
 	 * 
 	 * @param key
