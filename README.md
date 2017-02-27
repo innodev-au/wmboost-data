@@ -15,7 +15,7 @@ Internally, the abstraction is transparent and IData is used as expected by Inte
 
 ## Project Status
 
-The library is at a state where the functionality has been verified to work correctly and is stable enough to work in a production environment - with the exception of split entries. However, until the release of version 1.0 (planned for March), some API changes may occur.
+The library is at a state where the functionality has been verified to work correctly and is stable enough to work in a production environment - with the exception of split (scattered) entries. However, until the release of version 1.0 (planned for March), some API changes may occur.
 
 ## Documentation
 
