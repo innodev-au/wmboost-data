@@ -13,6 +13,17 @@ public class ItemEntryTest {
 	private final DocumentFactory docFactory = DocumentFactories.getDefault();
 	
 	@Test
+	public void testGetValOrNull_RegularVal() {
+		Integer expected = 7;
+		String entryValue = "7";
+		IData idata = newIDataWithValue(entryValue);
+
+		Document document = docFactory.wrap(idata);
+		
+		assertEquals(expected, document.intEntry("value1").getValOrNull());
+	}
+	
+	@Test
 	public void testGetValOrNull_NullVal() {
 		String entryValue = null;
 		IData idata = newIDataWithValue(entryValue);
@@ -59,6 +70,17 @@ public class ItemEntryTest {
 	}
 	
 		
+	@Test
+	public void testGetValOrDefault_RegularVal() {
+		Integer expected = 7;
+		String entryValue = "7";
+		IData idata = newIDataWithValue(entryValue);
+
+		Document document = docFactory.wrap(idata);
+		
+		assertEquals(expected, document.intEntry("value1").getValOrDefault(9));
+	}
+	
 	@Test
 	public void testGetValOrDefault_NullVal() {
 		Integer expected = 9;
