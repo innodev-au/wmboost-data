@@ -18,8 +18,8 @@ package au.com.innodev.wmboost.data;
 import java.util.List;
 
 /**
- * A reference to a unit entry whose value is a collection. Allows access and
- * modification of the entry identified by the key.
+ * A reference to a unit entry where the value is a collection. Allows access
+ * and modification of the entry identified by the key.
  * <p>
  * This type is suitable when the entry's value consists in a collection of
  * elements, such as a list if strings. In contrast, a {@link ItemEntry}
@@ -112,8 +112,7 @@ public interface CollectionEntry<E>
 	 * Use this method when you don't know whether the entry exists and you want
 	 * an empty list to be returned if it doesn't.
 	 * <p>
-	 * This method is equivalent to
-	 * {@link #getValOrEmpty(NullValHandling)} with
+	 * This method is equivalent to {@link #getValOrEmpty(NullValHandling)} with
 	 * {@link NullValHandling} set to {@link NullValHandling#RETURN_DEFAULT}.
 	 * 
 	 * @return entry value

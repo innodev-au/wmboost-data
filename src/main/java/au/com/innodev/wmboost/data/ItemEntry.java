@@ -15,11 +15,9 @@
  */
 package au.com.innodev.wmboost.data;
 
-import java.util.List;
-
 /**
- * A reference to a unit entry whose value is a single item. Allows access and
- * modification of the entry identified by the key.
+ * A reference to a unit entry where the value is a single item. Allows access
+ * and modification of the entry identified by the key.
  * <p>
  * It's suitable when an entry's value corresponds to a single item, such as a
  * string. In contrast, a {@link CollectionEntry} is used for an entry that
@@ -53,6 +51,7 @@ import java.util.List;
  * version. If the string is not provided, the pipeline is not modified. If the
  * value is {@code null}, {@code null} is returned:
  * <p>
+ * 
  * <pre>
  * public void toLower(IData pipeline) throws ServiceException {
  * 	Document pipeDoc = Documents.wrap(pipeline);
@@ -150,9 +149,8 @@ public interface ItemEntry<T> extends BaseUnitEntry, UnitEntryAccessor<T>, UnitE
 	 * want to distinguish between the case when the key is not assigned to an
 	 * entry and the case when the value is {@code null}.
 	 * <p>
-	 * This method is equivalent to {@link #getValOrNull(NullValHandling)}
-	 * with {@link NullValHandling} set to
-	 * {@link NullValHandling#RETURN_DEFAULT}.
+	 * This method is equivalent to {@link #getValOrNull(NullValHandling)} with
+	 * {@link NullValHandling} set to {@link NullValHandling#RETURN_DEFAULT}.
 	 * 
 	 * @return entry value or null if entry doesn't exist
 	 * @see #getValOrNull(NullValHandling)

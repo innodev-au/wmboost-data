@@ -16,16 +16,17 @@
 package au.com.innodev.wmboost.data;
 
 /**
- * Base interface for unit entry references, which are the most common type of
- * entry references.
+ * Base interface for references to unit entries, which are the most common type
+ * of entries.
  * <p>
  * Direct use of leaf interfaces {@link ItemEntry} and {@link CollectionEntry}
  * is more common. However, this interface may be used in cases when shared
  * functionality is required.
  * <p>
- * A unit entry handles only one entry per key. Contrast this with
- * {@link SplitEntry}, which handles cases when the key is shared across
- * more than one entry.
+ * An instance manipulates a unit entry, that is, the first entry identified by
+ * the key. This is the norm in most uses cases. In rare situations where
+ * multiple entries for a key may exist and processing is required for all of
+ * those entries, use of {@link SplitEntry} would be more appropriate.
  * 
  */
 public interface BaseUnitEntry extends HasKey {
