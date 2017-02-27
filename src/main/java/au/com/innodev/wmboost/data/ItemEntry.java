@@ -15,11 +15,6 @@
  */
 package au.com.innodev.wmboost.data;
 
-import com.wm.app.b2b.server.ServiceException;
-import com.wm.data.IData;
-
-import au.com.innodev.wmboost.data.preset.Documents;
-
 /**
  * A reference to a unit entry whose value is a single item. Allows access and
  * modification of the entry identified by the key.
@@ -201,7 +196,7 @@ public interface ItemEntry<T> extends BaseUnitEntry, UnitEntryAccessor<T>, UnitE
 	 * you could use the following code:
 	 * 
 	 * <pre>
-	 * doc.entryOfString("total").putConverted(5);
+	 * doc.stringEntry("total").putConverted(5);
 	 * </pre>
 	 * <p>
 	 * If the provided {@code value} can't be converted to the entry's type, an

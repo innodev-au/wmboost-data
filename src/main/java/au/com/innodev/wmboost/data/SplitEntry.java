@@ -76,7 +76,7 @@ public interface SplitEntry<E> extends HasKey, EntryMutator<Iterable<? extends E
 	 * List&lt;Integer&gt; list = new ArrayList&lt;Integer&gt;();
 	 * list.add(5);
 	 * list.add(8);
-	 * doc.splitOfString("values").putConverted(list);
+	 * doc.stringsSplitEntry("values").putConverted(list);
 	 * </pre>
 	 * 
 	 * @param values

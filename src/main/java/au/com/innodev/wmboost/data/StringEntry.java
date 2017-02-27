@@ -15,6 +15,9 @@
  */
 package au.com.innodev.wmboost.data;
 
+/**
+ * A reference to an entry with a string as the value.
+ */
 public interface StringEntry extends ItemEntry<String> {
 
 	/**
@@ -46,7 +49,7 @@ public interface StringEntry extends ItemEntry<String> {
 	 * @throws InexistentEntryException
 	 *             if there's no entry associated with the key
 	 * @throws UnexpectedEntryValueException
-	 *             if the entry contains a null or empty value
+	 *             if the entry contains a null, empty or blank value
 	 * @see #getVal()
 	 */
 	String getNonBlankVal() throws InexistentEntryException, UnexpectedEntryValueException;
