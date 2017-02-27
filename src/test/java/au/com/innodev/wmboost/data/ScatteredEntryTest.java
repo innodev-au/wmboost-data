@@ -37,7 +37,7 @@ public class ScatteredEntryTest {
 		cursor.insertAfter("somethingDifferent", "z");
 
 		Document res = docFactory.wrap(idata);
-		Collection<String> actual = res.scatteredOfStrings("item").getValOrEmpty();
+		Collection<String> actual = res.stringsSplitEntry("item").getValOrEmpty();
 		assertTrue(CollectionUtils.isEqualCollection(expected, actual));
 	}
 
@@ -53,7 +53,7 @@ public class ScatteredEntryTest {
 		cursor.insertAfter("somethingDifferent", newIDataWithValue("z"));
 
 		Document res = docFactory.wrap(idata);
-		Collection<Document> actual = res.scatteredOfDocuments("item").getValOrEmpty();
+		Collection<Document> actual = res.docsSplitEntry("item").getValOrEmpty();
 		List<Document> actualList = Lists.newArrayList(actual);
 
 		assertEquals(3, actual.size());
@@ -74,7 +74,7 @@ public class ScatteredEntryTest {
 		cursor.insertAfter("somethingDifferent", newIDataWithValue("z"));
 
 		Document res = docFactory.wrap(idata);
-		Collection<Document> actual = res.scatteredOfDocuments("item").getNonEmptyVal();
+		Collection<Document> actual = res.docsSplitEntry("item").getNonEmptyVal();
 		List<Document> actualList = Lists.newArrayList(actual);
 
 		assertEquals(3, actual.size());
@@ -93,7 +93,7 @@ public class ScatteredEntryTest {
 
 		Document res = docFactory.wrap(idata);
 		try {
-			res.scatteredOfDocuments("item").getNonEmptyVal();
+			res.docsSplitEntry("item").getNonEmptyVal();
 			fail();
 		}
 		catch (InexistentEntryException e) {
@@ -108,7 +108,7 @@ public class ScatteredEntryTest {
 		List<String> list = Lists.newArrayList("Hello", "World");
 		
 		Document doc = docFactory.create();
-		doc.scatteredOfStrings("words").put(list);
+		doc.stringsSplitEntry("words").put(list);
 		IData iData = doc.getIData();
 		
 		IDataCursor cursor = iData.getCursor();
@@ -141,7 +141,7 @@ public class ScatteredEntryTest {
 		cursor.insertAfter("last", "Z");
 		}
 		Document doc = docFactory.wrap(iData);
-		doc.scatteredOfStrings("words").put(list);
+		doc.stringsSplitEntry("words").put(list);
 		
 		IDataCursor cursor2 = doc.getIData().getCursor();
 		
@@ -193,7 +193,7 @@ public class ScatteredEntryTest {
 		cursor.insertAfter("last", "Z");
 		}
 		Document doc = docFactory.wrap(iData);
-		doc.scatteredOfStrings("numbers").putConverted(list);
+		doc.stringsSplitEntry("numbers").putConverted(list);
 		
 		IDataCursor cursor2 = doc.getIData().getCursor();
 		
@@ -240,7 +240,7 @@ public class ScatteredEntryTest {
 		cursor.insertAfter("last", "Z");
 		}
 		Document doc = docFactory.wrap(iData);
-		doc.scatteredOfStrings("words").remove();
+		doc.stringsSplitEntry("words").remove();
 		
 		IDataCursor cursor2 = doc.getIData().getCursor();
 		

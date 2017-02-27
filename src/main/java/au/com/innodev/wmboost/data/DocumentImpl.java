@@ -186,7 +186,7 @@ final class DocumentImpl implements Document {
 		
 		if (Document.class.isAssignableFrom(type)) {
 			@SuppressWarnings("unchecked")
-			ItemEntry<T> entry = (ItemEntry<T>) entryOfDocument(key);
+			ItemEntry<T> entry = (ItemEntry<T>) docEntry(key);
 			return entry;
 		}
 		else if (Object.class.equals(type)) {
@@ -196,7 +196,7 @@ final class DocumentImpl implements Document {
 		}
 		else if (Collection.class.isAssignableFrom(type)) {
 			@SuppressWarnings("unchecked")
-			ItemEntry<T> entry = (ItemEntry<T>) entryOfCollection(key);
+			ItemEntry<T> entry = (ItemEntry<T>) collectionEntry(key);
 			return entry;
 		}		
 		else {
@@ -205,7 +205,7 @@ final class DocumentImpl implements Document {
 		
 	}
 	
-	public NestedDocEntry entryOfDocument(String key) {
+	public NestedDocEntry docEntry(String key) {
 		return new NestedDocEntryImpl(this, factory, key);
 	}
 	
@@ -213,60 +213,60 @@ final class DocumentImpl implements Document {
 		return new ItemEntryImpl<T>(this, key, type, DONT_NORMALISE);
 	}
 	
-	public StringEntry entryOfString(String key) {
+	public StringEntry stringEntry(String key) {
 		return new StringEntryImpl(this, key);
 	}
 
 	@Override
-	public ItemEntry<Boolean> entryOfBoolean(String key) {
+	public ItemEntry<Boolean> booleanEntry(String key) {
 		return specificTypeEntry(key, Boolean.class);
 	}
 	
 	@Override
-	public ItemEntry<Integer> entryOfInteger(String key) {	
+	public ItemEntry<Integer> intEntry(String key) {	
 		return specificTypeEntry(key, Integer.class);
 	}
 	
 	@Override
-	public ItemEntry<Long> entryOfLong(String key) {	
+	public ItemEntry<Long> longEntry(String key) {	
 		return specificTypeEntry(key, Long.class);
 	}
 	
 	@Override
-	public ItemEntry<Short> entryOfShort(String key) {	
+	public ItemEntry<Short> shortEntry(String key) {	
 		return specificTypeEntry(key, Short.class);
 	}
 	
 	@Override
-	public ItemEntry<Float> entryOfFloat(String key) {
+	public ItemEntry<Float> floatEntry(String key) {
 		return specificTypeEntry(key, Float.class);
 	}
 	
 	@Override
-	public ItemEntry<Double> entryOfDouble(String key) {
+	public ItemEntry<Double> doubleEntry(String key) {
 		return specificTypeEntry(key, Double.class);
 	}
 	
 	@Override
-	public ItemEntry<BigDecimal> entryOfBigDecimal(String key) {
+	public ItemEntry<BigDecimal> bigDecimalEntry(String key) {
 		return specificTypeEntry(key, BigDecimal.class);
 	}
 	
 	@Override
-	public ItemEntry<Date> entryOfLegacyDate(String key) {
+	public ItemEntry<Date> legacyDateEntry(String key) {
 		return specificTypeEntry(key, Date.class);
 	}
 	
-	public <E> CollectionEntry<E> entryOfCollection(String key, Class<E> memberType) {
+	public <E> CollectionEntry<E> collectionEntry(String key, Class<E> memberType) {
 		
 		if (Document.class.isAssignableFrom(memberType)) {
 			@SuppressWarnings("unchecked")
-			CollectionEntry<E> entry = (CollectionEntry<E>) entryOfDocuments(key);
+			CollectionEntry<E> entry = (CollectionEntry<E>) docsEntry(key);
 			return entry;
 		}
 		else if (Object.class.equals(memberType)) {
 			@SuppressWarnings("unchecked")
-			CollectionEntry<E> entry = (CollectionEntry<E>) entryOfCollection(key);
+			CollectionEntry<E> entry = (CollectionEntry<E>) collectionEntry(key);
 			return entry;
 		}		
 		else {
@@ -276,7 +276,7 @@ final class DocumentImpl implements Document {
 	}
 	
 	@Override
-	public CollectionEntry<Object> entryOfCollection(String key) {	
+	public CollectionEntry<Object> collectionEntry(String key) {	
 		return new CollectionEntryImpl<Object>(this, key, Object.class, MAY_NORMALISE);
 	}
 	
@@ -286,72 +286,72 @@ final class DocumentImpl implements Document {
 	}
 	
 	@Override
-	public CollectionEntry<Document> entryOfDocuments(String key) {
+	public CollectionEntry<Document> docsEntry(String key) {
 		return new CollectionEntryImpl<Document>(this, key, Document.class, IData.class, DONT_NORMALISE);
 	}
 
 	@Override
-	public CollectionEntry<String> entryOfStrings(String key) {
+	public CollectionEntry<String> stringsEntry(String key) {
 		return entryOfTypedCollection(key, String.class);
 	}
 	
 	@Override
-	public CollectionEntry<Boolean> entryOfBooleans(String key) {
+	public CollectionEntry<Boolean> booleansEntry(String key) {
 		return entryOfTypedCollection(key, Boolean.class);		
 	}
 	
 	@Override
-	public CollectionEntry<Integer> entryOfIntegers(String key) {
+	public CollectionEntry<Integer> intsEntry(String key) {
 		return entryOfTypedCollection(key, Integer.class);		
 	}
 	
 	@Override
-	public CollectionEntry<Long> entryOfLongs(String key) {
+	public CollectionEntry<Long> longsEntry(String key) {
 		return entryOfTypedCollection(key, Long.class);		
 	}
 	
 	@Override
-	public CollectionEntry<Short> entryOfShorts(String key) {
+	public CollectionEntry<Short> shortsEntry(String key) {
 		return entryOfTypedCollection(key, Short.class);		
 	}
 	
 	@Override
-	public CollectionEntry<Float> entryOfFloats(String key) {
+	public CollectionEntry<Float> floatsEntry(String key) {
 		return entryOfTypedCollection(key, Float.class);		
 	}	
 	
 	@Override
-	public CollectionEntry<Double> entryOfDoubles(String key) {
+	public CollectionEntry<Double> doublesEntry(String key) {
 		return entryOfTypedCollection(key, Double.class);		
 	}
 	
 	@Override
-	public CollectionEntry<BigDecimal> entryOfBigDecimals(String key) {
-		return entryOfCollection(key, BigDecimal.class);		
+	public CollectionEntry<BigDecimal> bigDecimalsEntry(String key) {
+		return collectionEntry(key, BigDecimal.class);		
 	}
 	
 	@Override
-	public CollectionEntry<Date> entryOfLegacyDates(String key) {
-		return entryOfCollection(key, Date.class);		
+	public CollectionEntry<Date> legacyDatesEntry(String key) {
+		return collectionEntry(key, Date.class);		
 	}
 	
 	@Override
-	public ScatteredEntry<Object> scattered(String key) {
+	public ScatteredEntry<Object> splitEntry(String key) {
 		return new ScatteredEntryImpl<Object>(this, key, Object.class, MAY_NORMALISE);		
 	}
 	
 	@Override
-	public <T> ScatteredEntry<T> scattered(String key, Class<T> memberType) {		
+	public <T> ScatteredEntry<T> splitEntry(String key, Class<T> memberType) {		
 		Preconditions.checkNotNull(memberType);
 		
 		if (Document.class.isAssignableFrom(memberType)) {
 			@SuppressWarnings("unchecked")
-			ScatteredEntry<T> entry = (ScatteredEntry<T>) scatteredOfDocuments(key);
+			ScatteredEntry<T> entry = (ScatteredEntry<T>) docsSplitEntry(key);
 			return entry;
 		}
 		else if (Object.class.equals(memberType)) {
 			@SuppressWarnings("unchecked")
-			ScatteredEntry<T> entry = (ScatteredEntry<T>) scattered(key);
+			ScatteredEntry<T> entry = (ScatteredEntry<T>) splitEntry(key);
 			return entry;
 		}
 		else {
@@ -364,55 +364,55 @@ final class DocumentImpl implements Document {
 	}
 	
 	@Override
-	public ScatteredEntry<String> scatteredOfStrings(String key) {	
+	public ScatteredEntry<String> stringsSplitEntry(String key) {	
 		return typedScatteredEntry(key, String.class);
 	}
 	
 	
 	@Override
-	public ScatteredEntry<Boolean> scatteredOfBooleans(String key) {
+	public ScatteredEntry<Boolean> booleansSplitEntry(String key) {
 		return typedScatteredEntry(key, Boolean.class);
 	}
 	
 	
 	@Override
-	public ScatteredEntry<Integer> scatteredOfIntegers(String key) {
+	public ScatteredEntry<Integer> intsSplitEntry(String key) {
 		return typedScatteredEntry(key, Integer.class);
 	}
 	
 	@Override
-	public ScatteredEntry<Long> scatteredOfLongs(String key) {
+	public ScatteredEntry<Long> longsSplitEntry(String key) {
 		return typedScatteredEntry(key, Long.class);
 	}
 	
 	@Override
-	public ScatteredEntry<Short> scatteredOfShorts(String key) {
+	public ScatteredEntry<Short> shortsSplitEntry(String key) {
 		return typedScatteredEntry(key, Short.class);
 	}
 	
 	@Override
-	public ScatteredEntry<Float> scatteredOfFloats(String key) {
+	public ScatteredEntry<Float> floatsSplitEntry(String key) {
 		return typedScatteredEntry(key, Float.class);
 	}
 	
 	
 	@Override
-	public ScatteredEntry<Double> scatteredOfDoubles(String key) {
+	public ScatteredEntry<Double> doublesSplitEntry(String key) {
 		return typedScatteredEntry(key, Double.class);
 	}
 	
 	@Override
-	public ScatteredEntry<BigDecimal> scatteredOfBigDecimal(String key) {
+	public ScatteredEntry<BigDecimal> bigDecimalsSplitEntry(String key) {
 		return typedScatteredEntry(key, BigDecimal.class);
 	}
 	
 	@Override
-	public ScatteredEntry<Date> scatteredOfLegacyDates(String key) {
+	public ScatteredEntry<Date> legacyDatesSplitEntry(String key) {
 		return typedScatteredEntry(key, Date.class);
 	}
 	
 	@Override
-	public ScatteredEntry<Document> scatteredOfDocuments(String key) {
+	public ScatteredEntry<Document> docsSplitEntry(String key) {
 		return new ScatteredEntryImpl<Document>(this, key, TypeDescriptor.valueOf(Document.class),
 				TypeDescriptor.valueOf(IData.class), DONT_NORMALISE);
 	}

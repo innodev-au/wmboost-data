@@ -39,12 +39,14 @@ import com.wm.data.IData;
  * adds two integer values:
  * 
  * <pre>
- * Document pipelineDoc = Documents.wrap(pipeline);
- * Integer number1 = pipelineDoc.entryOfInteger("number1").getNonNullVal();
- * Integer number2 = pipelineDoc.entryOfInteger("number2").getNonNullVal();
+ * public static final void addInts(IData pipeline) throws ServiceException {
+ *    Document pipeDoc = Documents.wrap(pipeline);
+ *    Integer number1 = pipeDoc.intEntry("number1").getNonNullVal();
+ *    Integer number2 = pipeDoc.intEntry("number2").getNonNullVal();
  * 
- * Integer result = number1 + number2;
- * pipelineDoc.entryOfInteger("result").put(result);
+ *    Integer result = number1 + number2;
+ *    pipeDoc.intEntry("result").put(result);
+ * }
  * </pre>
  * 
  * The example highlights some important features:
@@ -234,7 +236,7 @@ public interface Document {
 	 * is thrown.
 	 * <p>
 	 * Use this method for types for which convenience methods haven't been
-	 * defined. {@link #entryOfString(String)} is recommended for string
+	 * defined. {@link #stringEntry(String)} is recommended for string
 	 * entries. However, this method is suitable for types such as
 	 * <em>enums</em>, special types such as AtomicInteger and File. Domain
 	 * objects (e.g. a Client object) are also supported but no out-of-the-box
@@ -255,7 +257,7 @@ public interface Document {
 	 * one</em> would be referenced. This behaviour supports typical use cases;
 	 * for situations where multiple entries for a key may exist and processing
 	 * is required for all those entries, use of
-	 * {@link #scattered(String, Class)} would be more appropriate.
+	 * {@link #splitEntry(String, Class)} would be more appropriate.
 	 * 
 	 * @param key
 	 *            key that identifies the document entry
@@ -298,7 +300,7 @@ public interface Document {
 	 * 
 	 * @see #entry(String, Class)
 	 */
-	NestedDocEntry entryOfDocument(String key);
+	NestedDocEntry docEntry(String key);
 
 	/**
 	 * Returns a reference to an entry with a value treated as a {@link String}.
@@ -310,7 +312,7 @@ public interface Document {
 	 * 
 	 * @see #entry(String, Class)
 	 */
-	StringEntry entryOfString(String key);
+	StringEntry stringEntry(String key);
 
 	/**
 	 * Returns a reference to an entry with a value treated as a {@link Boolean}
@@ -323,7 +325,7 @@ public interface Document {
 	 * 
 	 * @see #entry(String, Class)
 	 */
-	ItemEntry<Boolean> entryOfBoolean(String key);
+	ItemEntry<Boolean> booleanEntry(String key);
 
 	/**
 	 * Returns a reference to an entry with a value treated as an
@@ -336,7 +338,7 @@ public interface Document {
 	 * 
 	 * @see #entry(String, Class)
 	 */
-	ItemEntry<Integer> entryOfInteger(String key);
+	ItemEntry<Integer> intEntry(String key);
 
 	/**
 	 * Returns a reference to an entry with a value treated as a {@link Long}.
@@ -348,7 +350,7 @@ public interface Document {
 	 * 
 	 * @see #entry(String, Class)
 	 */
-	ItemEntry<Long> entryOfLong(String key);
+	ItemEntry<Long> longEntry(String key);
 
 	/**
 	 * Returns a reference to an entry with a value treated as a {@link Short}.
@@ -360,7 +362,7 @@ public interface Document {
 	 * 
 	 * @see #entry(String, Class)
 	 */
-	ItemEntry<Short> entryOfShort(String key);
+	ItemEntry<Short> shortEntry(String key);
 
 	/**
 	 * Returns a reference to an entry with a value treated as a {@link Float}.
@@ -372,7 +374,7 @@ public interface Document {
 	 * 
 	 * @see #entry(String, Class)
 	 */
-	ItemEntry<Float> entryOfFloat(String key);
+	ItemEntry<Float> floatEntry(String key);
 
 	/**
 	 * Returns a reference to an entry with a value treated as a {@link Double}.
@@ -384,7 +386,7 @@ public interface Document {
 	 * 
 	 * @see #entry(String, Class)
 	 */
-	ItemEntry<Double> entryOfDouble(String key);
+	ItemEntry<Double> doubleEntry(String key);
 
 	/**
 	 * Returns a reference to an entry with a value treated as a
@@ -397,7 +399,7 @@ public interface Document {
 	 * 
 	 * @see #entry(String, Class)
 	 */
-	ItemEntry<BigDecimal> entryOfBigDecimal(String key);
+	ItemEntry<BigDecimal> bigDecimalEntry(String key);
 
 	/**
 	 * Returns a reference to an entry with a value treated as a {@link Date}.
@@ -412,7 +414,7 @@ public interface Document {
 	 * 
 	 * @see #entry(String, Class)
 	 */
-	ItemEntry<Date> entryOfLegacyDate(String key);
+	ItemEntry<Date> legacyDateEntry(String key);
 
 	/*
 	 * ---------- Collection Entry Section -------------------------------------
@@ -432,7 +434,7 @@ public interface Document {
 	 * entry's value is a collection). If there were multiple entries associated
 	 * to the key, only the <em>first one</em> would be referenced. This
 	 * behaviour supports typical use cases; for situations where multiple
-	 * entries per key are expected, use {@link #scattered(String, Class)}
+	 * entries per key are expected, use {@link #splitEntry(String, Class)}
 	 * instead.
 	 * 
 	 * @param key
@@ -447,7 +449,7 @@ public interface Document {
 	 * 
 	 * @see CollectionEntry
 	 */
-	<E> CollectionEntry<E> entryOfCollection(String key, Class<E> memberType);
+	<E> CollectionEntry<E> collectionEntry(String key, Class<E> memberType);
 
 	/**
 	 * Returns a reference to an entry with a value treated as a collection of
@@ -461,7 +463,7 @@ public interface Document {
 	 * 
 	 * @see #entry(String, Class)
 	 */
-	CollectionEntry<Object> entryOfCollection(String key);
+	CollectionEntry<Object> collectionEntry(String key);
 
 	/**
 	 * Returns a reference to an entry with a value treated as a collection of
@@ -474,7 +476,7 @@ public interface Document {
 	 * 
 	 * @see #entry(String, Class)
 	 */
-	CollectionEntry<String> entryOfStrings(String key);
+	CollectionEntry<String> stringsEntry(String key);
 
 	/**
 	 * Returns a reference to an entry with a value treated as a collection of
@@ -487,7 +489,7 @@ public interface Document {
 	 * 
 	 * @see #entry(String, Class)
 	 */
-	CollectionEntry<Boolean> entryOfBooleans(String key);
+	CollectionEntry<Boolean> booleansEntry(String key);
 
 	/**
 	 * Returns a reference to an entry with a nested collection of documents as
@@ -505,7 +507,7 @@ public interface Document {
 	 * 
 	 * @see #entry(String, Class)
 	 */
-	CollectionEntry<Document> entryOfDocuments(String key);
+	CollectionEntry<Document> docsEntry(String key);
 
 	/**
 	 * Returns a reference to an entry with a value treated as a collection of
@@ -518,7 +520,7 @@ public interface Document {
 	 * 
 	 * @see #entry(String, Class)
 	 */
-	CollectionEntry<Integer> entryOfIntegers(String key);
+	CollectionEntry<Integer> intsEntry(String key);
 
 	/**
 	 * Returns a reference to an entry with a value treated as a collection of
@@ -531,7 +533,7 @@ public interface Document {
 	 * 
 	 * @see #entry(String, Class)
 	 */
-	CollectionEntry<Long> entryOfLongs(String key);
+	CollectionEntry<Long> longsEntry(String key);
 
 	/**
 	 * Returns a reference to an entry with a value treated as a collection of
@@ -544,7 +546,7 @@ public interface Document {
 	 * 
 	 * @see #entry(String, Class)
 	 */
-	CollectionEntry<Short> entryOfShorts(String key);
+	CollectionEntry<Short> shortsEntry(String key);
 
 	/**
 	 * Returns a reference to an entry with a value treated as a collection of
@@ -557,7 +559,7 @@ public interface Document {
 	 * 
 	 * @see #entry(String, Class)
 	 */
-	CollectionEntry<Float> entryOfFloats(String key);
+	CollectionEntry<Float> floatsEntry(String key);
 
 	/**
 	 * Returns a reference to an entry with a value treated as a collection of
@@ -570,7 +572,7 @@ public interface Document {
 	 * 
 	 * @see #entry(String, Class)
 	 */
-	CollectionEntry<Double> entryOfDoubles(String key);
+	CollectionEntry<Double> doublesEntry(String key);
 
 	/**
 	 * Returns a reference to an entry with a value treated as a collection of
@@ -583,7 +585,7 @@ public interface Document {
 	 * 
 	 * @see #entry(String, Class)
 	 */
-	CollectionEntry<BigDecimal> entryOfBigDecimals(String key);
+	CollectionEntry<BigDecimal> bigDecimalsEntry(String key);
 
 	/**
 	 * Returns a reference to an entry with a value treated as a collection of
@@ -599,7 +601,7 @@ public interface Document {
 	 * 
 	 * @see #entry(String, Class)
 	 */
-	CollectionEntry<Date> entryOfLegacyDates(String key);
+	CollectionEntry<Date> legacyDatesEntry(String key);
 
 	/*
 	 * ---------- Scattered Entry Section ----------------
@@ -629,7 +631,7 @@ public interface Document {
 	 *            memberType
 	 * @return a scattered entry reference
 	 */
-	<E> ScatteredEntry<E> scattered(String key, Class<E> memberType);
+	<E> ScatteredEntry<E> splitEntry(String key, Class<E> memberType);
 
 	/**
 	 * Returns a reference to a scattered entry. Use it when you don't know have
@@ -640,7 +642,7 @@ public interface Document {
 	 *            key that identifies the scattered entry
 	 * @return a scattered entry reference
 	 */
-	ScatteredEntry<Object> scattered(String key);
+	ScatteredEntry<Object> splitEntry(String key);
 
 	/**
 	 * Returns a reference to a scattered entry of {@link Boolean} instances.
@@ -649,9 +651,9 @@ public interface Document {
 	 *            key that identifies the scattered entry
 	 * @return a scattered entry reference
 	 * 
-	 * @see #scattered(String, Class)
+	 * @see #splitEntry(String, Class)
 	 */
-	ScatteredEntry<Boolean> scatteredOfBooleans(String key);
+	ScatteredEntry<Boolean> booleansSplitEntry(String key);
 
 	/**
 	 * Returns a reference to a scattered entry of {@link Integer} instances.
@@ -660,9 +662,9 @@ public interface Document {
 	 *            key that identifies the scattered entry
 	 * @return a scattered entry reference
 	 * 
-	 * @see #scattered(String, Class)
+	 * @see #splitEntry(String, Class)
 	 */
-	ScatteredEntry<Integer> scatteredOfIntegers(String key);
+	ScatteredEntry<Integer> intsSplitEntry(String key);
 
 	/**
 	 * Returns a reference to a scattered entry of {@link Long} instances.
@@ -671,9 +673,9 @@ public interface Document {
 	 *            key that identifies the scattered entry
 	 * @return a scattered entry reference
 	 * 
-	 * @see #scattered(String, Class)
+	 * @see #splitEntry(String, Class)
 	 */
-	ScatteredEntry<Long> scatteredOfLongs(String key);
+	ScatteredEntry<Long> longsSplitEntry(String key);
 
 	/**
 	 * Returns a reference to a scattered entry of {@link Short} instances.
@@ -682,9 +684,9 @@ public interface Document {
 	 *            key that identifies the scattered entry
 	 * @return a scattered entry reference
 	 * 
-	 * @see #scattered(String, Class)
+	 * @see #splitEntry(String, Class)
 	 */
-	ScatteredEntry<Short> scatteredOfShorts(String key);
+	ScatteredEntry<Short> shortsSplitEntry(String key);
 
 	/**
 	 * Returns a reference to a scattered entry of {@link Double} instances.
@@ -693,9 +695,9 @@ public interface Document {
 	 *            key that identifies the scattered entry
 	 * @return a scattered entry reference
 	 * 
-	 * @see #scattered(String, Class)
+	 * @see #splitEntry(String, Class)
 	 */
-	ScatteredEntry<Double> scatteredOfDoubles(String key);
+	ScatteredEntry<Double> doublesSplitEntry(String key);
 
 	/**
 	 * Returns a reference to a scattered entry of {@link Float} instances.
@@ -704,9 +706,9 @@ public interface Document {
 	 *            key that identifies the scattered entry
 	 * @return a scattered entry reference
 	 * 
-	 * @see #scattered(String, Class)
+	 * @see #splitEntry(String, Class)
 	 */
-	ScatteredEntry<Float> scatteredOfFloats(String key);
+	ScatteredEntry<Float> floatsSplitEntry(String key);
 
 	/**
 	 * Returns a reference to a scattered entry of {@link BigDecimal} instances.
@@ -715,9 +717,9 @@ public interface Document {
 	 *            key that identifies the scattered entry
 	 * @return a scattered entry reference
 	 * 
-	 * @see #scattered(String, Class)
+	 * @see #splitEntry(String, Class)
 	 */
-	ScatteredEntry<BigDecimal> scatteredOfBigDecimal(String key);
+	ScatteredEntry<BigDecimal> bigDecimalsSplitEntry(String key);
 
 	/**
 	 * Returns a reference to a scattered entry of {@link Date} instances.
@@ -729,9 +731,9 @@ public interface Document {
 	 *            key that identifies the scattered entry
 	 * @return a scattered entry reference
 	 * 
-	 * @see #scattered(String, Class)
+	 * @see #splitEntry(String, Class)
 	 */
-	ScatteredEntry<Date> scatteredOfLegacyDates(String key);
+	ScatteredEntry<Date> legacyDatesSplitEntry(String key);
 
 	/**
 	 * Returns a reference to a scattered entry of {@link String} instances.
@@ -740,9 +742,9 @@ public interface Document {
 	 *            key that identifies the scattered entry
 	 * @return a scattered entry reference
 	 * 
-	 * @see #scattered(String, Class)
+	 * @see #splitEntry(String, Class)
 	 */
-	ScatteredEntry<String> scatteredOfStrings(String key);
+	ScatteredEntry<String> stringsSplitEntry(String key);
 
 	/**
 	 * Returns a reference to a scattered entry of nested document instances.
@@ -751,8 +753,8 @@ public interface Document {
 	 *            key that identifies the scattered entry
 	 * @return a scattered entry reference
 	 * 
-	 * @see #scattered(String, Class)
+	 * @see #splitEntry(String, Class)
 	 */
-	ScatteredEntry<Document> scatteredOfDocuments(String key);
+	ScatteredEntry<Document> docsSplitEntry(String key);
 
 }

@@ -18,7 +18,7 @@ public class StringEntryImplTest {
 		IData iData= TestUtil.newIDataWithValue("hello!");
 		Document document = Documents.wrap(iData);
 		
-		assertEquals(expected, document.entryOfString("value1").getNonBlankVal());
+		assertEquals(expected, document.stringEntry("value1").getNonBlankVal());
 	}
 	
 	@Test
@@ -27,7 +27,7 @@ public class StringEntryImplTest {
 		Document document = Documents.wrap(iData);
 		
 		try {
-			document.entryOfString("value1").getNonBlankVal();
+			document.stringEntry("value1").getNonBlankVal();
 			fail();
 		}
 		catch (UnexpectedEntryValueException e) {
@@ -41,7 +41,7 @@ public class StringEntryImplTest {
 		Document document = Documents.wrap(iData);
 		
 		try {
-			document.entryOfString("value1").getNonBlankVal();
+			document.stringEntry("value1").getNonBlankVal();
 			fail();
 		}
 		catch (UnexpectedEntryValueException e) {
@@ -55,7 +55,7 @@ public class StringEntryImplTest {
 		IData iData= TestUtil.newIDataWithValue("hello!");
 		Document document = Documents.wrap(iData);
 		
-		assertEquals(expected, document.entryOfString("value1").getNonEmptyVal());
+		assertEquals(expected, document.stringEntry("value1").getNonEmptyVal());
 	}
 	
 	@Test
@@ -64,7 +64,7 @@ public class StringEntryImplTest {
 		Document document = Documents.wrap(iData);
 		
 		try {
-			document.entryOfString("value1").getNonEmptyVal();
+			document.stringEntry("value1").getNonEmptyVal();
 			fail();
 		}
 		catch (UnexpectedEntryValueException e) {

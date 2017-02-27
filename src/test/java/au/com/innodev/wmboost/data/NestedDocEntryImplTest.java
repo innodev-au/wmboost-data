@@ -15,7 +15,7 @@ public class NestedDocEntryImplTest {
 	@Test
 	public void testPutNew() {
 		Document document = Documents.create();
-		Document nestedDoc = document.entryOfDocument("nested1").putNew();
+		Document nestedDoc = document.docEntry("nested1").putNew();
 		nestedDoc.entry("number").put(5);
 		
 		IData topIData = document.getIData();
