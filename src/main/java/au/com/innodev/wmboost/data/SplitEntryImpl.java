@@ -46,7 +46,7 @@ class SplitEntryImpl<E> extends BaseEntry<E, E> implements SplitEntry<E> {
 		List<E> val = getValOrEmpty();
 		if (val.isEmpty()) {
 			throw new InexistentEntryException(
-					"No value found in scattered entry with key '" + getKey() + "'");
+					"No value found in split entry with key '" + getKey() + "'");
 		}
 
 		return val;

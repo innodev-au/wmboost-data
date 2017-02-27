@@ -355,60 +355,60 @@ final class DocumentImpl implements Document {
 			return entry;
 		}
 		else {
-			return typedScatteredEntry(key, memberType);
+			return typedSplitEntry(key, memberType);
 		}		
 	}
 	
-	private <T> SplitEntry<T> typedScatteredEntry(String key, Class<T> memberType) {		
+	private <T> SplitEntry<T> typedSplitEntry(String key, Class<T> memberType) {		
 		return new SplitEntryImpl<T>(this, key, memberType, DONT_NORMALISE);
 	}
 	
 	@Override
 	public SplitEntry<String> stringsSplitEntry(String key) {	
-		return typedScatteredEntry(key, String.class);
+		return typedSplitEntry(key, String.class);
 	}
 	
 	
 	@Override
 	public SplitEntry<Boolean> booleansSplitEntry(String key) {
-		return typedScatteredEntry(key, Boolean.class);
+		return typedSplitEntry(key, Boolean.class);
 	}
 	
 	
 	@Override
 	public SplitEntry<Integer> intsSplitEntry(String key) {
-		return typedScatteredEntry(key, Integer.class);
+		return typedSplitEntry(key, Integer.class);
 	}
 	
 	@Override
 	public SplitEntry<Long> longsSplitEntry(String key) {
-		return typedScatteredEntry(key, Long.class);
+		return typedSplitEntry(key, Long.class);
 	}
 	
 	@Override
 	public SplitEntry<Short> shortsSplitEntry(String key) {
-		return typedScatteredEntry(key, Short.class);
+		return typedSplitEntry(key, Short.class);
 	}
 	
 	@Override
 	public SplitEntry<Float> floatsSplitEntry(String key) {
-		return typedScatteredEntry(key, Float.class);
+		return typedSplitEntry(key, Float.class);
 	}
 	
 	
 	@Override
 	public SplitEntry<Double> doublesSplitEntry(String key) {
-		return typedScatteredEntry(key, Double.class);
+		return typedSplitEntry(key, Double.class);
 	}
 	
 	@Override
 	public SplitEntry<BigDecimal> bigDecimalsSplitEntry(String key) {
-		return typedScatteredEntry(key, BigDecimal.class);
+		return typedSplitEntry(key, BigDecimal.class);
 	}
 	
 	@Override
 	public SplitEntry<Date> legacyDatesSplitEntry(String key) {
-		return typedScatteredEntry(key, Date.class);
+		return typedSplitEntry(key, Date.class);
 	}
 	
 	@Override

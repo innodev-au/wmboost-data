@@ -604,17 +604,17 @@ public interface Document {
 	CollectionEntry<Date> legacyDatesEntry(String key);
 
 	/*
-	 * ---------- Scattered Entry Section ----------------
+	 * ---------- Split Entry Section ----------------
 	 * 
 	 */
 
 	/**
-	 * /** Returns a reference to a scattered entry.
+	 * /** Returns a reference to a split entry.
 	 * <p>
-	 * Through this reference, the scattered entry value can be retrieved, set
+	 * Through this reference, the split entry value can be retrieved, set
 	 * or removed.
 	 * <p>
-	 * As opposed to {@link #entry(String, Class)}, a scattered entry handles
+	 * As opposed to {@link #entry(String, Class)}, a split entry handles
 	 * <em>all</em> values associated wit a key, even if the key is shared
 	 * across multiple entries.
 	 * <p>
@@ -623,135 +623,135 @@ public interface Document {
 	 * fails, an exception is thrown.
 	 * 
 	 * @param key
-	 *            key that identifies the scattered entry
-	 * @return a scattered entry reference
+	 *            key that identifies the split entry
+	 * @return a split entry reference
 	 * @param memberType
-	 *            type of each individual entry that makes up a scattered entry
+	 *            type of each individual entry that makes up a split entry
 	 * @param <E>
 	 *            memberType
-	 * @return a scattered entry reference
+	 * @return a split entry reference
 	 */
 	<E> SplitEntry<E> splitEntry(String key, Class<E> memberType);
 
 	/**
-	 * Returns a reference to a scattered entry. Use it when you don't know have
+	 * Returns a reference to a split entry. Use it when you don't know have
 	 * an assumption about the type of the entry's value or for other special
 	 * cases.
 	 * 
 	 * @param key
-	 *            key that identifies the scattered entry
-	 * @return a scattered entry reference
+	 *            key that identifies the split entry
+	 * @return a split entry reference
 	 */
 	SplitEntry<Object> splitEntry(String key);
 
 	/**
-	 * Returns a reference to a scattered entry of {@link Boolean} instances.
+	 * Returns a reference to a split entry of {@link Boolean} instances.
 	 * 
 	 * @param key
-	 *            key that identifies the scattered entry
-	 * @return a scattered entry reference
+	 *            key that identifies the split entry
+	 * @return a split entry reference
 	 * 
 	 * @see #splitEntry(String, Class)
 	 */
 	SplitEntry<Boolean> booleansSplitEntry(String key);
 
 	/**
-	 * Returns a reference to a scattered entry of {@link Integer} instances.
+	 * Returns a reference to a split entry of {@link Integer} instances.
 	 * 
 	 * @param key
-	 *            key that identifies the scattered entry
-	 * @return a scattered entry reference
+	 *            key that identifies the split entry
+	 * @return a split entry reference
 	 * 
 	 * @see #splitEntry(String, Class)
 	 */
 	SplitEntry<Integer> intsSplitEntry(String key);
 
 	/**
-	 * Returns a reference to a scattered entry of {@link Long} instances.
+	 * Returns a reference to a split entry of {@link Long} instances.
 	 * 
 	 * @param key
-	 *            key that identifies the scattered entry
-	 * @return a scattered entry reference
+	 *            key that identifies the split entry
+	 * @return a split entry reference
 	 * 
 	 * @see #splitEntry(String, Class)
 	 */
 	SplitEntry<Long> longsSplitEntry(String key);
 
 	/**
-	 * Returns a reference to a scattered entry of {@link Short} instances.
+	 * Returns a reference to a split entry of {@link Short} instances.
 	 * 
 	 * @param key
-	 *            key that identifies the scattered entry
-	 * @return a scattered entry reference
+	 *            key that identifies the split entry
+	 * @return a split entry reference
 	 * 
 	 * @see #splitEntry(String, Class)
 	 */
 	SplitEntry<Short> shortsSplitEntry(String key);
 
 	/**
-	 * Returns a reference to a scattered entry of {@link Double} instances.
+	 * Returns a reference to a split entry of {@link Double} instances.
 	 * 
 	 * @param key
-	 *            key that identifies the scattered entry
-	 * @return a scattered entry reference
+	 *            key that identifies the split entry
+	 * @return a split entry reference
 	 * 
 	 * @see #splitEntry(String, Class)
 	 */
 	SplitEntry<Double> doublesSplitEntry(String key);
 
 	/**
-	 * Returns a reference to a scattered entry of {@link Float} instances.
+	 * Returns a reference to a split entry of {@link Float} instances.
 	 * 
 	 * @param key
-	 *            key that identifies the scattered entry
-	 * @return a scattered entry reference
+	 *            key that identifies the split entry
+	 * @return a split entry reference
 	 * 
 	 * @see #splitEntry(String, Class)
 	 */
 	SplitEntry<Float> floatsSplitEntry(String key);
 
 	/**
-	 * Returns a reference to a scattered entry of {@link BigDecimal} instances.
+	 * Returns a reference to a split entry of {@link BigDecimal} instances.
 	 * 
 	 * @param key
-	 *            key that identifies the scattered entry
-	 * @return a scattered entry reference
+	 *            key that identifies the split entry
+	 * @return a split entry reference
 	 * 
 	 * @see #splitEntry(String, Class)
 	 */
 	SplitEntry<BigDecimal> bigDecimalsSplitEntry(String key);
 
 	/**
-	 * Returns a reference to a scattered entry of {@link Date} instances.
+	 * Returns a reference to a split entry of {@link Date} instances.
 	 * <p>
 	 * As of 2017, webMethods still uses this class for dates but it's legacy as
 	 * of Java 8.
 	 * 
 	 * @param key
-	 *            key that identifies the scattered entry
-	 * @return a scattered entry reference
+	 *            key that identifies the split entry
+	 * @return a split entry reference
 	 * 
 	 * @see #splitEntry(String, Class)
 	 */
 	SplitEntry<Date> legacyDatesSplitEntry(String key);
 
 	/**
-	 * Returns a reference to a scattered entry of {@link String} instances.
+	 * Returns a reference to a split entry of {@link String} instances.
 	 * 
 	 * @param key
-	 *            key that identifies the scattered entry
-	 * @return a scattered entry reference
+	 *            key that identifies the split entry
+	 * @return a split entry reference
 	 * 
 	 * @see #splitEntry(String, Class)
 	 */
 	SplitEntry<String> stringsSplitEntry(String key);
 
 	/**
-	 * Returns a reference to a scattered entry of nested document instances.
+	 * Returns a reference to a split entry of nested document instances.
 	 * 
 	 * @param key
-	 *            key that identifies the scattered entry
-	 * @return a scattered entry reference
+	 *            key that identifies the split entry
+	 * @return a split entry reference
 	 * 
 	 * @see #splitEntry(String, Class)
 	 */

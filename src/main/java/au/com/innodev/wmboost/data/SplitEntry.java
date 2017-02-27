@@ -35,7 +35,7 @@ public interface SplitEntry<E> extends HasKey, EntryMutator<Iterable<? extends E
 	String getKey();
 
 	/**
-	 * Returns a non-empty list of values in the scattered entry.
+	 * Returns a non-empty list of values in the split entry.
 	 * <p>
 	 * 
 	 * @throws InexistentEntryException
@@ -46,7 +46,7 @@ public interface SplitEntry<E> extends HasKey, EntryMutator<Iterable<? extends E
 	List<E> getNonEmptyVal() throws InexistentEntryException;
 
 	/**
-	 * Returns the values in the scattered entry. If there are no entries with
+	 * Returns the values in the split entry. If there are no entries with
 	 * the key, an empty collection is returned.
 	 * 
 	 * @return a non-null list
@@ -54,16 +54,16 @@ public interface SplitEntry<E> extends HasKey, EntryMutator<Iterable<? extends E
 	List<E> getValOrEmpty();
 
 	/**
-	 * Sets or replaces all values in the scattered entry with the provided
+	 * Sets or replaces all values in the split entry with the provided
 	 * ones.
 	 * 
 	 * @param values
-	 *            new values for the scattered entry
+	 *            new values for the split entry
 	 */
 	void put(Iterable<? extends E> values);
 
 	/**
-	 * Sets or replaces all values in the scattered entry with the provided
+	 * Sets or replaces all values in the split entry with the provided
 	 * ones.
 	 * 
 	 * <p>
@@ -76,16 +76,16 @@ public interface SplitEntry<E> extends HasKey, EntryMutator<Iterable<? extends E
 	 * List&lt;Integer&gt; list = new ArrayList&lt;Integer&gt;();
 	 * list.add(5);
 	 * list.add(8);
-	 * doc.scatteredOfString("values").putConverted(list);
+	 * doc.splitOfString("values").putConverted(list);
 	 * </pre>
 	 * 
 	 * @param values
-	 *            new values for the scattered entry
+	 *            new values for the split entry
 	 */
 	void putConverted(Iterable<?> values);
 
 	/**
-	 * Removes all values in the scattered entry in strict mode.
+	 * Removes all values in the split entry in strict mode.
 	 * 
 	 * @see #remove(RemoveEntryOption)
 	 * 
@@ -93,7 +93,7 @@ public interface SplitEntry<E> extends HasKey, EntryMutator<Iterable<? extends E
 	void remove();
 
 	/**
-	 * Removes all values in the scattered entry.
+	 * Removes all values in the split entry.
 	 * 
 	 * <p>
 	 * Note that type used for the entry (e.g. String) is not taken into account
