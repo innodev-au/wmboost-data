@@ -28,8 +28,8 @@ The following example shows the implementation of a service that takes a number,
 public static final void addNumToList(IData pipeline) throws ServiceException {
   Document pipeDoc = Documents.wrap(pipeline);
 
-  int numToAdd = pipeDoc.entryOfInteger("numToAdd").getNonNullVal();
-  List<Integer> originalList = pipeDoc.entryOfIntegers("originalList").getNonNullVal();
+  int numToAdd = pipeDoc.intEntry("numToAdd").getNonNullVal();
+  List<Integer> originalList = pipeDoc.intsEntry("originalList").getNonNullVal();
 
   List<Integer> newList = new ArrayList<>(originalList.size());
 
@@ -40,7 +40,7 @@ public static final void addNumToList(IData pipeline) throws ServiceException {
     newList.add(newValue);
   }
 
-  pipeDoc.entryOfStrings("newList").putConverted(newList);
+  pipeDoc.stringsEntry("newList").putConverted(newList);
 }
 ```
 
