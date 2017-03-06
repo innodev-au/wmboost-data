@@ -19,7 +19,7 @@ The project is suitable for production.
 
 ## Documentation
 
-Refer to the [Wiki section](https://github.com/innodev-au/wmboost-data/wiki) for documentation. You may want to jump to the [Quick Start](https://github.com/innodev-au/wmboost-data/wiki/Quick%20Start) section directly.
+Refer to the [Wiki section](https://github.com/innodev-au/wmboost-data/wiki) for documentation. You may want to skip to the [Quick Start](https://github.com/innodev-au/wmboost-data/wiki/Quick%20Start) section directly.
 
 ## Motivational Example
 The following example shows the implementation of a service that takes a number, _numberToAdd_, and adds it to each element of a list of numbers, _initialList_. The result is returned in the _newList_ pipeline variable. In the example, the two input parameters are mandatory but a more lenient implementation would be possible if this service was used as a transformer.
