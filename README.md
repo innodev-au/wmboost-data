@@ -1,6 +1,6 @@
 # wmboost-data
 
-A free and open source Java library that makes it easier to access and manipulate documents in webMethods. It can be used for either server or client-side code.
+A free and open-source Java library that makes it easier to access and manipulate documents in webMethods. It can be used for either server or client-side code.
 
 It provides an abstraction for Integration Server documents. Compared to coding directly with out-of-the-box classes like IData and IDataUtil, it:
 * Reduces boilerplate code
