@@ -263,7 +263,7 @@ public interface ItemEntry<T> extends BaseUnitEntry, UnitEntryAccessor<T>, UnitE
 	void remove() throws InexistentEntryException;
 
 	/**
-	 * Deletes the entry identified by the element’s key.
+	 * Deletes the entry identified by the element's key.
 	 * 
 	 * <p>
 	 * Note that type used for the entry (e.g. String) is not considered when

@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>au.com.innodev.wmboost</groupId>
 	<artifactId>wmboost-data</artifactId>
-	<version>1.1.0-SNAPSHOT</version>
+	<version>1.0.1</version>
 
 	<properties>
 		<maven.compiler.source>1.6</maven.compiler.source>
@@ -17,7 +17,7 @@
 			<artifactId>spring-core</artifactId>
 			<!-- NOTE: 3.2.17+ is supported but we use 4.x to embed it in the stand-alone 
 				JAR -->
-			<version>4.3.6.RELEASE</version>
+			<version>4.3.25.RELEASE</version>
 		</dependency>
 
 
@@ -102,7 +102,7 @@
 									<pattern>au.com.innodev.**</pattern>									
 								</keep>
 							</rules>							
-							<output>${project.build.directory}\wmboost-data-${project.version}-standalone.jar</output>
+							<output>${project.build.directory}/wmboost-data-${project.version}-standalone.jar</output>
 						</configuration>
 					</execution>
 				</executions>

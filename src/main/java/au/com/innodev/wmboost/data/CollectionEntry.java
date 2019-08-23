@@ -218,7 +218,7 @@ public interface CollectionEntry<E>
 	void remove() throws InexistentEntryException;
 
 	/**
-	 * Deletes the entry identified by the element’s key.
+	 * Deletes the entry identified by the element's key.
 	 * 
 	 * <p>
 	 * Note that type used for the entry (e.g. String) is not taken into account
