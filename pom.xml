@@ -17,7 +17,7 @@
 			<artifactId>spring-core</artifactId>
 			<!-- NOTE: 3.2.17+ is supported but we use 4.x to embed it in the stand-alone 
 				JAR -->
-			<version>4.3.25.RELEASE</version>
+			<version>5.3.19</version>
 		</dependency>
 
 
